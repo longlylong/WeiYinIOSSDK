@@ -16,9 +16,13 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 target '项目target' do
+
 pod 'Bolts'
+
 pod 'Pingpp/Alipay'
+
 pod 'Pingpp/Wx'
+
 end
 
 3.在命令行进入你的工程根目录 然后pod update
