@@ -32,6 +32,7 @@ end
     //openid每个合作方的每个用户的唯一标识 建议写法 前缀+唯一标识 如 WY_xxxxxx
     WYSdk.getInstance().setSDK("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
 
+
 编辑页
 
     支持数据筛选,长按图片或文字修改文本
