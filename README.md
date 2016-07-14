@@ -16,14 +16,11 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 target '项目target' do
-#线程库 阻塞线程的
 pod 'Bolts'
-
-#支付的sdk
 pod 'Pingpp/Alipay'
 pod 'Pingpp/Wx'
-
 end
+
 3.在命令行进入你的工程根目录 然后pod update
 
 4.swift工程都需要创建一个 项目名-Bridging-Header.h, 在文件写入#import "Pingpp.h" #import "Bolts.h",然后打开工程以demo为例子:选择wysdkdemo 再选择 TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最后填上刚才.h的路径 如:wysdkdemo/wysdkdemo-Bridging-Header.h
@@ -34,6 +31,7 @@ end
 
     //openid每个合作方的每个用户的唯一标识 建议写法 前缀+唯一标识 如 WY_xxxxxx
     WYSdk.getInstance().setSDK("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
+
 编辑页
 
     支持数据筛选,长按图片或文字修改文本
