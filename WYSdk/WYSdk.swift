@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.2.1
+//  WYSdk v1.3.0
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -10,6 +10,11 @@ import Foundation
 //import SwiftyUserDefaults
 
 public class WYSdk : BaseSdk {
+    
+    public static let PAY_SUCCESS = "success" //  payment succeed
+    public static let PAY_FAIL = "fail" // payment failed
+    public static let PAY_CANCEL = "cancel" // user canceld
+    public static let PAY_INVALID = "invalid" // payment plugin not installed
     
     private static var onceToken : dispatch_once_t = 0
     private static var mInstance : WYSdk?
@@ -29,7 +34,9 @@ public class WYSdk : BaseSdk {
     private var identity = ""
     private var thirdName = ""
     private var thirdHeadImg = ""
-    private var host = ""
+    private var themeColor = "f56971"
+    var host = ""
+    var ip = ""
     private var channel = 0
     
     private var lastLoginTime = 0
@@ -41,7 +48,8 @@ public class WYSdk : BaseSdk {
     private var selectDataPage:SelectDataViewController?
     
     var payOrderDelegate : WYPayOrderBlock?
-    var refreshDelegate : WYRefreshBlock?
+    var refreshDelegate : WYRefreshOrderBlock?
+    var payStateDelegate : WYRefreshPayBlock?
     var loadMoreDelegate : WYLoadMoreBlock?
     
     private var wyProtocol  = WYProtocol()
@@ -88,7 +96,12 @@ public class WYSdk : BaseSdk {
     }
     
     public func getHost() -> String {
-        return host
+        UserController.getInstance().getHttpDNSIp()
+        if self.ip.isEmpty{
+            return host
+        }else{
+            return "http://" + ip + "/"
+        }
     }
     
     public func isShowSelectDataVC()->Bool{
@@ -113,8 +126,12 @@ public class WYSdk : BaseSdk {
         return loadMoreDelegate
     }
     
-    public func setRefreshDelegateBlock(delegate:WYRefreshBlock){
+    public func setRefreshOrderDelegate(delegate:WYRefreshOrderBlock){
         refreshDelegate = delegate
+    }
+    
+    public func setRefreshPayDelegate(delegate:WYRefreshPayBlock){
+        payStateDelegate = delegate
     }
     
     /*
@@ -164,6 +181,17 @@ public class WYSdk : BaseSdk {
          thirdHeadImg = url
     }
     
+    /*
+     设置主题颜色 16进制颜色 如 f56971
+     */
+    public func setThemeColor(color:String){
+        self.themeColor = color
+    }
+    
+    public func getThemeColor()->String{
+        return self.themeColor
+    }
+    
     public func getChannel()-> Int{
         return channel
     }
@@ -191,6 +219,7 @@ public class WYSdk : BaseSdk {
                     self.host = resultBean!.host
                     self.callSuccess(controller, t: resultBean!)
                 
+                    UserController.getInstance().getHttpDNSIp()
                 }, resultFailed: {
                     
             })
@@ -326,13 +355,6 @@ public class WYSdk : BaseSdk {
         structDataBean.structData.dataBlocks.append(textBlock)
     }
     
-    /*
-     打开订单页
-     */
-    public func showOrderList(vc: UIViewController){
-        PublicWebViewController.launchWithOrder(vc)
-    }
-    
     /**
      * 提交数据
      */
@@ -381,6 +403,10 @@ public class WYSdk : BaseSdk {
                     self.callSuccess(controller, t: 1)
                     
                     ThreadUtils.threadOnAfterMain(100, block: {
+                        if printBean!.url.containsString(self.host){
+                            printBean!.url = self.getHost() + printBean!.url.stringByReplacingOccurrencesOfString(self.host, withString: "")
+                        }
+                        
                         BookWebView.launch(vc, url: printBean!.url)
                         self.setSelectDataPage(nil)
                         self.resetStructDataBean()
@@ -407,10 +433,40 @@ public class WYSdk : BaseSdk {
         }
     }
     
+    /*
+     打开订单页
+     */
+    public func showOrderList(vc: UIViewController){
+        PublicWebViewController.launchWithOrder(vc)
+    }
+    
+    /*
+     打开购物车
+     */
+    public func showShopCart(vc: UIViewController){
+        PublicWebViewController.launchWithShopCart(vc)
+    }
+    
+    /*
+     打开纸质画册
+     */
+    public func showPaper(vc: UIViewController){
+        PublicWebViewController.launchWithPaper(vc)
+    }
+    
+    /*
+     刷新订单状态
+     */
     public func refreshOrderState(){
         refreshDelegate?()
     }
     
+    /**
+     * 刷新支付结果,用来ui显示的 {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
+     */
+    public func refreshPayState(result:String){
+        payStateDelegate?(result)
+    }
 
     public func getPhotoBlock(desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) -> RequestStructDataBean.Block{
         let photoBlock =  RequestStructDataBean.Block()

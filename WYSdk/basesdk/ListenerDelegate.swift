@@ -14,7 +14,8 @@ public typealias UIRequestSuccess = (AnyObject) ->Void
 public typealias UIRequestFailed = (String) ->Void
 
 public typealias WYPayOrderBlock = (String,Float,String) ->Void
-public typealias WYRefreshBlock = () ->Void
+public typealias WYRefreshOrderBlock = () ->Void
+public typealias WYRefreshPayBlock = (String) ->Void
 public typealias WYLoadMoreBlock = () ->Void
 
 //控制层使用的回调

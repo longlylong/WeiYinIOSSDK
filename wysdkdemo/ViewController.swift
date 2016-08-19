@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         self.navigationItem.title = "demo"
         
         let mSubmitDataButton =  UIButton(frame: CGRectMake(0,0,200,200))
-        mSubmitDataButton.setTitle("提交数据", forState: UIControlState.Normal)
+        mSubmitDataButton.setTitle("点击开始制作", forState: UIControlState.Normal)
         mSubmitDataButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         mSubmitDataButton.addTarget(self, action: #selector(ViewController.submitData), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(mSubmitDataButton)
@@ -27,12 +27,15 @@ class ViewController: UIViewController {
         self.view.addSubview(loadingIndicator)
         
         //编辑页设置
-        //edit()
+        edit()
         
         //这个是打开订单页,需要的时候可以调用
         //WYSdk.getInstance().showOrderList(self)
         //这个是刷新订单状态的,在订单页才生效
         //WYSdk.getInstance().refreshOrderState()
+        
+        //设置主题颜色 16进制颜色 如 f56971
+        //WYSdk.getInstance().setThemeColor("ff00ff")
         
         //myAppPay()
     }

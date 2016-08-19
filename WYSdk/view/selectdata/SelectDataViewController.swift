@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSource,UICollectionViewDelegate,WYEditTextDelegate,UIScrollViewDelegate{
+class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,WYEditTextDelegate,UIScrollViewDelegate,WeiYinDownSheetDelegate,WeiYinFootDelegate{
     
     private var mCollectionView :UICollectionView!
     private var mData = NSMutableDictionary()
@@ -16,6 +16,8 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     private var loadingIndicator = LoadingView()
     private var VC : UIViewController?
+    
+    private var mSheet = WeiYinDownSheet()
     
     private var isLoadMore = false
     
@@ -63,6 +65,8 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         mCollectionView.backgroundColor = UIColor.whiteColor()
         mCollectionView.registerClass(SelectDataCell.self, forCellWithReuseIdentifier: SelectDataCell.getReuseIdentifier())
         mCollectionView.registerClass(SelectSection.self,forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self,withReuseIdentifier: SelectSection.getReuseIdentifier())
+        
+        mCollectionView.registerClass(SelectFoot.self,forSupplementaryViewOfKind: UICollectionElementKindSectionFooter.self,withReuseIdentifier: SelectFoot.getReuseIdentifier())
         
         mCollectionView.alwaysBounceVertical = true
         
@@ -211,8 +215,57 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     }
     
     func handleLeftButton(){
+        
+        if self.mSheet.isShowing {
+            self.mSheet.close()
+            return
+        }
+        
+        self.mSheet = WeiYinDownSheet()
+        self.mSheet.delegate = self
+       
+        let data = NSMutableArray()
+        
+        let shopcart = WeiYinDownSheetModel()
+        shopcart.text = "购物车"
+        data.addObject(shopcart)
+        
+        let myorder = WeiYinDownSheetModel()
+        myorder.text = "我的订单"
+        data.addObject(myorder)
+        
+        let about = WeiYinDownSheetModel()
+        about.text = "实物介绍"
+        data.addObject(about)
+        
+        mSheet.initWYDownSheet(data)
+        mSheet.ShowInView(self)
+    }
+    
+    //MARK: 一些点击回调
+    func onSheetSelectIndex(index: Int) {
+        if index == 0 {
+            WYSdk.getInstance().showShopCart(self)
+        }else if index == 1{
+            WYSdk.getInstance().showOrderList(self)
+        }else if index == 2{
+            WYSdk.getInstance().showPaper(self)
+        }
+    }
+    
+    func onSheetCancel() {
         WYSdk.getInstance().resetStructDataBean()
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func onFootClick() {
+        if WYSdk.getInstance().isLoadMore() {
+            
+            isLoadMore = true
+            loadingIndicator.start()
+            WYSdk.getInstance().getWyLoadMoreDelegate()?()
+    
+        }
     }
     
     //MARK: collectionView 的生命周期
@@ -242,15 +295,26 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-       var view = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader.self, withReuseIdentifier: SelectSection.getReuseIdentifier(), forIndexPath: indexPath) as? SelectSection
-        if view == nil {
-            view = SelectSection()
+        if kind == UICollectionElementKindSectionHeader {
+            var view = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader.self, withReuseIdentifier: SelectSection.getReuseIdentifier(), forIndexPath: indexPath) as? SelectSection
+            if view == nil {
+                view = SelectSection()
+            }
+            
+            let head = mHead[indexPath.section]
+            view!.setHeaderData(head, indexPath: indexPath)
+            view!.mAllSelectBtn.addTarget(self, action: #selector(SelectDataViewController.allPhotosCheckClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            return view!
+        }else {
+            var view = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter.self, withReuseIdentifier: SelectFoot.getReuseIdentifier(), forIndexPath: indexPath) as? SelectFoot
+            if view == nil {
+                view = SelectFoot()
+            }
+            
+            view?.delegate = self
+            
+            return view!
         }
-        
-        let head = mHead[indexPath.section]
-        view!.setHeaderData(head, indexPath: indexPath)
-        view!.mAllSelectBtn.addTarget(self, action: #selector(SelectDataViewController.allPhotosCheckClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        return view!
     }
     
     /*********
@@ -261,6 +325,17 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         return CGSizeMake(itemSize, itemSize)
     }
 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if WYSdk.getInstance().isLoadMore() {
+            if section == mData.count - 1 {
+                return SelectFoot().getHeight()
+            }else{
+                return CGSize(width: 0,height: 0)
+            }
+        }else{
+            return CGSize(width: 0,height: 0)
+        }
+    }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SelectDataCell

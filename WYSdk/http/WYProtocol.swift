@@ -24,6 +24,21 @@ class WYProtocol : BaseProtocol{
     private let AddShoppingCarUrl = HttpConstant.RootApiUrl + "Order/AddShoppingCar"
     private let DeleteShoppingCarUrl = HttpConstant.RootApiUrl + "Order/DeleteShoppingCar"
     
+    
+    private let HttpNDSUrl = "http://203.107.1.1/101681/d?host="
+    
+    func getHttpDNSIp() ->HttpDNSBean?{
+        var url = WYSdk.getInstance().host
+        url = HttpNDSUrl + url.stringByReplacingOccurrencesOfString("http://", withString: "")
+        let data: AnyObject? = sendGetRequest(url)
+        if (data != nil) {
+            let resultBean = HttpDNSBean.toHttpDNSBean(data)
+            return resultBean
+        }else{
+            return nil
+        }
+    }
+    
     private func getRandom()->Int{
         let num = arc4random_uniform(899999)
         return Int(num) + 100000

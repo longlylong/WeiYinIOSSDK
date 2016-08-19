@@ -27,10 +27,18 @@ class BaseUIViewController : UIViewController {
         
     }
     
+    func getIconButton(frame:CGRect,iconName:String,action:Selector)->UIButton{
+        let button = UIButton(frame: frame)
+        button.setImage(UIImage(named:iconName), forState: UIControlState.Normal)
+        button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(button)
+        return button
+    }
+    
     func setNavTextButton(){
         let backButton = UIButton()
         backButton.addTarget(self, action: #selector(SelectDataViewController.handleLeftButton), forControlEvents: .TouchUpInside)
-        backButton.setTitle("取消", forState: .Normal)
+        backButton.setTitle("关闭", forState: .Normal)
         backButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         backButton.frame = CGRectMake(0, 0, 40, 40)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)

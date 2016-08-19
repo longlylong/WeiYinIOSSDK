@@ -36,6 +36,10 @@ class UIUtils {
         return colorWithHexString("#FFFFFF")
     }
     
+    class func getLineBackgroundColor()->UIColor{
+        return colorWithHexString("#F3F3F3")
+    }
+    
     static func getImageHighlighted()->UIImage{
         let color = UIColor(red: 94/255, green: 94/255, blue: 94/255, alpha: 0.1)
         let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)

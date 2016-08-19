@@ -12,11 +12,18 @@ import UIKit
 class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
 
     private var loadingIndicator = LoadingView()
+    private var mBackButton : UIButton!
+    
+    static func launchWithPaper(controller:UIViewController){
+        PublicWebViewController.launch(controller, url: HttpConstant.getPaperUrl())
+    }
+    
+    static func launchWithShopCart(controller:UIViewController){
+        PublicWebViewController.launch(controller, url: HttpConstant.getShowCartUrl())
+    }
     
     static func launchWithOrder(controller:UIViewController){
-        let webController = PublicWebViewController()
-        webController.mUrl = HttpConstant.getShowOrderUrl()
-        controller.presentViewController(webController, animated: true, completion: nil)
+        PublicWebViewController.launch(controller, url: HttpConstant.getShowOrderUrl())
     }
     
     static func launch(controller:UIViewController,url:String){
@@ -30,12 +37,17 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
     
      override func initUI() {
         setPublicWebView()
+        mBackButton = getIconButton(CGRect(x: 9,y: 28,width: 24,height: 24), iconName: "icon_cancel", action: #selector(PublicWebViewController.clickBack))
         self.view.addSubview(loadingIndicator)
     }
 
     override func initListener() {
-        WYSdk.getInstance().setRefreshDelegateBlock{
+        WYSdk.getInstance().setRefreshOrderDelegate{
             self.getOrders(self.mPublicWebView)
+        }
+        
+        WYSdk.getInstance().setRefreshPayDelegate { (result) in
+            self.loadJsFunc(self.mPublicWebView, funcName: "showPayResult", param: result)
         }
     }
     
@@ -53,11 +65,11 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
     
     //返回
     func clickBack(){
-        if mPublicWebView.canGoBack {
-            mPublicWebView.goBack()
-        }else{
+//        if mPublicWebView.canGoBack {
+//            mPublicWebView.goBack()
+//        }else{
             self.dismissViewControllerAnimated(true, completion: nil)
-        }
+//        }
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
@@ -74,28 +86,45 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
             ThreadUtils.threadOnMain({ () -> Void in
                 if funcName == "closeWebView"{
                     self.clickBack()
+                    
                 }else if funcName == "getOrdres"{
                     self.getOrders(webView)
+                    
                 }else if funcName == "getShopCartList"{
                     self.getShopCartList(webView)
+                    
                 }else if funcName == "delOrder"{
                     self.delOrder(webView, orderSerial: params[1])
+                    
                 }else if funcName == "delShopCart"{
                     self.delShopCart(webView, cartId: params[1])
+                    
                 }else if funcName == "payOrder"{
                     self.payOrder(webView, orderSerial: params[1], paymentPattern: params[2])
+                    
                 }else if funcName == "activateCoupon"{
                     self.activateCoupon(webView, code: params[1])
+                    
                 }else if funcName == "getCoupons"{
                     self.getCoupons(webView)
+                    
                 }else if funcName == "createOrder"{
                     self.createOrder(webView, receiver: params[1], mobile: params[2], buyerMobile: params[3], paymentPattern: params[4], buyerMark: params[5], province: params[6], city: params[7], area: params[8], address: params[9], logistics: params[10], ticket: params[11], shopCartListJson: params[12])
+                    
                 }else if funcName == "saveAddress"{
                     self.saveAddress(webView, addressInfo: params[1])
+                    
                 }else if funcName == "getAddress"{
                     self.getAddress(webView)
+                    
                 }else if funcName == "getChannel"{
                     self.loadJsFunc(webView, funcName: "showWebChannel",param: "\(WYSdk.getInstance().getChannel())")
+                    
+                }else if funcName == "goUrl"{
+                    self.handleGoUrl(params[1])
+                    
+                }else if funcName == "getThemeColor"{
+                    self.loadJsFunc(webView, funcName: "showWebThemeColor",param: WYSdk.getInstance().getThemeColor())
                 }
             })
             
@@ -107,12 +136,10 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         Pingpp.createPayment(charge, viewController: self, appURLScheme: "weiyin", withCompletion: { (result, error) -> Void in
             print(result)
             
-            self.goUrl(HttpConstant.getShowOrderUrl())
-            
             if(error == nil){
-                
+                self.loadJsFunc(webview, funcName: "showPayResult", param: WYSdk.PAY_SUCCESS)
             } else{
-                DialogUtils.showCustomNoCancelDialog(nil, tag: 0, msg: "订单支付失败，可在订单页重新支付。", otherBtnTitle: "确定", title: "提示")
+                self.loadJsFunc(webview, funcName: "showPayResult", param: result)
             }
         })
     }
@@ -135,7 +162,6 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
                 }else{
                     
                     if WYSdk.getInstance().isMyAppPay(){
-                        self.goUrl(HttpConstant.getShowOrderUrl())
                         WYSdk.getInstance().payOrderDelegate?(payBean.orderSerial, payBean.price, payBean.randomKey)
                     }else{
                         self.pay(webview, charge: payBean.charge)
@@ -149,6 +175,18 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
                 self.loadingIndicator.stop()
                 
         }
+    }
+    
+    private func handleGoUrl(url:String){
+        var target = "http://" + url
+        if url == "shopcart" {
+            target = HttpConstant.getShowCartUrl()
+        }else if url == "paper"{
+            target = HttpConstant.getPaperUrl()
+        }else if url == "order"{
+            target = HttpConstant.getShowOrderUrl()
+        }
+        goUrl(target)
     }
     
     private func goUrl(url:String){
@@ -270,8 +308,10 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         webview.stringByEvaluatingJavaScriptFromString(funcName+"('"+"\(param)"+"')")
     }
     
+    //MARK: webview 生命周期
     func webViewDidFinishLoad(webView: UIWebView){
         loadingIndicator.stop()
+        mBackButton.removeFromSuperview()
         
         var urlString = webView.request?.URL?.absoluteString
         urlString = urlString?.stringByRemovingPercentEncoding
@@ -286,11 +326,11 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
     
     func webViewDidStartLoad(webView: UIWebView){
         loadingIndicator.start()
+        self.view.addSubview(mBackButton)
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?){
         loadingIndicator.stop()
-        
     }
     
     override func viewWillAppear(animated: Bool) {

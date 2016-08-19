@@ -17,7 +17,8 @@ class SelectDataCell: UICollectionViewCell {
     
     private var mCellView = UIView()                //布局View
     private var mPhotoImageView = UIImageView()     //显示照片的imageView
-    private var mImageText = UILabel()
+    private var mWaringImageView = UIImageView()
+    private var mHasTextIcon = UIImageView()
     
     private var mText = UILabel()
     
@@ -43,18 +44,20 @@ class SelectDataCell: UICollectionViewCell {
         mCellView = UIView(frame: CGRectMake(0, 0, itemSize, itemSize))
         mSelectView = UIView(frame: CGRectMake(0, 0, itemSize, itemSize))
         
+        mWaringImageView = UIImageView(frame: CGRectMake(itemSize - 28, 8, 20, 20))
+        mWaringImageView.image = UIImage(named: "icon_tip")
+        
         mPhotoImageView = UIImageView(frame: CGRectMake(0, 0, itemSize, itemSize))
-        mImageText = UILabel(frame: CGRectMake(0, itemSize - 20 , itemSize, 20))
-        mImageText.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
-        mImageText.textColor = UIUtils.getTextWhiteColor()
-        mImageText.backgroundColor = UIColor(white: 0.2, alpha: 0.5)
-        mPhotoImageView.addSubview(mImageText)
+        mHasTextIcon = UIImageView(frame: CGRectMake(0, itemSize - 22 , 22, 22))
+        mHasTextIcon.image = UIImage(named: "icon_show_text")
+    
+        mPhotoImageView.addSubview(mHasTextIcon)
+        mPhotoImageView.addSubview(mWaringImageView)
 
         mText = UILabel(frame: CGRectMake(10, 10, itemSize - 20 , itemSize - 20))
         mText.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
         mText.textColor = UIUtils.getTextWhiteColor()
         mText.numberOfLines = 5
-        
         
         mSelectImageView = UIImageView(frame: CGRectMake((itemSize - 20) / 2, (itemSize - 20) / 2, 20, 20))
         mSelectImageView.image = UIImage(named: "icon_check_white")
@@ -65,6 +68,7 @@ class SelectDataCell: UICollectionViewCell {
         mCellView.backgroundColor = UIColor(white: 0.2, alpha: 0.5)
         
         mSelectView.addSubview(mSelectImageView)
+        
         mCellView.addSubview(mPhotoImageView)
         mCellView.addSubview(mSelectView)
         mCellView.addSubview(mText)
@@ -84,16 +88,22 @@ class SelectDataCell: UICollectionViewCell {
             mPhotoImageView.hidden = false
             mText.hidden = true
             
-            mImageText.text = block.resource.desc
+            mWaringImageView.hidden = !showWaring(block.resource.width, height: block.resource.height)
+            
             if block.resource.desc.isEmpty {
-                mImageText.hidden = true
+                mHasTextIcon.hidden = true
             }else{
-                mImageText.hidden = false
+                mHasTextIcon.hidden = false
             }
             mPhotoImageView.kf_setImageWithURL(NSURL(string: block.resource.url)!)
         }
     
         mSelectView.hidden = !block.isSelected
+    }
+    
+    private func showWaring(width:Int,height:Int)-> Bool{
+        let scale =  (width > height ? width : height) / (width > height ? height : width)
+        return width < 600 || height < 600 || scale > 2
     }
     
     func isSelected(isSelected:Bool)  {

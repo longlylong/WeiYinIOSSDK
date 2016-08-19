@@ -43,4 +43,11 @@ class HttpConstant {
     static func getShowCartUrl()->String{
         return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/order/webviewcart" : "http://apptest.weiyin.cc/order/webviewcart"
     }
+    
+    /**
+     * 纸质画册地址
+     */
+    static func getPaperUrl()->String {
+        return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/home/bookshow" : "http://apptest.weiyin.cc/home/bookshow"
+    }
 }

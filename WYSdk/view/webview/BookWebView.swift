@@ -74,6 +74,9 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
                     }
                 }else if funcName == "getChannel"{
                     self.loadJsFunc(webView, funcName: "showWebChannel",param: "\(WYSdk.getInstance().getChannel())")
+                    
+                }else if funcName == "getThemeColor"{
+                    self.loadJsFunc(webView, funcName: "showWebThemeColor",param: WYSdk.getInstance().getThemeColor())
                 }
             })
             
