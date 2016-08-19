@@ -1,62 +1,61 @@
-IOS SDK¿ª·¢°ü °æ±¾ºÅ 1.3.0 ÈÕÆÚ 20160808
+IOS SDKå¼€å‘åŒ… ç‰ˆæœ¬å· 1.3.0 æ—¥æœŸ 20160808
 
-°²×°
+å®‰è£…
 
-Î¢Ó¡sdkÖ»Ö§³Öios7.0ÒÔÉÏ°æ±¾
+å¾®å°sdkåªæ”¯æŒios7.0ä»¥ä¸Šç‰ˆæœ¬
 
-µ±ÄúÏÂÔØÁËWeiYin IOS SDK µÄ zip °üºó£¬½øĞĞÒÔÏÂ²½Öè:(ocÏîÄ¿ĞèÏÈ¿´Íê²½Öè,swiftÏîÄ¿Ë³ĞòÖ´ĞĞ¼´¿É)
+å½“æ‚¨ä¸‹è½½äº†WeiYin IOS SDK çš„ zip åŒ…åï¼Œè¿›è¡Œä»¥ä¸‹æ­¥éª¤:(océ¡¹ç›®éœ€å…ˆçœ‹å®Œæ­¥éª¤,swifté¡¹ç›®é¡ºåºæ‰§è¡Œå³å¯)
 
-1.°ÑWYSdkÍÏµ½Äã¹¤³ÌµÄÊÊµ±Ä¿Â¼(Èç¸ùÄ¿Â¼),ËÉÊÖºó»áµ¯³öÑ¡Ôñ¿ò,Ñ¡Ôñ copy items if needed,Create groups,add to targets È»ºófinish
+1.æŠŠWYSdkæ‹–åˆ°ä½ å·¥ç¨‹çš„é€‚å½“ç›®å½•(å¦‚æ ¹ç›®å½•),æ¾æ‰‹åä¼šå¼¹å‡ºé€‰æ‹©æ¡†,é€‰æ‹© copy items if needed,Create groups,add to targets ç„¶åfinish
 
-2.ÔÚ¸ùÄ¿Â¼µÄPodfile¼ÓÈëÒÔÏÂÒÀÀµ(ÒÔÏÂÎª1.0.1podÑùÀı)
+2.åœ¨æ ¹ç›®å½•çš„PodfileåŠ å…¥ä»¥ä¸‹ä¾èµ–(ä»¥ä¸‹ä¸º1.0.1podæ ·ä¾‹)
 
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
-target 'ÏîÄ¿target' do
-#Ïß³Ì¿â ×èÈûÏß³ÌµÄ
+target 'é¡¹ç›®target' do
+#çº¿ç¨‹åº“ é˜»å¡çº¿ç¨‹çš„
 pod 'Bolts'
 
-#Ö§¸¶µÄsdk
+#æ”¯ä»˜çš„sdk
 pod 'Pingpp/Alipay'
 pod 'Pingpp/Wx'
 
 end
 
 
-3.ÔÚÃüÁîĞĞ½øÈëÄãµÄ¹¤³Ì¸ùÄ¿Â¼ È»ºópod update
+3.åœ¨å‘½ä»¤è¡Œè¿›å…¥ä½ çš„å·¥ç¨‹æ ¹ç›®å½• ç„¶åpod update
 
-4.swift¹¤³Ì¶¼ĞèÒª´´½¨Ò»¸ö ÏîÄ¿Ãû-Bridging-Header.h, ÔÚÎÄ¼şĞ´Èë#import "Pingpp.h" #import "Bolts.h",È»ºó´ò¿ª¹¤³ÌÒÔdemoÎªÀı×Ó:Ñ¡Ôñwysdkdemo ÔÙÑ¡Ôñ 
-TARGETSµÄwysdkdemo Ñ¡Ôñ Build Settings ÕÒµ½ Objective-C Bridging Header ×îºóÌîÉÏ¸Õ²Å.hµÄÂ·¾¶ Èç:wysdkdemo/wysdkdemo-Bridging-Header.h
+4.swiftå·¥ç¨‹éƒ½éœ€è¦åˆ›å»ºä¸€ä¸ª é¡¹ç›®å-Bridging-Header.h, åœ¨æ–‡ä»¶å†™å…¥#import "Pingpp.h" #import "Bolts.h",ç„¶åæ‰“å¼€å·¥ç¨‹ä»¥demoä¸ºä¾‹å­:é€‰æ‹©wysdkdemo å†é€‰æ‹© 
+TARGETSçš„wysdkdemo é€‰æ‹© Build Settings æ‰¾åˆ° Objective-C Bridging Header æœ€åå¡«ä¸Šåˆšæ‰.hçš„è·¯å¾„ å¦‚:wysdkdemo/wysdkdemo-Bridging-Header.h
 
-5.ocÏîÄ¿ Èç¹ûÊÇµÚÒ»´Îµ¼Èëswift ÏÈ×Ô¼º´´½¨Ò»¸öswiftÀà,»áÌáÊ¾´´½¨ ÏîÄ¿Ãû-Bridging-Header.h,ÔÙÖ´ĞĞµÚËÄ²½µÄ²½Öè,È»ºó°ÑsdkÍÏÈëÏîÄ¿,È»ºó´ò¿ª¹¤³ÌÒÔdemoÎª
-Àı×Ó:Ñ¡Ôñwysdkdemo ÔÙÑ¡Ôñ TARGETSµÄwysdkdemo Ñ¡Ôñ Build Settings ÕÒµ½ Packaging > Defines Module ¸ÃÎªYES ×îºó¾Í¿ÉÒÔ #import "ÏîÄ¿Ãû-Swift.h",ÒÔºó
-µÄ´úÂëºÍswiftÒ»Ñù,×ÔĞĞ×ª³Éoc¼´¿É
+5.océ¡¹ç›® å¦‚æœæ˜¯ç¬¬ä¸€æ¬¡å¯¼å…¥swift å…ˆè‡ªå·±åˆ›å»ºä¸€ä¸ªswiftç±»,ä¼šæç¤ºåˆ›å»º é¡¹ç›®å-Bridging-Header.h,å†æ‰§è¡Œç¬¬å››æ­¥çš„æ­¥éª¤,ç„¶åæŠŠsdkæ‹–å…¥é¡¹ç›®,ç„¶åæ‰“å¼€å·¥ç¨‹ä»¥demoä¸º
+ä¾‹å­:é€‰æ‹©wysdkdemo å†é€‰æ‹© TARGETSçš„wysdkdemo é€‰æ‹© Build Settings æ‰¾åˆ° Packaging > Defines Module è¯¥ä¸ºYES æœ€åå°±å¯ä»¥ #import "é¡¹ç›®å-Swift.h",ä»¥å
+çš„ä»£ç å’Œswiftä¸€æ ·,è‡ªè¡Œè½¬æˆocå³å¯
 
-³õÊ¼»¯
+åˆå§‹åŒ–
 
-    //openidÃ¿¸öºÏ×÷·½µÄÃ¿¸öÓÃ»§µÄÎ¨Ò»±êÊ¶ ½¨ÒéĞ´·¨ Ç°×º+Î¨Ò»±êÊ¶ Èç WY_xxxxxx
+    //openidæ¯ä¸ªåˆä½œæ–¹çš„æ¯ä¸ªç”¨æˆ·çš„å”¯ä¸€æ ‡è¯† å»ºè®®å†™æ³• å‰ç¼€+å”¯ä¸€æ ‡è¯† å¦‚ WY_xxxxxx
     WYSdk.getInstance().setSDK("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
 
 
-±à¼­Ò³
+ç¼–è¾‘é¡µ
 
-    Ö§³ÖÊı¾İÉ¸Ñ¡,³¤°´Í¼Æ¬»òÎÄ×ÖĞŞ¸ÄÎÄ±¾
-    //Êı¾İ±à¼­ÃæÒ³ Ä¬ÈÏÊÇ´ò¿ªµÄ ¹Ø±ÕÖ±½Ó¾ÍÌøÈ¥ÅÅ°æÒ³
+    æ”¯æŒæ•°æ®ç­›é€‰,é•¿æŒ‰å›¾ç‰‡æˆ–æ–‡å­—ä¿®æ”¹æ–‡æœ¬
+    //æ•°æ®ç¼–è¾‘é¢é¡µ é»˜è®¤æ˜¯æ‰“å¼€çš„ å…³é—­ç›´æ¥å°±è·³å»æ’ç‰ˆé¡µ
     private func edit(){
-    //´ò¿ª¶ş´Î±à¼­ÃæÒ³ Ä¬ÈÏÊÇ¿ªµÄ
+    //æ‰“å¼€äºŒæ¬¡ç¼–è¾‘é¢é¡µ é»˜è®¤æ˜¯å¼€çš„
     WYSdk.getInstance().isShowSelectDataViewController(true)
 
-    //ÉÏÀ²¼ÓÔØ¸ü¶à,Ä¬ÈÏÊÇ¹Ø±ÕµÄ
+    //ä¸Šå•¦åŠ è½½æ›´å¤š,é»˜è®¤æ˜¯å…³é—­çš„
     WYSdk.getInstance().openLoadMore(true)
     WYSdk.getInstance().setWyLoadMoreDelegate {
-        //WYSdk.getInstance().getTextBlock //´´½¨ÎÄ±¾
-        //WYSdk.getInstance().getChapterBlock //´´½¨ÕÂ½Ú
+        //WYSdk.getInstance().getTextBlock //åˆ›å»ºæ–‡æœ¬
+        //WYSdk.getInstance().getChapterBlock //åˆ›å»ºç« èŠ‚
 
         ThreadUtils.threadOnAfterMain(1000, block: {
             let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-            let block = WYSdk.getInstance().getPhotoBlock("Í¼Æ¬1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime
-(), width: 1289, height: 806)
+            let block = WYSdk.getInstance().getPhotoBlock("å›¾ç‰‡1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1289, height: 806)
 
             let arr = NSMutableArray()
             arr.addObject(block)
@@ -75,25 +74,25 @@ TARGETSµÄwysdkdemo Ñ¡Ôñ Build Settings ÕÒµ½ Objective-C Bridging Header ×îºóÌîÉÏ
 }
 
 
-ºÏ×÷·½Ö§¸¶
+åˆä½œæ–¹æ”¯ä»˜
 
-//ÉèÖÃÊÇ·ñºÏ×÷·½µÄappÖ§¸¶,Ä¬ÈÏÊÇfalse
-//Èç¹ûÊÇÓÃÎ¢Ó¡Ö§¸¶»òºÏ×÷·½µÄpingxxÖ§¸¶²»ĞèÒªÉèÖÃÕâĞ©
+//è®¾ç½®æ˜¯å¦åˆä½œæ–¹çš„appæ”¯ä»˜,é»˜è®¤æ˜¯false
+//å¦‚æœæ˜¯ç”¨å¾®å°æ”¯ä»˜æˆ–åˆä½œæ–¹çš„pingxxæ”¯ä»˜ä¸éœ€è¦è®¾ç½®è¿™äº›
 private func myAppPay(){
     WYSdk.getInstance().setMyAppPay(true)
     WYSdk.getInstance().setWyPayOrderDelegate { (orderId, price, randomStr) in
-        //´¦ÀíÖ§¸¶
-        //ºÏ×÷·½ĞèÒª orderId randomStr À´Í¨ÖªÎ¢Ó¡·şÎñÆ÷
-        //Ö§¸¶³É¹¦ºó,ºÏ×÷·½·şÎñÆ÷µ÷Î¢Ó¡µÄ·şÎñÆ÷¸üĞÂÖ§¸¶½á¹û,ÎÄµµÔÚÁªµ÷Ê±Ë÷È¡
+        //å¤„ç†æ”¯ä»˜
+        //åˆä½œæ–¹éœ€è¦ orderId randomStr æ¥é€šçŸ¥å¾®å°æœåŠ¡å™¨
+        //æ”¯ä»˜æˆåŠŸå,åˆä½œæ–¹æœåŠ¡å™¨è°ƒå¾®å°çš„æœåŠ¡å™¨æ›´æ–°æ”¯ä»˜ç»“æœ,æ–‡æ¡£åœ¨è”è°ƒæ—¶ç´¢å–
     }
 }
-//Ë¢ĞÂÖ§½á¹û,ÓÃÀ´uiÏÔÊ¾µÄ {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
+//åˆ·æ–°æ”¯ç»“æœ,ç”¨æ¥uiæ˜¾ç¤ºçš„ {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
 WYSdk.getInstance().refreshPayState(result:String)
 
 
-Ä¬ÈÏÎ¢Ó¡Ö§¸¶±¦»òºÏ×÷·½µÄpingxxÖ§¸¶ »Øµ÷ÉèÖÃ
+é»˜è®¤å¾®å°æ”¯ä»˜å®æˆ–åˆä½œæ–¹çš„pingxxæ”¯ä»˜ å›è°ƒè®¾ç½®
 
-ÏîÄ¿TARGETS -> info -> URL Type -> URL Schemes Ôö¼Ó weiyin
+é¡¹ç›®TARGETS -> info -> URL Type -> URL Schemes å¢åŠ  weiyin
 
 func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
     return Pingpp.handleOpenURL(url, withCompletion: nil)
@@ -104,97 +103,96 @@ func application(app: UIApplication, openURL url: NSURL, options: [String : AnyO
 }
 
 
-¹ºÎï³µ
+è´­ç‰©è½¦
 
-    //Õâ¸öÊÇ´ò¿ª¹ºÎï³µÒ³,ĞèÒªµÄÊ±ºò¿ÉÒÔµ÷ÓÃ
+    //è¿™ä¸ªæ˜¯æ‰“å¼€è´­ç‰©è½¦é¡µ,éœ€è¦çš„æ—¶å€™å¯ä»¥è°ƒç”¨
     WYSdk.getInstance().showShopCart(self);
 
 
-¶©µ¥Ò³
+è®¢å•é¡µ
 
-    //Õâ¸öÊÇ´ò¿ª¶©µ¥Ò³,ĞèÒªµÄÊ±ºò¿ÉÒÔµ÷ÓÃ
+    //è¿™ä¸ªæ˜¯æ‰“å¼€è®¢å•é¡µ,éœ€è¦çš„æ—¶å€™å¯ä»¥è°ƒç”¨
     WYSdk.getInstance().showOrderList(self);
-    //Õâ¸öÊÇË¢ĞÂ¶©µ¥×´Ì¬µÄ,ÔÚ¶©µ¥Ò³²ÅÉúĞ§
+    //è¿™ä¸ªæ˜¯åˆ·æ–°è®¢å•çŠ¶æ€çš„,åœ¨è®¢å•é¡µæ‰ç”Ÿæ•ˆ
     WYSdk.getInstance().refreshOrderState()
 
 
-ÁË½âÖ½ÖÊ»­²á
+äº†è§£çº¸è´¨ç”»å†Œ
 
-    //Õâ¸öÊÇ´ò¿ªÖ½ÖÊ»­²á,ĞèÒªµÄÊ±ºò¿ÉÒÔµ÷ÓÃ
+    //è¿™ä¸ªæ˜¯æ‰“å¼€çº¸è´¨ç”»å†Œ,éœ€è¦çš„æ—¶å€™å¯ä»¥è°ƒç”¨
     WYSdk.getInstance().showPaper(self);
 
 
-ÅÅ°æÒ³
+æ’ç‰ˆé¡µ
 
-//ÉèÖÃºÃÉÏÊöÏà¹ØÊı¾İºóµ÷ÓÃ postPrintData() ¼´¿ÉÔ¤ÀÀÅÅ°æÒ³
+//è®¾ç½®å¥½ä¸Šè¿°ç›¸å…³æ•°æ®åè°ƒç”¨ postPrintData() å³å¯é¢„è§ˆæ’ç‰ˆé¡µ
 WYSdk.getInstance().postPrintData(self,start,success,falied)
 
 
-ÆäËûÉèÖÃ
+å…¶ä»–è®¾ç½®
 
-// ÉèÖÃÖ÷ÌâÑÕÉ« 16½øÖÆµÄÑÕÉ« Èç: f56971
+// è®¾ç½®ä¸»é¢˜é¢œè‰² 16è¿›åˆ¶çš„é¢œè‰² å¦‚: f56971
 WYSdk.getInstance().setThemeColor("f56971")
 
 
-SDKÊ¹ÓÃ×¢ÒâÊÂÏî
+SDKä½¿ç”¨æ³¨æ„äº‹é¡¹
 
-ÕÕÆ¬Ò³ºÍÎÄ±¾Ò³ÊÇ¿ÉÒÔ´ÓÊôÔÚÕÂ½ÚÒ³ÏÂµÄ£¬addÊ±ºòµÄË³ĞòÒª×¢Òâ
+ç…§ç‰‡é¡µå’Œæ–‡æœ¬é¡µæ˜¯å¯ä»¥ä»å±åœ¨ç« èŠ‚é¡µä¸‹çš„ï¼Œaddæ—¶å€™çš„é¡ºåºè¦æ³¨æ„
 
-Èç¹ûÏëÄ³¸öÍ¼Æ¬»òÎÄ±¾Òª´ÓÊôÔÚÄ³¸öÕÂ½ÚÒ³ÏÂ£¬¾ÍÏÈÒªaddChapterBlockÔÙaddÕÕÆ¬Ò³»òÎÄ±¾Ò³
+å¦‚æœæƒ³æŸä¸ªå›¾ç‰‡æˆ–æ–‡æœ¬è¦ä»å±åœ¨æŸä¸ªç« èŠ‚é¡µä¸‹ï¼Œå°±å…ˆè¦addChapterBlockå†addç…§ç‰‡é¡µæˆ–æ–‡æœ¬é¡µ
 
-µ±È»Èç¹û²»Ïë·ÅÔÚÄ³¸öÕÂ½ÚÏÂÃæ¾ÍÖ±½ÓaddÕÕÆ¬ºÍÎÄ±¾¼´¿É
+å½“ç„¶å¦‚æœä¸æƒ³æ”¾åœ¨æŸä¸ªç« èŠ‚ä¸‹é¢å°±ç›´æ¥addç…§ç‰‡å’Œæ–‡æœ¬å³å¯
 
-ÕâĞ©add¶¼ÊÇÓĞÏÈºóË³ĞòÇø·ÖµÄ£¬ÅÅ°æÒ³¿´µ½µÄË³ĞòÊÇaddÏÈµ½ºó
+è¿™äº›addéƒ½æ˜¯æœ‰å…ˆåé¡ºåºåŒºåˆ†çš„ï¼Œæ’ç‰ˆé¡µçœ‹åˆ°çš„é¡ºåºæ˜¯addå…ˆåˆ°å
 
 
 
-swiftÀı×Ó
+swiftä¾‹å­
 
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-    //openidÃ¿¸öºÏ×÷·½µÄÃ¿¸öÓÃ»§µÄÎ¨Ò»±êÊ¶ ½¨ÒéĞ´·¨ Ç°×º+Î¨Ò»±êÊ¶ Èç WY_xxxxxx
+    //openidæ¯ä¸ªåˆä½œæ–¹çš„æ¯ä¸ªç”¨æˆ·çš„å”¯ä¸€æ ‡è¯† å»ºè®®å†™æ³• å‰ç¼€+å”¯ä¸€æ ‡è¯† å¦‚ WY_xxxxxx
     WYSdk.getInstance().setSDK("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
-}
+    }
 
-class ViewController: UIViewController {
+    class ViewController: UIViewController {
 
-private var loadingIndicator = LoadingView()
+    private var loadingIndicator = LoadingView()
 
-override func viewDidLoad() {
+    override func viewDidLoad() {
     self.navigationController?.navigationBarHidden  = false
     self.navigationItem.title = "demo"
 
     let mSubmitDataButton =  UIButton(frame: CGRectMake(0,0,200,200))
-    mSubmitDataButton.setTitle("Ìá½»Êı¾İ", forState: UIControlState.Normal)
+    mSubmitDataButton.setTitle("æäº¤æ•°æ®", forState: UIControlState.Normal)
     mSubmitDataButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
     mSubmitDataButton.addTarget(self, action: #selector(ViewController.submitData), forControlEvents: UIControlEvents.TouchUpInside)
     self.view.addSubview(mSubmitDataButton)
     self.view.addSubview(loadingIndicator)
 
-    //±à¼­Ò³ÉèÖÃ
+    //ç¼–è¾‘é¡µè®¾ç½®
     //edit()
 
-    //Õâ¸öÊÇ´ò¿ª¶©µ¥Ò³,ĞèÒªµÄÊ±ºò¿ÉÒÔµ÷ÓÃ
+    //è¿™ä¸ªæ˜¯æ‰“å¼€è®¢å•é¡µ,éœ€è¦çš„æ—¶å€™å¯ä»¥è°ƒç”¨
     //WYSdk.getInstance().showOrderList(self)
-    //Õâ¸öÊÇË¢ĞÂ¶©µ¥×´Ì¬µÄ,ÔÚ¶©µ¥Ò³²ÅÉúĞ§
+    //è¿™ä¸ªæ˜¯åˆ·æ–°è®¢å•çŠ¶æ€çš„,åœ¨è®¢å•é¡µæ‰ç”Ÿæ•ˆ
     //WYSdk.getInstance().refreshOrderState()
 
     //myAppPay()
-}
+    }
     private func edit(){
-    //´ò¿ª¶ş´Î±à¼­ÃæÒ³ Ä¬ÈÏÊÇ¿ªµÄ
+    //æ‰“å¼€äºŒæ¬¡ç¼–è¾‘é¢é¡µ é»˜è®¤æ˜¯å¼€çš„
     WYSdk.getInstance().isShowSelectDataViewController(true)
 
-    //ÉÏÀ²¼ÓÔØ¸ü¶à,Ä¬ÈÏÊÇ¹Ø±ÕµÄ
+    //ä¸Šå•¦åŠ è½½æ›´å¤š,é»˜è®¤æ˜¯å…³é—­çš„
     WYSdk.getInstance().openLoadMore(true)
     WYSdk.getInstance().setWyLoadMoreDelegate {
-        //WYSdk.getInstance().getTextBlock //´´½¨ÎÄ±¾
-        //WYSdk.getInstance().getChapterBlock //´´½¨ÕÂ½Ú
+        //WYSdk.getInstance().getTextBlock //åˆ›å»ºæ–‡æœ¬
+        //WYSdk.getInstance().getChapterBlock //åˆ›å»ºç« èŠ‚
 
         ThreadUtils.threadOnAfterMain(1000, block: {
             let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-            let block = WYSdk.getInstance().getPhotoBlock("Í¼Æ¬1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime
-(), width: 1289, height: 806)
+            let block = WYSdk.getInstance().getPhotoBlock("å›¾ç‰‡1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1289, height: 806)
 
             let arr = NSMutableArray()
             arr.addObject(block)
@@ -212,60 +210,55 @@ override func viewDidLoad() {
     }
 }
 
-//ÉèÖÃºÏ×÷·½µÄappÖ§¸¶ Ä¬ÈÏÊÇfalse
-private func myAppPay(){
-    WYSdk.getInstance().setMyAppPay(true)
-    WYSdk.getInstance().setWyPayOrderDelegate { (orderId, price, randomStr) in
-        //´¦ÀíÖ§¸¶
-        //ºÏ×÷·½ĞèÒª orderId randomStr À´Í¨ÖªÎ¢Ó¡·şÎñÆ÷
-        //Ö§¸¶³É¹¦ºó,ºÏ×÷·½·şÎñÆ÷µ÷Î¢Ó¡µÄ·şÎñÆ÷¸üĞÂÖ§¸¶½á¹û,ÎÄµµÔÚÁªµ÷Ê±Ë÷È¡
+    //è®¾ç½®åˆä½œæ–¹çš„appæ”¯ä»˜ é»˜è®¤æ˜¯false
+    private func myAppPay(){
+        WYSdk.getInstance().setMyAppPay(true)
+        WYSdk.getInstance().setWyPayOrderDelegate { (orderId, price, randomStr) in
+            //å¤„ç†æ”¯ä»˜
+            //åˆä½œæ–¹éœ€è¦ orderId randomStr æ¥é€šçŸ¥å¾®å°æœåŠ¡å™¨
+            //æ”¯ä»˜æˆåŠŸå,åˆä½œæ–¹æœåŠ¡å™¨è°ƒå¾®å°çš„æœåŠ¡å™¨æ›´æ–°æ”¯ä»˜ç»“æœ,æ–‡æ¡£åœ¨è”è°ƒæ—¶ç´¢å–
+        }
     }
-}
 
-private func addData() {
-    //Í¼Æ¬ËØ²Ä ±ØĞëÊÇÍøÂçÂ·¾¶ ¿í¸ßÒ²ÊÇ±ØÒªµÄ
-    let frontCoverUrl = "http://img1.3lian.com/2015/w7/98/d/22.jpg"//1210 x 681
-    let flyleafHeadUrl = "http://img21.mtime.cn/mg/2011/05/18/161045.63077415.jpg"//251 x 251
-    let backCoverUrl = "http://img.61gequ.com/allimg/2011-4/201142614314278502.jpg"//1358 x 765
+    private func addData() {
+        //å›¾ç‰‡ç´ æ å¿…é¡»æ˜¯ç½‘ç»œè·¯å¾„ å®½é«˜ä¹Ÿæ˜¯å¿…è¦çš„
+        let frontCoverUrl = "http://img1.3lian.com/2015/w7/98/d/22.jpg"//1210 x 681
+        let flyleafHeadUrl = "http://img21.mtime.cn/mg/2011/05/18/161045.63077415.jpg"//251 x 251
+        let backCoverUrl = "http://img.61gequ.com/allimg/2011-4/201142614314278502.jpg"//1358 x 765
 
-    let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-    let photoUrl2 = "http://img2.3lian.com/img2007/23/08/025.jpg"//1001 x 751
-    let photoUrl3 = "http://img1.goepe.com/201303/1362711681_6600.jpg"//988 x 738
-    let photoUrl4 = "http://pic1.ooopic.com/00/87/39/27b1OOOPICf7.jpg"//813 x 592
-    let photoUrl5 = "http://www.ctps.cn/PhotoNet/Profiles2011/20110503/20115302844162622467.jpg"//1208 x 806
-    let photoUrl6 = "http://img2.3lian.com/2014/f2/110/d/57.jpg"//626 x 468
+        let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
+        let photoUrl2 = "http://img2.3lian.com/img2007/23/08/025.jpg"//1001 x 751
+        let photoUrl3 = "http://img1.goepe.com/201303/1362711681_6600.jpg"//988 x 738
+        let photoUrl4 = "http://pic1.ooopic.com/00/87/39/27b1OOOPICf7.jpg"//813 x 592
+        let photoUrl5 = "http://www.ctps.cn/PhotoNet/Profiles2011/20110503/20115302844162622467.jpg"//1208 x 806
+        let photoUrl6 = "http://img2.3lian.com/2014/f2/110/d/57.jpg"//626 x 468
 
-    //ÅÄÉãÊ±¼ä,ÓÉÓÚÊÇÍøÂçÍ¼Æ¬¾Í×Ô¶¨ÒåÁËÒ»¸öÊ±¼ä
-    let originalTime = TimeUtils.getCurrentTime()
+        //æ‹æ‘„æ—¶é—´,ç”±äºæ˜¯ç½‘ç»œå›¾ç‰‡å°±è‡ªå®šä¹‰äº†ä¸€ä¸ªæ—¶é—´
+        let originalTime = TimeUtils.getCurrentTime()
 
-    WYSdk.getInstance().setFrontCover("·âÃæÒ²¾ÍÊÇÊéÃû", subTitle: "·âÃæ¸±±êÌâ", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: 
-originalTime, width: 1210, height: 681)
-    WYSdk.getInstance().setFlyleaf("Í·Ïñ", url: flyleafHeadUrl, lowPixelUrl: flyleafHeadUrl, originalTime: originalTime, width: 251, height: 251)
-    WYSdk.getInstance().setPreface("ÕâÊÇĞòÑÔ")
-    WYSdk.getInstance().setCopyright("ÕâÊÇ×÷ÕßÃû³Æ", bookName: "Õâ¸öÊÇÊéÃû")
-    WYSdk.getInstance().setBackCover(backCoverUrl, lowPixelUrl: backCoverUrl, originalTime: originalTime, width: 1358, height: 765)
+        WYSdk.getInstance().setFrontCover("å°é¢ä¹Ÿå°±æ˜¯ä¹¦å", subTitle: "å°é¢å‰¯æ ‡é¢˜", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1210, height: 681)
+        WYSdk.getInstance().setFlyleaf("å¤´åƒ", url: flyleafHeadUrl, lowPixelUrl: flyleafHeadUrl, originalTime: originalTime, width: 251, height: 251)
+        WYSdk.getInstance().setPreface("è¿™æ˜¯åºè¨€")
+        WYSdk.getInstance().setCopyright("è¿™æ˜¯ä½œè€…åç§°", bookName: "è¿™ä¸ªæ˜¯ä¹¦å")
+        WYSdk.getInstance().setBackCover(backCoverUrl, lowPixelUrl: backCoverUrl, originalTime: originalTime, width: 1358, height: 765)
 
-    WYSdk.getInstance().addPhotoBlock("Í¼Æ¬1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1289, height: 806)
-    WYSdk.getInstance().addTextBlock("ÕâÊÇÒ»¶Î´óÎÄ±¾1Å¶,ÎÒÃ»¸úÔÚÕÂ½ÚºóÃæµÄÅ¶")
-    WYSdk.getInstance().addPhotoBlock("Õâ¸öÊÇÕÕÆ¬2µÄÃèÊöÅ¶,ÎÒÒ²Ã»¸úÔÚÕÂ½ÚºóÃæÄØ", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: 
-originalTime, width: 1001, height: 751)
+        WYSdk.getInstance().addPhotoBlock("å›¾ç‰‡1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addTextBlock("è¿™æ˜¯ä¸€æ®µå¤§æ–‡æœ¬1å“¦,æˆ‘æ²¡è·Ÿåœ¨ç« èŠ‚åé¢çš„å“¦")
+        WYSdk.getInstance().addPhotoBlock("è¿™ä¸ªæ˜¯ç…§ç‰‡2çš„æè¿°å“¦,æˆ‘ä¹Ÿæ²¡è·Ÿåœ¨ç« èŠ‚åé¢å‘¢", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime:originalTime, width: 1001, height: 751)
 
-    WYSdk.getInstance().addChapterBlock("ÎÒÊÇÒ»¸öÕÂ½ÚÕ¼Ò»Ò³Å¶", des: "ÎÒÊÇÕÂ½ÚµÄÃèÊöºÃ°É")
-    WYSdk.getInstance().addPhotoBlock("Õâ¸öÊÇÕÕÆ¬3µÄÃèÊöÅ¶,ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: 
-originalTime, width: 988, height: 738)
-    WYSdk.getInstance().addPhotoBlock("Õâ¸öÊÇÕÕÆ¬4µÄÃèÊöÅ¶,ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: 
-originalTime, width: 813, height: 592)
-    WYSdk.getInstance().addTextBlock("ÎÒÊÇÒ»¸ö¸úÕÂ½ÚºóÃæµÄÎÄ±¾2")
+        WYSdk.getInstance().addChapterBlock("æˆ‘æ˜¯ä¸€ä¸ªç« èŠ‚å ä¸€é¡µå“¦", des: "æˆ‘æ˜¯ç« èŠ‚çš„æè¿°å¥½å§")
+        WYSdk.getInstance().addPhotoBlock("è¿™ä¸ªæ˜¯ç…§ç‰‡3çš„æè¿°å“¦,æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: originalTime, width: 988, height: 738)
+        WYSdk.getInstance().addPhotoBlock("è¿™ä¸ªæ˜¯ç…§ç‰‡4çš„æè¿°å“¦,æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: originalTime, width: 813, height: 592)
+        WYSdk.getInstance().addTextBlock("æˆ‘æ˜¯ä¸€ä¸ªè·Ÿç« èŠ‚åé¢çš„æ–‡æœ¬2")
 
-    WYSdk.getInstance().addChapterBlock("ÎÒÊÇÕÂ½Ú2", des: "ÎÒÊÇÕÂ½ÚµÄÃèÊöºÃ°É")
-    WYSdk.getInstance().addPhotoBlock("", url: photoUrl5, lowPixelUrl: photoUrl5, originalTime: originalTime, width: 1208, height: 806)
-    WYSdk.getInstance().addPhotoBlock("Õâ¸öÊÇÕÕÆ¬6µÄÃèÊöÅ¶,ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: 
-originalTime, width: 626, height: 468)
-    WYSdk.getInstance().addTextBlock("ÎÒÊÇ¸úÕÂ½Ú2ºóÃæµÄÎÄ±¾Å¶")
-}
+        WYSdk.getInstance().addChapterBlock("æˆ‘æ˜¯ç« èŠ‚2", des: "æˆ‘æ˜¯ç« èŠ‚çš„æè¿°å¥½å§")
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl5, lowPixelUrl: photoUrl5, originalTime: originalTime, width: 1208, height: 806)
+        WYSdk.getInstance().addPhotoBlock("è¿™ä¸ªæ˜¯ç…§ç‰‡6çš„æè¿°å“¦,æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: originalTime, width: 626, height: 468)
+        WYSdk.getInstance().addTextBlock("æˆ‘æ˜¯è·Ÿç« èŠ‚2åé¢çš„æ–‡æœ¬å“¦")
+    }
 
-private func postData() {
-    WYSdk.getInstance().postPrintData(self, start: { 
+    private func postData() {
+        WYSdk.getInstance().postPrintData(self, start: { 
 
         self.loadingIndicator.start()
 
@@ -277,160 +270,155 @@ private func postData() {
 
             self.loadingIndicator.stop()
 
+        }
     }
-}
 
-func submitData(){
-    addData()
-    postData()
-}
-}
-
+    func submitData(){
+        addData()
+        postData()
+    }
+    }
 
 
-ocÀı×Ó
 
-#import "ocsdkdemo-Swift.h"
+ocä¾‹å­
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    #import "ocsdkdemo-Swift.h"
 
-    WYSdk *sdk = [WYSdk getInstance];
-    //openidÃ¿¸öºÏ×÷·½µÄÃ¿¸öÓÃ»§µÄÎ¨Ò»±êÊ¶ ½¨ÒéĞ´·¨ Ç°×º+Î¨Ò»±êÊ¶ Èç WY_xxxxxx
-    [sdk setSDK:@"52HJR62BDS6SDD21" accessSecret:@"VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3" openId:@"openid"];
-}
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-#import "ocsdkdemo-Swift.h"
-@implementation ViewController
+        WYSdk *sdk = [WYSdk getInstance];
+        //openidæ¯ä¸ªåˆä½œæ–¹çš„æ¯ä¸ªç”¨æˆ·çš„å”¯ä¸€æ ‡è¯† å»ºè®®å†™æ³• å‰ç¼€+å”¯ä¸€æ ‡è¯† å¦‚ WY_xxxxxx
+        [sdk setSDK:@"52HJR62BDS6SDD21" accessSecret:@"VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3" openId:@"openid"];
+    }
 
-LoadingView *loading;
-WYSdk *sdk;
+    #import "ocsdkdemo-Swift.h"
+    @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    loading = [LoadingView alloc];
-    sdk = [WYSdk getInstance];
+    LoadingView *loading;
+    WYSdk *sdk;
 
-    //±à¼­Ò³ÉèÖÃ
-    //[self edit];
+    - (void)viewDidLoad {
+        [super viewDidLoad];
+        loading = [LoadingView alloc];
+        sdk = [WYSdk getInstance];
 
-    //ºÏ×÷·½µÄÖ§¸¶ÉèÖÃ
-    //[self myAppPay];
+        //ç¼–è¾‘é¡µè®¾ç½®
+        //[self edit];
 
-    //Õâ¸öÊÇ´ò¿ª¶©µ¥Ò³,ĞèÒªµÄÊ±ºò¿ÉÒÔµ÷ÓÃ
-    //[sdk showOrderList:self];
-    //Õâ¸öÊÇË¢ĞÂ¶©µ¥×´Ì¬µÄ,ÔÚ¶©µ¥Ò³²ÅÉúĞ§
-    //[sdk refreshOrderState];
-}
--(void) edit{
-    //´ò¿ª¶ş´Î±à¼­ÃæÒ³ Ä¬ÈÏÊÇ¿ªµÄ
-    [sdk isShowSelectDataViewController:YES];
+        //åˆä½œæ–¹çš„æ”¯ä»˜è®¾ç½®
+        //[self myAppPay];
 
-    //ÉÏÀ²¼ÓÔØ¸ü¶à,Ä¬ÈÏÊÇ¹Ø±ÕµÄ
-    [sdk openLoadMore:YES];
-    [sdk setLoadMoreDelegate:^{
+        //è¿™ä¸ªæ˜¯æ‰“å¼€è®¢å•é¡µ,éœ€è¦çš„æ—¶å€™å¯ä»¥è°ƒç”¨
+        //[sdk showOrderList:self];
+        //è¿™ä¸ªæ˜¯åˆ·æ–°è®¢å•çŠ¶æ€çš„,åœ¨è®¢å•é¡µæ‰ç”Ÿæ•ˆ
+        //[sdk refreshOrderState];
+    }
+    -(void) edit{
+        //æ‰“å¼€äºŒæ¬¡ç¼–è¾‘é¢é¡µ é»˜è®¤æ˜¯å¼€çš„
+        [sdk isShowSelectDataViewController:YES];
 
-    //[sdk getTextBlock]; //´´½¨ÎÄ±¾
-    //[sdk getChapterBlock]; //´´½¨ÕÂ½Ú
-    [ThreadUtils threadOnAfterMain:1000 block:^{
+        //ä¸Šå•¦åŠ è½½æ›´å¤š,é»˜è®¤æ˜¯å…³é—­çš„
+        [sdk openLoadMore:YES];
+        [sdk setLoadMoreDelegate:^{
+
+        //[sdk getTextBlock]; //åˆ›å»ºæ–‡æœ¬
+        //[sdk getChapterBlock]; //åˆ›å»ºç« èŠ‚
+        [ThreadUtils threadOnAfterMain:1000 block:^{
+
+            NSString*  photoUrl1 = @"http://img1.3lian.com/2015/w7/90/d/1.jpg";//1289 x 806
+            NSDate* date = [[NSDate alloc] init];
+            NSInteger originalTime =  round(date.timeIntervalSince1970);
+
+            Block *block = [sdk getPhotoBlock:@"å›¾ç‰‡1"  url: photoUrl1  lowPixelUrl: photoUrl1  originalTime: originalTime  width: 1289  height: 806];
+
+            NSMutableArray *arr = [NSMutableArray array];
+
+            [arr addObject:block];
+            [arr addObject:block];
+            [arr addObject:block];
+            [arr addObject:block];
+            [arr addObject:block];
+
+            [sdk addLoadMoreData:arr];
+        }];
+    }];
+    }
+    - (IBAction)postData:(id)sender {
+        [self addData];
+        [self postData];
+    }
+
+    //åˆä½œæ–¹çš„æ”¯ä»˜è®¾ç½®
+    -(void) myAppPay{
+        [sdk setMyAppPay:true];
+        [sdk setPayOrderDelegate:^(NSString * orderId, float price , NSString * randomStr) {
+            //å¤„ç†æ”¯ä»˜
+            //åˆä½œæ–¹éœ€è¦ orderId randomStr æ¥é€šçŸ¥å¾®å°æœåŠ¡å™¨
+            //æ”¯ä»˜æˆåŠŸå,åˆä½œæ–¹æœåŠ¡å™¨è°ƒå¾®å°çš„æœåŠ¡å™¨æ›´æ–°æ”¯ä»˜ç»“æœ,æ–‡æ¡£åœ¨è”è°ƒæ—¶ç´¢å–
+    }];
+    }
+
+    -(NSString*) md5:(NSString*) str
+    {
+        const char *cStr = [str UTF8String];
+        unsigned char result[CC_MD5_DIGEST_LENGTH];
+        CC_MD5( cStr, strlen(cStr), result );
+
+        NSMutableString *hash = [NSMutableString string];
+        for(int i=0;i<CC_MD5_DIGEST_LENGTH;i++)
+        {
+            [hash appendFormat:@"%02X",result[i]];
+        }
+        return [hash lowercaseString];
+    }
+    - (void) addData{
+        //å›¾ç‰‡ç´ æ å¿…é¡»æ˜¯ç½‘ç»œè·¯å¾„ å®½é«˜ä¹Ÿæ˜¯å¿…è¦çš„
+        NSString*  frontCoverUrl = @"http://img1.3lian.com/2015/w7/98/d/22.jpg";//1210 x 681
+        NSString*  flyleafHeadUrl = @"http://img21.mtime.cn/mg/2011/05/18/161045.63077415.jpg";//251 x 251
+        NSString*  backCoverUrl = @"http://img.61gequ.com/allimg/2011-4/201142614314278502.jpg";//1358 x 765
 
         NSString*  photoUrl1 = @"http://img1.3lian.com/2015/w7/90/d/1.jpg";//1289 x 806
+        NSString*  photoUrl2 = @"http://img2.3lian.com/img2007/23/08/025.jpg";//1001 x 751
+        NSString*  photoUrl3 = @"http://img1.goepe.com/201303/1362711681_6600.jpg";//988 x 738
+        NSString*  photoUrl4 = @"http://pic1.ooopic.com/00/87/39/27b1OOOPICf7.jpg";//813 x 592
+        NSString*  photoUrl5 = @"http://www.ctps.cn/PhotoNet/Profiles2011/20110503/20115302844162622467.jpg";//1208 x 806
+        NSString*  photoUrl6 = @"http://img2.3lian.com/2014/f2/110/d/57.jpg";//626 x 468
+
+        //æ‹æ‘„æ—¶é—´ ç”±äºæ˜¯ç½‘ç»œå›¾ç‰‡å°±è‡ªå®šä¹‰äº†ä¸€ä¸ªæ—¶é—´
+
         NSDate* date = [[NSDate alloc] init];
         NSInteger originalTime =  round(date.timeIntervalSince1970);
 
-        Block *block = [sdk getPhotoBlock:@"Í¼Æ¬1"  url: photoUrl1  lowPixelUrl: photoUrl1  originalTime: originalTime  width: 1289  height: 806];
+        [sdk setFrontCover:@"å°é¢ä¹Ÿå°±æ˜¯ä¹¦å" subTitle: @"å°é¢å‰¯æ ‡é¢˜" url: frontCoverUrl lowPixelUrl: frontCoverUrl originalTime: originalTime  width:1210 height: 681];
 
-        NSMutableArray *arr = [NSMutableArray array];
+        [sdk setFlyleaf:@"å¤´åƒ"  url: flyleafHeadUrl  lowPixelUrl: flyleafHeadUrl  originalTime: originalTime  width: 251  height: 251];
+        [sdk setPreface:@"è¿™æ˜¯åºè¨€"];
+        [sdk setCopyright:@"è¿™æ˜¯ä½œè€…åç§°"  bookName: @"è¿™ä¸ªæ˜¯ä¹¦å"];
+        [sdk setBackCover:backCoverUrl  lowPixelUrl: backCoverUrl  originalTime: originalTime  width: 1358  height: 765];
 
-        [arr addObject:block];
-        [arr addObject:block];
-        [arr addObject:block];
-        [arr addObject:block];
-        [arr addObject:block];
+        [sdk addPhotoBlock:@"å›¾ç‰‡1"  url: photoUrl1  lowPixelUrl: photoUrl1  originalTime: originalTime  width: 1289  height: 806];
+        [sdk addTextBlock:@"è¿™æ˜¯ä¸€æ®µå¤§æ–‡æœ¬1å“¦ æˆ‘æ²¡è·Ÿåœ¨ç« èŠ‚åé¢çš„å“¦"];
+        [sdk addPhotoBlock:@"è¿™ä¸ªæ˜¯ç…§ç‰‡2çš„æè¿°å“¦ æˆ‘ä¹Ÿæ²¡è·Ÿåœ¨ç« èŠ‚åé¢å‘¢"  url: photoUrl2  lowPixelUrl: photoUrl2  originalTime: originalTime  width: 1001  height: 751];
 
-        [sdk addLoadMoreData:arr];
-    }];
-}];
-}
-- (IBAction)postData:(id)sender {
-    [self addData];
-    [self postData];
-}
+        [sdk addChapterBlock:@"æˆ‘æ˜¯ä¸€ä¸ªç« èŠ‚å ä¸€é¡µå“¦"  des: @"æˆ‘æ˜¯ç« èŠ‚çš„æè¿°å¥½å§"];
+        [sdk addPhotoBlock:@"è¿™ä¸ªæ˜¯ç…§ç‰‡3çš„æè¿°å“¦ æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢"  url: photoUrl3  lowPixelUrl: photoUrl3  originalTime: originalTime  width: 988  height: 738];
+        [sdk addPhotoBlock:@"è¿™ä¸ªæ˜¯ç…§ç‰‡4çš„æè¿°å“¦ æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢"  url: photoUrl4  lowPixelUrl: photoUrl4  originalTime: originalTime  width: 813  height: 592];
+        [sdk addTextBlock:@"æˆ‘æ˜¯ä¸€ä¸ªè·Ÿç« èŠ‚åé¢çš„æ–‡æœ¬2"];
 
-//ºÏ×÷·½µÄÖ§¸¶ÉèÖÃ
--(void) myAppPay{
-    [sdk setMyAppPay:true];
-    [sdk setPayOrderDelegate:^(NSString * orderId, float price , NSString * randomStr) {
-        //´¦ÀíÖ§¸¶
-        //ºÏ×÷·½ĞèÒª orderId randomStr À´Í¨ÖªÎ¢Ó¡·şÎñÆ÷
-        //Ö§¸¶³É¹¦ºó,ºÏ×÷·½·şÎñÆ÷µ÷Î¢Ó¡µÄ·şÎñÆ÷¸üĞÂÖ§¸¶½á¹û,ÎÄµµÔÚÁªµ÷Ê±Ë÷È¡
-}];
-}
-
--(NSString*) md5:(NSString*) str
-{
-    const char *cStr = [str UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5( cStr, strlen(cStr), result );
-
-    NSMutableString *hash = [NSMutableString string];
-    for(int i=0;i<CC_MD5_DIGEST_LENGTH;i++)
-    {
-        [hash appendFormat:@"%02X",result[i]];
+        [sdk addChapterBlock:@"æˆ‘æ˜¯ç« èŠ‚2"  des: @"æˆ‘æ˜¯ç« èŠ‚çš„æè¿°å¥½å§"];
+        [sdk addPhotoBlock:@""  url: photoUrl5  lowPixelUrl: photoUrl5  originalTime: originalTime  width: 1208  height: 806];
+        [sdk addPhotoBlock:@"è¿™ä¸ªæ˜¯ç…§ç‰‡6çš„æè¿°å“¦ æˆ‘ä¹Ÿè·Ÿåœ¨ç« èŠ‚åé¢å‘¢"  url: photoUrl6  lowPixelUrl: photoUrl6  originalTime: originalTime  width: 626 height: 468];
+        [sdk addTextBlock:@"æˆ‘æ˜¯è·Ÿç« èŠ‚2åé¢çš„æ–‡æœ¬å“¦"];
     }
-    return [hash lowercaseString];
-}
-- (void) addData{
-    //Í¼Æ¬ËØ²Ä ±ØĞëÊÇÍøÂçÂ·¾¶ ¿í¸ßÒ²ÊÇ±ØÒªµÄ
-    NSString*  frontCoverUrl = @"http://img1.3lian.com/2015/w7/98/d/22.jpg";//1210 x 681
-    NSString*  flyleafHeadUrl = @"http://img21.mtime.cn/mg/2011/05/18/161045.63077415.jpg";//251 x 251
-    NSString*  backCoverUrl = @"http://img.61gequ.com/allimg/2011-4/201142614314278502.jpg";//1358 x 765
 
-    NSString*  photoUrl1 = @"http://img1.3lian.com/2015/w7/90/d/1.jpg";//1289 x 806
-    NSString*  photoUrl2 = @"http://img2.3lian.com/img2007/23/08/025.jpg";//1001 x 751
-    NSString*  photoUrl3 = @"http://img1.goepe.com/201303/1362711681_6600.jpg";//988 x 738
-    NSString*  photoUrl4 = @"http://pic1.ooopic.com/00/87/39/27b1OOOPICf7.jpg";//813 x 592
-    NSString*  photoUrl5 = @"http://www.ctps.cn/PhotoNet/Profiles2011/20110503/20115302844162622467.jpg";//1208 x 806
-    NSString*  photoUrl6 = @"http://img2.3lian.com/2014/f2/110/d/57.jpg";//626 x 468
+    - (void) postData{
 
-    //ÅÄÉãÊ±¼ä ÓÉÓÚÊÇÍøÂçÍ¼Æ¬¾Í×Ô¶¨ÒåÁËÒ»¸öÊ±¼ä
-
-    NSDate* date = [[NSDate alloc] init];
-    NSInteger originalTime =  round(date.timeIntervalSince1970);
-
-    [sdk setFrontCover:@"·âÃæÒ²¾ÍÊÇÊéÃû" subTitle: @"·âÃæ¸±±êÌâ" url: frontCoverUrl lowPixelUrl: frontCoverUrl originalTime: originalTime  width: 
-1210 height: 681];
-
-    [sdk setFlyleaf:@"Í·Ïñ"  url: flyleafHeadUrl  lowPixelUrl: flyleafHeadUrl  originalTime: originalTime  width: 251  height: 251];
-    [sdk setPreface:@"ÕâÊÇĞòÑÔ"];
-    [sdk setCopyright:@"ÕâÊÇ×÷ÕßÃû³Æ"  bookName: @"Õâ¸öÊÇÊéÃû"];
-    [sdk setBackCover:backCoverUrl  lowPixelUrl: backCoverUrl  originalTime: originalTime  width: 1358  height: 765];
-
-    [sdk addPhotoBlock:@"Í¼Æ¬1"  url: photoUrl1  lowPixelUrl: photoUrl1  originalTime: originalTime  width: 1289  height: 806];
-    [sdk addTextBlock:@"ÕâÊÇÒ»¶Î´óÎÄ±¾1Å¶ ÎÒÃ»¸úÔÚÕÂ½ÚºóÃæµÄÅ¶"];
-    [sdk addPhotoBlock:@"Õâ¸öÊÇÕÕÆ¬2µÄÃèÊöÅ¶ ÎÒÒ²Ã»¸úÔÚÕÂ½ÚºóÃæÄØ"  url: photoUrl2  lowPixelUrl: photoUrl2  originalTime: originalTime  width: 
-1001  height: 751];
-
-    [sdk addChapterBlock:@"ÎÒÊÇÒ»¸öÕÂ½ÚÕ¼Ò»Ò³Å¶"  des: @"ÎÒÊÇÕÂ½ÚµÄÃèÊöºÃ°É"];
-    [sdk addPhotoBlock:@"Õâ¸öÊÇÕÕÆ¬3µÄÃèÊöÅ¶ ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ"  url: photoUrl3  lowPixelUrl: photoUrl3  originalTime: originalTime  width: 988  
-height: 738];
-    [sdk addPhotoBlock:@"Õâ¸öÊÇÕÕÆ¬4µÄÃèÊöÅ¶ ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ"  url: photoUrl4  lowPixelUrl: photoUrl4  originalTime: originalTime  width: 813  
-height: 592];
-    [sdk addTextBlock:@"ÎÒÊÇÒ»¸ö¸úÕÂ½ÚºóÃæµÄÎÄ±¾2"];
-
-    [sdk addChapterBlock:@"ÎÒÊÇÕÂ½Ú2"  des: @"ÎÒÊÇÕÂ½ÚµÄÃèÊöºÃ°É"];
-    [sdk addPhotoBlock:@""  url: photoUrl5  lowPixelUrl: photoUrl5  originalTime: originalTime  width: 1208  height: 806];
-    [sdk addPhotoBlock:@"Õâ¸öÊÇÕÕÆ¬6µÄÃèÊöÅ¶ ÎÒÒ²¸úÔÚÕÂ½ÚºóÃæÄØ"  url: photoUrl6  lowPixelUrl: photoUrl6  originalTime: originalTime  width: 626  
-height: 468];
-    [sdk addTextBlock:@"ÎÒÊÇ¸úÕÂ½Ú2ºóÃæµÄÎÄ±¾Å¶"];
-}
-
-- (void) postData{
-
-    [sdk postPrintData:self start:^{
-        [loading start];
- } success:^(id result) {
-        [loading stop];
- } failed:^(NSString * msg) {
-        [loading stop];
- }];
-}
+        [sdk postPrintData:self start:^{
+            [loading start];
+    } success:^(id result) {
+            [loading stop];
+    } failed:^(NSString * msg) {
+            [loading stop];
+    }];
+    }
