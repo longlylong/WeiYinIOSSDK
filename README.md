@@ -10,18 +10,18 @@ IOS SDK开发包 版本号 1.3.0 日期 20160808
 
 2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例)
 
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+    source 'https://github.com/CocoaPods/Specs.git'
+    platform :ios, '7.0'
 
-target '项目target' do
-#线程库 阻塞线程的
-pod 'Bolts'
+    target '项目target' do
+    #线程库 阻塞线程的
+    pod 'Bolts'
 
-#支付的sdk
-pod 'Pingpp/Alipay'
-pod 'Pingpp/Wx'
+    #支付的sdk
+    pod 'Pingpp/Alipay'
+    pod 'Pingpp/Wx'
 
-end
+    end
 
 
 3.在命令行进入你的工程根目录 然后pod update
@@ -71,36 +71,36 @@ TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最
             WYSdk.getInstance().addLoadMoreData(arr)
         })
     }
-}
+    }
 
 
 合作方支付
 
-//设置是否合作方的app支付,默认是false
-//如果是用微印支付或合作方的pingxx支付不需要设置这些
-private func myAppPay(){
-    WYSdk.getInstance().setMyAppPay(true)
-    WYSdk.getInstance().setWyPayOrderDelegate { (orderId, price, randomStr) in
-        //处理支付
-        //合作方需要 orderId randomStr 来通知微印服务器
-        //支付成功后,合作方服务器调微印的服务器更新支付结果,文档在联调时索取
+    //设置是否合作方的app支付,默认是false
+    //如果是用微印支付或合作方的pingxx支付不需要设置这些
+    private func myAppPay(){
+        WYSdk.getInstance().setMyAppPay(true)
+        WYSdk.getInstance().setWyPayOrderDelegate { (orderId, price, randomStr) in
+            //处理支付
+            //合作方需要 orderId randomStr 来通知微印服务器
+            //支付成功后,合作方服务器调微印的服务器更新支付结果,文档在联调时索取
+        }
     }
-}
-//刷新支结果,用来ui显示的 {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
-WYSdk.getInstance().refreshPayState(result:String)
+    //刷新支结果,用来ui显示的 {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
+    WYSdk.getInstance().refreshPayState(result:String)
 
 
-默认微印支付宝或合作方的pingxx支付 回调设置
+    默认微印支付宝或合作方的pingxx支付 回调设置
 
-项目TARGETS -> info -> URL Type -> URL Schemes 增加 weiyin
+    项目TARGETS -> info -> URL Type -> URL Schemes 增加 weiyin
 
-func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-    return Pingpp.handleOpenURL(url, withCompletion: nil)
-}
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return Pingpp.handleOpenURL(url, withCompletion: nil)
+    }
 
-func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-     return Pingpp.handleOpenURL(url, withCompletion: nil)
-}
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        return Pingpp.handleOpenURL(url, withCompletion: nil)
+    }
 
 
 购物车
@@ -125,14 +125,14 @@ func application(app: UIApplication, openURL url: NSURL, options: [String : AnyO
 
 排版页
 
-//设置好上述相关数据后调用 postPrintData() 即可预览排版页
-WYSdk.getInstance().postPrintData(self,start,success,falied)
+    //设置好上述相关数据后调用 postPrintData() 即可预览排版页
+    WYSdk.getInstance().postPrintData(self,start,success,falied)
 
 
 其他设置
 
-// 设置主题颜色 16进制的颜色 如: f56971
-WYSdk.getInstance().setThemeColor("f56971")
+    // 设置主题颜色 16进制的颜色 如: f56971
+    WYSdk.getInstance().setThemeColor("f56971")
 
 
 SDK使用注意事项
@@ -208,7 +208,7 @@ swift例子
             WYSdk.getInstance().addLoadMoreData(arr)
         })
     }
-}
+    }
 
     //设置合作方的app支付 默认是false
     private func myAppPay(){
