@@ -22,16 +22,23 @@ pod 'Pingpp/Alipay'
 pod 'Pingpp/Wx'
 
 end
+
+
 3.在命令行进入你的工程根目录 然后pod update
 
-4.swift工程都需要创建一个 项目名-Bridging-Header.h, 在文件写入#import "Pingpp.h" #import "Bolts.h",然后打开工程以demo为例子:选择wysdkdemo 再选择 TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最后填上刚才.h的路径 如:wysdkdemo/wysdkdemo-Bridging-Header.h
+4.swift工程都需要创建一个 项目名-Bridging-Header.h, 在文件写入#import "Pingpp.h" #import "Bolts.h",然后打开工程以demo为例子:选择wysdkdemo 再选择 
+TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最后填上刚才.h的路径 如:wysdkdemo/wysdkdemo-Bridging-Header.h
 
-5.oc项目 如果是第一次导入swift 先自己创建一个swift类,会提示创建 项目名-Bridging-Header.h,再执行第四步的步骤,然后把sdk拖入项目,然后打开工程以demo为例子:选择wysdkdemo 再选择 TARGETS的wysdkdemo 选择 Build Settings 找到 Packaging > Defines Module 该为YES 最后就可以 #import "项目名-Swift.h",以后的代码和swift一样,自行转成oc即可
+5.oc项目 如果是第一次导入swift 先自己创建一个swift类,会提示创建 项目名-Bridging-Header.h,再执行第四步的步骤,然后把sdk拖入项目,然后打开工程以demo为
+例子:选择wysdkdemo 再选择 TARGETS的wysdkdemo 选择 Build Settings 找到 Packaging > Defines Module 该为YES 最后就可以 #import "项目名-Swift.h",以后
+的代码和swift一样,自行转成oc即可
 
 初始化
 
     //openid每个合作方的每个用户的唯一标识 建议写法 前缀+唯一标识 如 WY_xxxxxx
     WYSdk.getInstance().setSDK("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
+
+
 编辑页
 
     支持数据筛选,长按图片或文字修改文本
@@ -48,7 +55,8 @@ end
 
         ThreadUtils.threadOnAfterMain(1000, block: {
             let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-            let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1289, height: 806)
+            let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime
+(), width: 1289, height: 806)
 
             let arr = NSMutableArray()
             arr.addObject(block)
@@ -65,6 +73,8 @@ end
         })
     }
 }
+
+
 合作方支付
 
 //设置是否合作方的app支付,默认是false
@@ -79,6 +89,8 @@ private func myAppPay(){
 }
 //刷新支结果,用来ui显示的 {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
 WYSdk.getInstance().refreshPayState(result:String)
+
+
 默认微印支付宝或合作方的pingxx支付 回调设置
 
 项目TARGETS -> info -> URL Type -> URL Schemes 增加 weiyin
@@ -90,28 +102,40 @@ func application(application: UIApplication, openURL url: NSURL, sourceApplicati
 func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
      return Pingpp.handleOpenURL(url, withCompletion: nil)
 }
+
+
 购物车
 
     //这个是打开购物车页,需要的时候可以调用
     WYSdk.getInstance().showShopCart(self);
+
+
 订单页
 
     //这个是打开订单页,需要的时候可以调用
     WYSdk.getInstance().showOrderList(self);
     //这个是刷新订单状态的,在订单页才生效
     WYSdk.getInstance().refreshOrderState()
+
+
 了解纸质画册
 
     //这个是打开纸质画册,需要的时候可以调用
     WYSdk.getInstance().showPaper(self);
+
+
 排版页
 
 //设置好上述相关数据后调用 postPrintData() 即可预览排版页
 WYSdk.getInstance().postPrintData(self,start,success,falied)
+
+
 其他设置
 
 // 设置主题颜色 16进制的颜色 如: f56971
 WYSdk.getInstance().setThemeColor("f56971")
+
+
 SDK使用注意事项
 
 照片页和文本页是可以从属在章节页下的，add时候的顺序要注意
@@ -121,6 +145,8 @@ SDK使用注意事项
 当然如果不想放在某个章节下面就直接add照片和文本即可
 
 这些add都是有先后顺序区分的，排版页看到的顺序是add先到后
+
+
 
 swift例子
 
@@ -167,7 +193,8 @@ override func viewDidLoad() {
 
         ThreadUtils.threadOnAfterMain(1000, block: {
             let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-            let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1289, height: 806)
+            let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime
+(), width: 1289, height: 806)
 
             let arr = NSMutableArray()
             arr.addObject(block)
@@ -211,7 +238,8 @@ private func addData() {
     //拍摄时间,由于是网络图片就自定义了一个时间
     let originalTime = TimeUtils.getCurrentTime()
 
-    WYSdk.getInstance().setFrontCover("封面也就是书名", subTitle: "封面副标题", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1210, height: 681)
+    WYSdk.getInstance().setFrontCover("封面也就是书名", subTitle: "封面副标题", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: 
+originalTime, width: 1210, height: 681)
     WYSdk.getInstance().setFlyleaf("头像", url: flyleafHeadUrl, lowPixelUrl: flyleafHeadUrl, originalTime: originalTime, width: 251, height: 251)
     WYSdk.getInstance().setPreface("这是序言")
     WYSdk.getInstance().setCopyright("这是作者名称", bookName: "这个是书名")
@@ -219,16 +247,20 @@ private func addData() {
 
     WYSdk.getInstance().addPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1289, height: 806)
     WYSdk.getInstance().addTextBlock("这是一段大文本1哦,我没跟在章节后面的哦")
-    WYSdk.getInstance().addPhotoBlock("这个是照片2的描述哦,我也没跟在章节后面呢", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: originalTime, width: 1001, height: 751)
+    WYSdk.getInstance().addPhotoBlock("这个是照片2的描述哦,我也没跟在章节后面呢", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: 
+originalTime, width: 1001, height: 751)
 
     WYSdk.getInstance().addChapterBlock("我是一个章节占一页哦", des: "我是章节的描述好吧")
-    WYSdk.getInstance().addPhotoBlock("这个是照片3的描述哦,我也跟在章节后面呢", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: originalTime, width: 988, height: 738)
-    WYSdk.getInstance().addPhotoBlock("这个是照片4的描述哦,我也跟在章节后面呢", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: originalTime, width: 813, height: 592)
+    WYSdk.getInstance().addPhotoBlock("这个是照片3的描述哦,我也跟在章节后面呢", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: 
+originalTime, width: 988, height: 738)
+    WYSdk.getInstance().addPhotoBlock("这个是照片4的描述哦,我也跟在章节后面呢", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: 
+originalTime, width: 813, height: 592)
     WYSdk.getInstance().addTextBlock("我是一个跟章节后面的文本2")
 
     WYSdk.getInstance().addChapterBlock("我是章节2", des: "我是章节的描述好吧")
     WYSdk.getInstance().addPhotoBlock("", url: photoUrl5, lowPixelUrl: photoUrl5, originalTime: originalTime, width: 1208, height: 806)
-    WYSdk.getInstance().addPhotoBlock("这个是照片6的描述哦,我也跟在章节后面呢", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: originalTime, width: 626, height: 468)
+    WYSdk.getInstance().addPhotoBlock("这个是照片6的描述哦,我也跟在章节后面呢", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: 
+originalTime, width: 626, height: 468)
     WYSdk.getInstance().addTextBlock("我是跟章节2后面的文本哦")
 }
 
@@ -253,6 +285,9 @@ func submitData(){
     postData()
 }
 }
+
+
+
 oc例子
 
 #import "ocsdkdemo-Swift.h"
@@ -362,7 +397,8 @@ WYSdk *sdk;
     NSDate* date = [[NSDate alloc] init];
     NSInteger originalTime =  round(date.timeIntervalSince1970);
 
-    [sdk setFrontCover:@"封面也就是书名" subTitle: @"封面副标题" url: frontCoverUrl lowPixelUrl: frontCoverUrl originalTime: originalTime  width: 1210 height: 681];
+    [sdk setFrontCover:@"封面也就是书名" subTitle: @"封面副标题" url: frontCoverUrl lowPixelUrl: frontCoverUrl originalTime: originalTime  width: 
+1210 height: 681];
 
     [sdk setFlyleaf:@"头像"  url: flyleafHeadUrl  lowPixelUrl: flyleafHeadUrl  originalTime: originalTime  width: 251  height: 251];
     [sdk setPreface:@"这是序言"];
@@ -371,16 +407,20 @@ WYSdk *sdk;
 
     [sdk addPhotoBlock:@"图片1"  url: photoUrl1  lowPixelUrl: photoUrl1  originalTime: originalTime  width: 1289  height: 806];
     [sdk addTextBlock:@"这是一段大文本1哦 我没跟在章节后面的哦"];
-    [sdk addPhotoBlock:@"这个是照片2的描述哦 我也没跟在章节后面呢"  url: photoUrl2  lowPixelUrl: photoUrl2  originalTime: originalTime  width: 1001  height: 751];
+    [sdk addPhotoBlock:@"这个是照片2的描述哦 我也没跟在章节后面呢"  url: photoUrl2  lowPixelUrl: photoUrl2  originalTime: originalTime  width: 
+1001  height: 751];
 
     [sdk addChapterBlock:@"我是一个章节占一页哦"  des: @"我是章节的描述好吧"];
-    [sdk addPhotoBlock:@"这个是照片3的描述哦 我也跟在章节后面呢"  url: photoUrl3  lowPixelUrl: photoUrl3  originalTime: originalTime  width: 988  height: 738];
-    [sdk addPhotoBlock:@"这个是照片4的描述哦 我也跟在章节后面呢"  url: photoUrl4  lowPixelUrl: photoUrl4  originalTime: originalTime  width: 813  height: 592];
+    [sdk addPhotoBlock:@"这个是照片3的描述哦 我也跟在章节后面呢"  url: photoUrl3  lowPixelUrl: photoUrl3  originalTime: originalTime  width: 988  
+height: 738];
+    [sdk addPhotoBlock:@"这个是照片4的描述哦 我也跟在章节后面呢"  url: photoUrl4  lowPixelUrl: photoUrl4  originalTime: originalTime  width: 813  
+height: 592];
     [sdk addTextBlock:@"我是一个跟章节后面的文本2"];
 
     [sdk addChapterBlock:@"我是章节2"  des: @"我是章节的描述好吧"];
     [sdk addPhotoBlock:@""  url: photoUrl5  lowPixelUrl: photoUrl5  originalTime: originalTime  width: 1208  height: 806];
-    [sdk addPhotoBlock:@"这个是照片6的描述哦 我也跟在章节后面呢"  url: photoUrl6  lowPixelUrl: photoUrl6  originalTime: originalTime  width: 626  height: 468];
+    [sdk addPhotoBlock:@"这个是照片6的描述哦 我也跟在章节后面呢"  url: photoUrl6  lowPixelUrl: photoUrl6  originalTime: originalTime  width: 626  
+height: 468];
     [sdk addTextBlock:@"我是跟章节2后面的文本哦"];
 }
 
