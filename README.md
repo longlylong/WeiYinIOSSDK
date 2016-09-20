@@ -281,7 +281,7 @@ swift例子
 
     func submitData(){
         addData()
-        postData()
+        postData(WYSdk.Print_Book)
     }
     }
 
@@ -418,9 +418,9 @@ oc例子
         [sdk addTextBlock:@"我是跟章节2后面的文本哦"];
     }
 
-    - (void) postData{
+    - (void) postData:(NSInteger)bookType{
 
-        [sdk postPrintData:self start:^{
+        [sdk postPrintData:self bookType:bookType start:^{
             [loading start];
     } success:^(id result) {
             [loading stop];
