@@ -129,6 +129,7 @@ TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最
 
 
 排版页
+
     //设置好上述相关数据后调用 postPrintData() 即可预览排版页
     //bookType=> WYSdk.Print_Book,WYSdk.Print_Card,WYSdk.Print_Photo,WYSdk.Print_Calendar
     WYSdk.getInstance().postPrintData(self,bookType,start,success,falied)
