@@ -1,8 +1,8 @@
-IOS SDK开发包 版本号 1.3.0 日期 20160808
+IOS SDK开发包 版本号 1.4.0 日期 20160920
 
 安装
 
-微印sdk只支持ios7.0以上版本
+微印sdk只支持ios8.0以上版本,目前适配Xcode8 swift2.3
 
 当您下载了WeiYin IOS SDK 的 zip 包后，进行以下步骤:(oc项目需先看完步骤,swift项目顺序执行即可)
 
@@ -21,6 +21,11 @@ IOS SDK开发包 版本号 1.3.0 日期 20160808
     pod 'Pingpp/Alipay'
     pod 'Pingpp/Wx'
 
+    #网络库
+    pod 'Alamofire','~>3.5.0'
+
+    #缓存库
+    pod 'Kingfisher','~>2.5.1'
     end
 
 
@@ -124,9 +129,9 @@ TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最
 
 
 排版页
-
     //设置好上述相关数据后调用 postPrintData() 即可预览排版页
-    WYSdk.getInstance().postPrintData(self,start,success,falied)
+    //bookType=> WYSdk.Print_Book,WYSdk.Print_Card,WYSdk.Print_Photo,WYSdk.Print_Calendar
+    WYSdk.getInstance().postPrintData(self,bookType,start,success,falied)
 
 
 其他设置
