@@ -7,7 +7,6 @@
 
 //支付的
 #import "Pingpp.h"
-#import "Bolts.h"
 
 #endif
 

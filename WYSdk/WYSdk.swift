@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.3.0
+//  WYSdk v1.4.0
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -15,6 +15,12 @@ public class WYSdk : BaseSdk {
     public static let PAY_FAIL = "fail" // payment failed
     public static let PAY_CANCEL = "cancel" // user canceld
     public static let PAY_INVALID = "invalid" // payment plugin not installed
+    
+    //成品类型
+    public static let Print_Book = 0// 成书
+    public static let Print_Card = 1// 成卡片
+    public static let Print_Photo = 3// 照片冲印
+    public static let Print_Calendar = 4// 台历
     
     private static var onceToken : dispatch_once_t = 0
     private static var mInstance : WYSdk?
@@ -358,7 +364,7 @@ public class WYSdk : BaseSdk {
     /**
      * 提交数据
      */
-    public func postPrintData(vc: UIViewController,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
+    public func postPrintData(vc: UIViewController,bookType:Int,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
         let controller = Controller(start, success, failed)
         callStart(controller)
         
@@ -370,17 +376,17 @@ public class WYSdk : BaseSdk {
             }
             
             if isShowDataSelectPage {
-                SelectDataViewController.launch(vc)
+                SelectDataViewController.launch(vc,bookType: bookType)
                 callSuccess(controller, t: -1)
             }else{
-                requestPrint(vc, failedClear: true,start: start, success: success, failed: failed)
+                requestPrint(vc, bookType: bookType,failedClear: true,start: start, success: success, failed: failed)
             
             }
             
         }else{
             let c = Controller(nil, { (result) in
                 
-                self.postPrintData(vc,start: start, success: success, failed: failed)
+                self.postPrintData(vc,bookType: bookType,start: start, success: success, failed: failed)
                 
                 }, { (msg) in
                     
@@ -391,11 +397,12 @@ public class WYSdk : BaseSdk {
         }
     }
     
-    public func requestPrint(vc: UIViewController, failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
+    public func requestPrint(vc: UIViewController, bookType:Int,failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
         let controller = Controller(start, success, failed)
         
         runOnAsync({
             self.structDataBean.identity = self.getIdentity()
+            self.structDataBean.bookType = bookType
             let printBean = self.wyProtocol.postStructData(self.structDataBean)
             self.handleResult(printBean, controller, resultOk: {
                 

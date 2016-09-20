@@ -7,8 +7,8 @@
 //
 
 import Foundation 
-//import Alamofire
-//import Bolts
+import Alamofire
+import Bolts
 
 class BaseProtocol : NSObject{
     
@@ -16,7 +16,7 @@ class BaseProtocol : NSObject{
         
         let tcs = BFTaskCompletionSource()
         let head = ["Content-type":"text/json","Nonce":"\(nonce)","Timestamp":"\(timestamp)","Authorization":signature]
-        /*Alamofire.*/request(Method.POST, url, parameters: json ,encoding: ParameterEncoding.JSON,headers: head)
+        Alamofire.request(Method.POST, url, parameters: json ,encoding: ParameterEncoding.JSON,headers: head)
             .responseJSON() {  response -> Void in
                 
                 if(response.result.isFailure){
@@ -47,7 +47,7 @@ class BaseProtocol : NSObject{
     func sendGetRequest(url:String) ->AnyObject?{
         let tcs = BFTaskCompletionSource()
         
-        /*Alamofire.*/request(Method.GET, url)
+        Alamofire.request(Method.GET, url)
             .responseJSON() { response -> Void in
                 
                 if(response.result.isFailure){

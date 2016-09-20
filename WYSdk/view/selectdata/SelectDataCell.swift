@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import Kingfisher
+import Kingfisher
 
 class SelectDataCell: UICollectionViewCell {
     

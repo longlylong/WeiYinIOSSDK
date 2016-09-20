@@ -17,13 +17,30 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBarHidden  = false
         self.navigationItem.title = "demo"
         
-        let mSubmitDataButton =  UIButton(frame: CGRectMake(0,0,200,200))
-        mSubmitDataButton.setTitle("点击开始制作", forState: UIControlState.Normal)
-        mSubmitDataButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        mSubmitDataButton.addTarget(self, action: #selector(ViewController.submitData), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(mSubmitDataButton)
+        let mPrintBookButton =  UIButton(frame: CGRectMake(0,200,200,48))
+        mPrintBookButton.setTitle("照片书", forState: UIControlState.Normal)
+        mPrintBookButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        mPrintBookButton.addTarget(self, action: #selector(ViewController.printBook), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(mPrintBookButton)
        
+        let mPrintCardButton =  UIButton(frame: CGRectMake(0,250,200,48))
+        mPrintCardButton.setTitle("卡片", forState: UIControlState.Normal)
+        mPrintCardButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        mPrintCardButton.addTarget(self, action: #selector(ViewController.printCard), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(mPrintCardButton)
   
+        let mPrintPhotoButton =  UIButton(frame: CGRectMake(0,300,200,48))
+        mPrintPhotoButton.setTitle("照片冲印", forState: UIControlState.Normal)
+        mPrintPhotoButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        mPrintPhotoButton.addTarget(self, action: #selector(ViewController.printPhoto), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(mPrintPhotoButton)
+        
+        let mPrintCalendarButton =  UIButton(frame: CGRectMake(0,350,200,48))
+        mPrintCalendarButton.setTitle("台历", forState: UIControlState.Normal)
+        mPrintCalendarButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        mPrintCalendarButton.addTarget(self, action: #selector(ViewController.printCalendar), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(mPrintCalendarButton)
+        
         self.view.addSubview(loadingIndicator)
         
         //编辑页设置
@@ -119,8 +136,8 @@ class ViewController: UIViewController {
         WYSdk.getInstance().addTextBlock("我是跟章节2后面的文本哦")
     }
     
-    private func postData() {
-        WYSdk.getInstance().postPrintData(self, start: { 
+    private func postData(bookType:Int) {
+        WYSdk.getInstance().postPrintData(self, bookType: bookType,start: {
             
             self.loadingIndicator.start()
             
@@ -135,8 +152,23 @@ class ViewController: UIViewController {
         }
     }
     
-    func submitData(){
+    func printBook(){
         addData()
-        postData()
+        postData(WYSdk.Print_Book)
+    }
+    
+    func printCard(){
+        addData()
+        postData(WYSdk.Print_Card)
+    }
+    
+    func printPhoto(){
+        addData()
+        postData(WYSdk.Print_Photo)
+    }
+    
+    func printCalendar(){
+        addData()
+        postData(WYSdk.Print_Calendar)
     }
 }

@@ -17,12 +17,15 @@ public class RequestStructDataBean : NSObject {
     func toJson() -> [String:AnyObject] {
         return[
             "identity":identity,
+            "bookType":bookType,
             "unionId":unionId,
             "structData":structData.toJson()
         ]
     }
 
     var identity = ""
+    
+    var bookType = 0 // WYsdk.Print_Book
     
     /**
      * 第一次提交不用 分批以后第二次提交要传这个

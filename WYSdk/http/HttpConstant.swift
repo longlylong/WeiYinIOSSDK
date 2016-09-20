@@ -13,7 +13,7 @@ class HttpConstant {
     /**
     * 线上服务器
     */
-    static var  ONLINE_SERVER = true
+    private static var  ONLINE_SERVER = true
             
     private static let  Online_Api_Url = "http://openapi.weiyin.cc/"  //接口
     private static let  Test_Api_Url = "http://apitest.weiyin.cc/"   //接口

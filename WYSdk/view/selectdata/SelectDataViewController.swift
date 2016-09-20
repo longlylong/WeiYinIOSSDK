@@ -25,12 +25,17 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     private var mLastLongPressIndex : NSIndexPath?
     private var mLastLongPressBlock : RequestStructDataBean.Block?
     
-    static func launch(vc:UIViewController){
+    var mBookType = 0 // WYsdk.Print_Book
+    
+    
+    static func launch(vc:UIViewController,bookType:Int){
         let selectDataVC = SelectDataViewController()
         selectDataVC.VC = vc
+        selectDataVC.mBookType = bookType
         let nv = UINavigationController(rootViewController: selectDataVC)
         vc.presentViewController(nv, animated: true, completion: nil)
     }
+    
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 0.5 {
             if WYSdk.getInstance().isLoadMore() {
@@ -179,6 +184,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             }
         }
         if count == 0 {
+            loadingIndicator.stop()
             return
         }
         var selectedArr = Array<RequestStructDataBean.Block>()
@@ -200,7 +206,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         structData.structData.dataBlocks = selectedArr
         
         
-        WYSdk.getInstance().requestPrint(VC!,failedClear: false,start: {
+        WYSdk.getInstance().requestPrint(VC!,bookType: mBookType,failedClear: false,start: {
             
             }, success: { (result) in
                 
