@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
-class BaseResultBean : AnyObject{
+class BaseResultBean : HandyJSON{
     
+    required init() {
+        
+    }
     
     var resultCode = ""
     
@@ -19,14 +23,4 @@ class BaseResultBean : AnyObject{
     func ok()->Bool{
         return HttpConstant.SUCCESS == self.resultCode
     }
-    
-     static func toBaseResultBean(jsonData:AnyObject?) -> BaseResultBean {
-        let json  = JSON(jsonData!)
-        let bean = BaseResultBean()
-        bean.resultCode = json["resultCode"].stringValue
-        bean.errorMsg = json["errorMsg"].stringValue
-
-        return bean
-    }
-    
 }

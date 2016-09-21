@@ -11,16 +11,9 @@ import Foundation
 
 class CouponActivatedBean :BaseResultBean{
     
-    var ticket  = CouponBean.Ticket()
-    
-    static func toCouponActivatedBean(jsonData:AnyObject?) -> CouponActivatedBean {
-        let json  = JSON(jsonData!)
-        let bean = CouponActivatedBean()
-        bean.errorMsg = json["errorMsg"].stringValue
-        bean.resultCode = json["resultCode"].stringValue
+    required init() {
         
-        bean.ticket  = CouponBean.getTicket(json)
-        
-        return bean
     }
+    
+    var ticket  = CouponBean.Ticket()
 }

@@ -31,7 +31,7 @@ class BaseProtocol : NSObject{
                     tcs.setResult(response.result.value)
                     
                     print("")
-                    print("postRequest " + "\(BaseResultBean.toBaseResultBean(response.result.value).resultCode)" + " --" + url)
+                    print("postRequest " + "\(Converter<BaseResultBean>.conver(response.result.value)?.resultCode)" + " --" + url)
                     print("")
                 }
         }

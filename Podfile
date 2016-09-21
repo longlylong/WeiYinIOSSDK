@@ -15,4 +15,7 @@ pod 'Alamofire','~>3.5.0'
 #缓存库
 pod 'Kingfisher','~>2.5.1'
 
+#json
+pod 'HandyJSON'#,'~>0.1.0'
+
 end

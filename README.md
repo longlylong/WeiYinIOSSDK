@@ -8,12 +8,14 @@ IOS SDK开发包 版本号 1.4.0 日期 20160920
 
 1.把WYSdk拖到你工程的适当目录(如根目录),松手后会弹出选择框,选择 copy items if needed,Create groups,add to targets 然后finish
 
-2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例)
+2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例 swift2.3pod)
 
     source 'https://github.com/CocoaPods/Specs.git'
-    platform :ios, '7.0'
+    platform :ios, '8.0'
+    use_frameworks!
 
     target '项目target' do
+
     #线程库 阻塞线程的
     pod 'Bolts'
 
@@ -26,6 +28,10 @@ IOS SDK开发包 版本号 1.4.0 日期 20160920
 
     #缓存库
     pod 'Kingfisher','~>2.5.1'
+
+    #json
+    pod 'HandyJSON'#,'~>0.1.0'
+
     end
 
 

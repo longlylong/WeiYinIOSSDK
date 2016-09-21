@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
 /**
@@ -17,7 +18,11 @@ class ShopCartListBean : BaseResultBean  {
     
     var cars = Array<Cart>()
     
-    class Cart{
+    class Cart : HandyJSON{
+        
+        required init() {
+            
+        }
         
         var bookId = 0
         var count = 0
@@ -31,21 +36,7 @@ class ShopCartListBean : BaseResultBean  {
         var frontImage = ""
     
         var bookMakeType = 0
-        
-        static func toCart(json:JSON)->Cart{
-            let c = Cart()
-            c.bookId = json["bookId"].intValue
-            c.count = json["count"].intValue
-            c.carId = json["carId"].intValue
-            c.bookName = json["bookName"].stringValue
-            c.pricePageCount = json["pricePageCount"].intValue
-            c.price = json["price"].floatValue
-            c.volume = json["volume"].intValue
-            c.frontImage = json["frontImage"].stringValue
-            c.bookMakeType = json["bookMakeType"].intValue
-            return c
-        }
-        
+
         func toJson()-> [String : AnyObject]{
             return [
                 "bookId" : bookId,
@@ -73,18 +64,9 @@ class ShopCartListBean : BaseResultBean  {
 
     
     static func toShopCartListBean(jsonData:AnyObject?) -> ShopCartListBean {
-        let json  = JSON(jsonData!)
-        let bean = ShopCartListBean()
-        bean.errorMsg = json["errorMsg"].stringValue
-        bean.resultCode = json["resultCode"].stringValue
-        
-        let cartArr = json["cars"]
-        
-        for(_, subJson): (String, JSON) in cartArr{
-            bean.cars.append(Cart.toCart(subJson))
-        }
-        
-        return bean
+        var bean = Converter<ShopCartListBean>.conver(jsonData)
+        bean = bean == nil ? ShopCartListBean() : bean
+        return bean!
     }
     
 }

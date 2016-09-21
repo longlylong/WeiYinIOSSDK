@@ -24,19 +24,4 @@ class PayBean : BaseResultBean {
     var charge = ""
     
     var isPay = false
-    
-    static func toPayBean(jsonData:AnyObject?) -> PayBean {
-        let json  = JSON(jsonData!)
-        let bean = PayBean()
-        bean.errorMsg = json["errorMsg"].stringValue
-        bean.resultCode = json["resultCode"].stringValue
-        
-        bean.charge = json["charge"].stringValue
-        bean.isPay = json["isPay"].boolValue
-        bean.orderSerial = json["orderSerial"].stringValue
-        bean.randomKey = json["randomKey"].stringValue
-        bean.price = json["price"].floatValue
-        
-        return bean
-    }
 }
