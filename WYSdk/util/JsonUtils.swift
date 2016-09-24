@@ -10,16 +10,16 @@ import Foundation
 
 class JsonUtils {
     
-    static func toDic(json:String) -> AnyObject?{
-        let data = json.dataUsingEncoding(NSUTF8StringEncoding)
-        let dic = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-        return dic
+    static func toDic(_ json:String) -> AnyObject?{
+        let data = json.data(using: String.Encoding.utf8)
+        let dic = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+        return dic as AnyObject?
     }
     
-   static func toJSONString(dict:NSDictionary)->String{
-        let data = try? NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
-        let strJson = NSString(data: data!, encoding: NSUTF8StringEncoding)
-        return String(strJson!).stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString("\\",withString: "")
+   static func toJSONString(_ dict:NSDictionary)->String{
+        let data = try? JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
+        let strJson = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        return String(strJson!).replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\\",with: "")
         
     }
 }

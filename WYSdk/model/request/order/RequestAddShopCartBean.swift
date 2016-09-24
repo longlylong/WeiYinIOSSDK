@@ -20,11 +20,11 @@ class RequestAddShopCartBean : BaseRequestBean {
     override func toJson() -> [String : AnyObject] {
         
         return [
-            "identity" : identity ,
+            "identity" : identity as AnyObject ,
 
-            "bookid" : bookid ,
-            "count" : count,
-            "bookMakeType":bookMakeType
+            "bookid" : bookid as AnyObject ,
+            "count" : count as AnyObject,
+            "bookMakeType":bookMakeType as AnyObject
         ]
     }
 }

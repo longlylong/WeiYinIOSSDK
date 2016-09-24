@@ -7,15 +7,35 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class BookWebView : BaseUIViewController,UIWebViewDelegate{
     
-    private var loadingIndicator = LoadingView()
+    fileprivate var loadingIndicator = LoadingView()
     
-    static func launch(controller:UIViewController,url:String){
+    static func launch(_ controller:UIViewController,url:String){
         let webController = BookWebView()
         webController.mUrl = url
-        controller.presentViewController(webController, animated: true, completion: nil)
+        controller.present(webController, animated: true, completion: nil)
     }
     
     var mPublicWebView = WYWebView()
@@ -27,20 +47,20 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
         self.view.addSubview(loadingIndicator)
     }
     
-    private func transfromScreen(){
-        UIApplication.sharedApplication().setStatusBarOrientation(.LandscapeRight, animated: true)
+    fileprivate func transfromScreen(){
+        UIApplication.shared.setStatusBarOrientation(.landscapeRight, animated: true)
     
-        mPublicWebView.frame = CGRectMake(0, 0, UIUtils.getScreenHeight(), UIUtils.getScreenWidth())
-        mPublicWebView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI*0.5))
+        mPublicWebView.frame = CGRect(x: 0, y: 0, width: UIUtils.getScreenHeight(), height: UIUtils.getScreenWidth())
+        mPublicWebView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI*0.5))
         let rect = mPublicWebView.frame
-        mPublicWebView.frame = CGRectMake(0, 0, rect.size.width, rect.size.height)
+        mPublicWebView.frame = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.height)
     }
     
     func setPublicWebView(){
         if mUrl.isEmpty{
             mUrl = "http://app.weiyin.cc"
         }
-        let request = NSURLRequest(URL: NSURL(string: mUrl)!)
+        let request = URLRequest(url: URL(string: mUrl)!)
         mPublicWebView.loadRequest(request)
         mPublicWebView.delegate = self
         mPublicWebView.scalesPageToFit = true
@@ -49,17 +69,17 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
     
     //返回
     func clickBack(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        var urlString = request.URL?.absoluteString
-        urlString = urlString?.stringByRemovingPercentEncoding
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        var urlString = request.url?.absoluteString
+        urlString = urlString?.removingPercentEncoding
         
-        var urlComps:[String]! = (urlString?.componentsSeparatedByString("://"))
+        var urlComps:[String]! = (urlString?.components(separatedBy: "://"))
         if(urlComps?.count > 0 && urlComps[0] == "ios"){
 
-            var params:[String]! = urlComps[1].componentsSeparatedByString("#!#")
+            var params:[String]! = urlComps[1].components(separatedBy: "#!#")
             
             let funcName = params[0]
             
@@ -84,7 +104,7 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
         return true
     }
     
-    private func addShopCart(bookId:String,count:String,workmanship:String,_ webView:UIWebView){
+    fileprivate func addShopCart(_ bookId:String,count:String,workmanship:String,_ webView:UIWebView){
         
         if(bookId.isEmpty || bookId == "null"){
             loadingIndicator.stop()
@@ -104,27 +124,27 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
         }
     }
     
-    private func loadJsFunc(webview:UIWebView,funcName:String){
-        webview.stringByEvaluatingJavaScriptFromString(funcName+"()")
+    fileprivate func loadJsFunc(_ webview:UIWebView,funcName:String){
+        webview.stringByEvaluatingJavaScript(from: funcName+"()")
     }
     
-    private func loadJsFunc(webview:UIWebView,funcName:String,param:String){
-        webview.stringByEvaluatingJavaScriptFromString(funcName+"('"+"\(param)"+"')")
+    fileprivate func loadJsFunc(_ webview:UIWebView,funcName:String,param:String){
+        webview.stringByEvaluatingJavaScript(from: funcName+"('"+"\(param)"+"')")
     }
     
-    func webViewDidFinishLoad(webView: UIWebView){
+    func webViewDidFinishLoad(_ webView: UIWebView){
         loadingIndicator.stop()
     }
     
-    func webViewDidStartLoad(webView: UIWebView){
+    func webViewDidStartLoad(_ webView: UIWebView){
         loadingIndicator.start()
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?){
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error){
         loadingIndicator.stop()
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

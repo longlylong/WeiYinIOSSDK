@@ -7,41 +7,61 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,WYEditTextDelegate,UIScrollViewDelegate,WeiYinDownSheetDelegate,WeiYinFootDelegate{
     
-    private var mCollectionView :UICollectionView!
-    private var mData = NSMutableDictionary()
-    private var mKeys = Array<String>()
-    private var mHead = Array<RequestStructDataBean.Block>()
+    fileprivate var mCollectionView :UICollectionView!
+    fileprivate var mData = NSMutableDictionary()
+    fileprivate var mKeys = Array<String>()
+    fileprivate var mHead = Array<RequestStructDataBean.Block>()
     
-    private var loadingIndicator = LoadingView()
-    private var VC : UIViewController?
+    fileprivate var loadingIndicator = LoadingView()
+    fileprivate var VC : UIViewController?
     
-    private var mSheet = WeiYinDownSheet()
+    fileprivate var mSheet = WeiYinDownSheet()
     
-    private var isLoadMore = false
+    fileprivate var isLoadMore = false
     
-    private var mLastVisibleIndex : NSIndexPath?
-    private var mLastLongPressIndex : NSIndexPath?
-    private var mLastLongPressBlock : RequestStructDataBean.Block?
+    fileprivate var mLastVisibleIndex : IndexPath?
+    fileprivate var mLastLongPressIndex : IndexPath?
+    fileprivate var mLastLongPressBlock : RequestStructDataBean.Block?
     
     var mBookType = 0 // WYsdk.Print_Book
     
     
-    static func launch(vc:UIViewController,bookType:Int){
+    static func launch(_ vc:UIViewController,bookType:Int){
         let selectDataVC = SelectDataViewController()
         selectDataVC.VC = vc
         selectDataVC.mBookType = bookType
         let nv = UINavigationController(rootViewController: selectDataVC)
-        vc.presentViewController(nv, animated: true, completion: nil)
+        vc.present(nv, animated: true, completion: nil)
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 0.5 {
             if WYSdk.getInstance().isLoadMore() {
-                if mLastVisibleIndex?.section == mHead.count - 1 && !isLoadMore{
-                    let arr = mData.valueForKey(mKeys[mLastVisibleIndex!.section])
-                    if mLastVisibleIndex?.row >= arr!.count - 1 {
+                if (mLastVisibleIndex as NSIndexPath?)?.section == mHead.count - 1 && !isLoadMore{
+                    let arr = mData.value(forKey: mKeys[(mLastVisibleIndex! as NSIndexPath).section])
+                    if (mLastVisibleIndex as NSIndexPath?)?.row >= (arr! as AnyObject).count - 1 {
                         isLoadMore = true
                         loadingIndicator.start()
                         WYSdk.getInstance().getWyLoadMoreDelegate()?()
@@ -59,19 +79,19 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         
         let itemSize = (UIUtils.getScreenWidth() - 2) * 0.333
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.headerReferenceSize = CGSizeMake(UIUtils.getScreenWidth(), 40)       //设置CollectionView 头的大小
-        flowLayout.itemSize = CGSizeMake(itemSize, itemSize)
-        flowLayout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        flowLayout.headerReferenceSize = CGSize(width: UIUtils.getScreenWidth(), height: 40)       //设置CollectionView 头的大小
+        flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
+        flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.minimumLineSpacing = 1
-        mCollectionView = UICollectionView(frame:CGRectMake(0,0, UIUtils.getScreenWidth(), UIUtils.getScreenHeight()), collectionViewLayout: flowLayout)
+        mCollectionView = UICollectionView(frame:CGRect(x: 0,y: 0, width: UIUtils.getScreenWidth(), height: UIUtils.getScreenHeight()), collectionViewLayout: flowLayout)
         mCollectionView.delegate = self
         mCollectionView.dataSource = self
-        mCollectionView.backgroundColor = UIColor.whiteColor()
-        mCollectionView.registerClass(SelectDataCell.self, forCellWithReuseIdentifier: SelectDataCell.getReuseIdentifier())
-        mCollectionView.registerClass(SelectSection.self,forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self,withReuseIdentifier: SelectSection.getReuseIdentifier())
+        mCollectionView.backgroundColor = UIColor.white
+        mCollectionView.register(SelectDataCell.self, forCellWithReuseIdentifier: SelectDataCell.getReuseIdentifier())
+        mCollectionView.register(SelectSection.self,forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self,withReuseIdentifier: SelectSection.getReuseIdentifier())
         
-        mCollectionView.registerClass(SelectFoot.self,forSupplementaryViewOfKind: UICollectionElementKindSectionFooter.self,withReuseIdentifier: SelectFoot.getReuseIdentifier())
+        mCollectionView.register(SelectFoot.self,forSupplementaryViewOfKind: UICollectionElementKindSectionFooter.self,withReuseIdentifier: SelectFoot.getReuseIdentifier())
         
         mCollectionView.alwaysBounceVertical = true
         
@@ -104,7 +124,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
                     arr.append(block)
                 }
                 
-                mData.setObject(arr, forKey: lastKey)
+                mData.setObject(arr, forKey: lastKey as NSCopying)
                 mKeys.append(lastKey)
             }else{
                
@@ -113,18 +133,18 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
                     mHead.append(block)
                     mKeys.append(lastKey)
                 }else{
-                    var arr = mData.valueForKey(lastKey) as? Array<RequestStructDataBean.Block>
+                    var arr = mData.value(forKey: lastKey) as? Array<RequestStructDataBean.Block>
                     if arr == nil {
                         arr = Array<RequestStructDataBean.Block>()
                     }
                     arr!.append(block)
-                    mData.setObject(arr!, forKey: lastKey)
+                    mData.setObject(arr!, forKey: lastKey as NSCopying)
                 }
             }
         }
     }
     
-    func addLoadMoreData(blockList:NSMutableArray?) {
+    func addLoadMoreData(_ blockList:NSMutableArray?) {
         loadingIndicator.stop()
         isLoadMore = false
         
@@ -134,13 +154,13 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         }
     }
     
-    func handleCollectViewLongPress(gesture:UILongPressGestureRecognizer){
-        let point = gesture.locationInView(mCollectionView)
-        let indexPath = mCollectionView.indexPathForItemAtPoint(point)
+    func handleCollectViewLongPress(_ gesture:UILongPressGestureRecognizer){
+        let point = gesture.location(in: mCollectionView)
+        let indexPath = mCollectionView.indexPathForItem(at: point)
         if indexPath != nil {
-            let key = mKeys[indexPath!.section]
-            let arr = mData.valueForKey(key) as! Array<RequestStructDataBean.Block>
-            let block = arr[indexPath!.row]
+            let key = mKeys[(indexPath! as NSIndexPath).section]
+            let arr = mData.value(forKey: key) as! Array<RequestStructDataBean.Block>
+            let block = arr[(indexPath! as NSIndexPath).row]
             
             block.isSelected = true
             
@@ -154,19 +174,19 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             mLastLongPressBlock = block
             mLastLongPressIndex = indexPath
             
-            mCollectionView.reloadItemsAtIndexPaths([indexPath!])
+            mCollectionView.reloadItems(at: [indexPath!])
             EditTextViewController.launch(self, text: text, wyEditTextDelegate: self)
         }
         
     }
     
-    func textViewDidChange(text:String){
+    func textViewDidChange(_ text:String){
         if mLastLongPressBlock!.blockType == RequestStructDataBean.TYPE_TEXT {
              mLastLongPressBlock!.text = text
         }else if mLastLongPressBlock!.blockType == RequestStructDataBean.TYPE_PHOTO{
              mLastLongPressBlock!.resource.desc = text
         }
-        mCollectionView.reloadItemsAtIndexPaths([mLastLongPressIndex!])
+        mCollectionView.reloadItems(at: [mLastLongPressIndex!])
     }
     
     func handleRightButton(){
@@ -210,7 +230,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             
             }, success: { (result) in
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 self.loadingIndicator.stop()
                 
             }) { (msg) in
@@ -234,22 +254,22 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         
         let shopcart = WeiYinDownSheetModel()
         shopcart.text = "购物车"
-        data.addObject(shopcart)
+        data.add(shopcart)
         
         let myorder = WeiYinDownSheetModel()
         myorder.text = "我的订单"
-        data.addObject(myorder)
+        data.add(myorder)
         
         let about = WeiYinDownSheetModel()
         about.text = "实物介绍"
-        data.addObject(about)
+        data.add(about)
         
         mSheet.initWYDownSheet(data)
         mSheet.ShowInView(self)
     }
     
     //MARK: 一些点击回调
-    func onSheetSelectIndex(index: Int) {
+    func onSheetSelectIndex(_ index: Int) {
         if index == 0 {
             WYSdk.getInstance().showShopCart(self)
         }else if index == 1{
@@ -261,7 +281,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     func onSheetCancel() {
         WYSdk.getInstance().resetStructDataBean()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func onFootClick() {
@@ -275,24 +295,24 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     }
     
     //MARK: collectionView 的生命周期
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return mData.count
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let key = mKeys[section]
-        let arr = mData.valueForKey(key) as? Array<RequestStructDataBean.Block>
+        let arr = mData.value(forKey: key) as? Array<RequestStructDataBean.Block>
         return arr!.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var view  = collectionView.dequeueReusableCellWithReuseIdentifier(SelectDataCell.getReuseIdentifier(), forIndexPath: indexPath) as? SelectDataCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var view  = collectionView.dequeueReusableCell(withReuseIdentifier: SelectDataCell.getReuseIdentifier(), for: indexPath) as? SelectDataCell
         if view == nil {
             view = SelectDataCell()
         }
-        var arr = mData.valueForKey(mKeys[indexPath.section]) as! Array<RequestStructDataBean.Block>
+        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<RequestStructDataBean.Block>
         
-        view!.showData(arr[indexPath.row])
+        view!.showData(arr[(indexPath as NSIndexPath).row])
         
         mLastVisibleIndex = indexPath
         
@@ -300,19 +320,19 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     }
     
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
-            var view = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader.self, withReuseIdentifier: SelectSection.getReuseIdentifier(), forIndexPath: indexPath) as? SelectSection
+            var view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: SelectSection.getReuseIdentifier(), for: indexPath) as? SelectSection
             if view == nil {
                 view = SelectSection()
             }
             
-            let head = mHead[indexPath.section]
+            let head = mHead[(indexPath as NSIndexPath).section]
             view!.setHeaderData(head, indexPath: indexPath)
-            view!.mAllSelectBtn.addTarget(self, action: #selector(SelectDataViewController.allPhotosCheckClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            view!.mAllSelectBtn.addTarget(self, action: #selector(SelectDataViewController.allPhotosCheckClick(_:)), for: UIControlEvents.touchUpInside)
             return view!
         }else {
-            var view = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter.self, withReuseIdentifier: SelectFoot.getReuseIdentifier(), forIndexPath: indexPath) as? SelectFoot
+            var view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter.self, withReuseIdentifier: SelectFoot.getReuseIdentifier(), for: indexPath) as? SelectFoot
             if view == nil {
                 view = SelectFoot()
             }
@@ -326,12 +346,12 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     /*********
      根据照片的宽高比计算每个cell的高度
      ***********/
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         let itemSize = (UIUtils.getScreenWidth() - 2)*0.333
-        return CGSizeMake(itemSize, itemSize)
+        return CGSize(width: itemSize, height: itemSize)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if WYSdk.getInstance().isLoadMore() {
             if section == mData.count - 1 {
                 return SelectFoot().getHeight()
@@ -343,32 +363,32 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         }
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SelectDataCell
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! SelectDataCell
         
-        var arr = mData.valueForKey(mKeys[indexPath.section]) as! Array<RequestStructDataBean.Block>
+        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<RequestStructDataBean.Block>
         
-        let block = arr[indexPath.row]
+        let block = arr[(indexPath as NSIndexPath).row]
         block.isSelected = !block.isSelected
         
         cell.isSelected(block.isSelected)
     }
     
-    func allPhotosCheckClick(sender:UIButton){
+    func allPhotosCheckClick(_ sender:UIButton){
         let section = sender.tag
-        let arr = mData.valueForKey(mKeys[section]) as! Array<RequestStructDataBean.Block>
+        let arr = mData.value(forKey: mKeys[section]) as! Array<RequestStructDataBean.Block>
         let head = mHead[section]
         head.isSelected = !head.isSelected
         for block in arr {
             block.isSelected = head.isSelected
         }
         
-        mCollectionView.reloadSections(NSIndexSet(index: section))
+        mCollectionView.reloadSections(IndexSet(integer: section))
     }
     
     //MARK: vc 的生命周期
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
     }
 }

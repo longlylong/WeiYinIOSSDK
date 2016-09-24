@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import HandyJSON
 //import SwiftyJSON
 
 /**
@@ -29,10 +28,7 @@ class OrderListBean : BaseResultBean {
     
     var orders = Array<Order>()
     
-    class Order : HandyJSON{
-        
-        required init() {
-        }
+    class Order {
         
         var orderSerial = ""//
         
@@ -105,40 +101,73 @@ class OrderListBean : BaseResultBean {
             }
             
             return[
-                "orderSerial":orderSerial,
-                "address":address,
-                "receiver":receiver,
-                "mobile":mobile,
-                "buyerMobile":buyerMobile,
-                "paymentPattern":paymentPattern,
-                "orderStatus":orderStatus,
-                "totalPrice":totalPrice,
-                "quantity":quantity,
-                "buyerMark":buyerMark,
-                "trackingNumber":trackingNumber,
-                "createTime":createTime,
-                "payTime":payTime,
-                "deliveryTime":deliveryTime,
-                "generateTime":generateTime,
-                "closeTime":closeTime,
-                "province":province,
-                "city":city,
-                "area":area,
-                "logistics":logistics,
-                "kuaiDiUrl":kuaiDiUrl,
-                "discount":discount,
-                "fee":fee,
-                "displayType":displayType,
-                "desc":desc,
-                "details":detailArr
+                "orderSerial":orderSerial as AnyObject,
+                "address":address as AnyObject,
+                "receiver":receiver as AnyObject,
+                "mobile":mobile as AnyObject,
+                "buyerMobile":buyerMobile as AnyObject,
+                "paymentPattern":paymentPattern as AnyObject,
+                "orderStatus":orderStatus as AnyObject,
+                "totalPrice":totalPrice as AnyObject,
+                "quantity":quantity as AnyObject,
+                "buyerMark":buyerMark as AnyObject,
+                "trackingNumber":trackingNumber as AnyObject,
+                "createTime":createTime as AnyObject,
+                "payTime":payTime as AnyObject,
+                "deliveryTime":deliveryTime as AnyObject,
+                "generateTime":generateTime as AnyObject,
+                "closeTime":closeTime as AnyObject,
+                "province":province as AnyObject,
+                "city":city as AnyObject,
+                "area":area as AnyObject,
+                "logistics":logistics as AnyObject,
+                "kuaiDiUrl":kuaiDiUrl as AnyObject,
+                "discount":discount as AnyObject,
+                "fee":fee as AnyObject,
+                "displayType":displayType as AnyObject,
+                "desc":desc as AnyObject,
+                "details":detailArr as AnyObject
             ]
+        }
+        
+        static func toOrder(json:JSON) -> Order {
+            let bean = Order()
+            bean.orderSerial = json["orderSerial"].stringValue
+            bean.address = json["address"].stringValue
+            bean.receiver = json["receiver"].stringValue
+            bean.mobile = json["mobile"].stringValue
+            bean.buyerMobile = json["buyerMobile"].stringValue
+            bean.paymentPattern = json["paymentPattern"].intValue
+            bean.orderStatus = json["orderStatus"].intValue
+            bean.totalPrice = json["totalPrice"].floatValue
+            bean.quantity = json["quantity"].intValue
+            bean.buyerMark = json["buyerMark"].stringValue
+            bean.trackingNumber = json["trackingNumber"].stringValue
+            bean.createTime = json["createTime"].intValue
+            bean.payTime = json["payTime"].intValue
+            bean.deliveryTime = json["deliveryTime"].intValue
+            bean.generateTime = json["generateTime"].intValue
+            bean.closeTime = json["closeTime"].intValue
+            bean.province = json["province"].stringValue
+            bean.city = json["city"].stringValue
+            bean.area = json["area"].stringValue
+            bean.logistics = json["logistics"].intValue
+            bean.kuaiDiUrl = json["kuaiDiUrl"].stringValue
+            bean.discount = json["discount"].floatValue
+            bean.fee = json["fee"].floatValue
+            bean.displayType = json["displayType"].intValue
+            bean.desc = json["desc"].stringValue
+            
+            let detailArr = json["details"]
+            for(_, subJson): (String, JSON) in detailArr{
+                bean.details.append(Detail.toDetail(json: subJson))
+            }
+            
+            return bean
         }
     }
     
-    class Detail : HandyJSON{
-        
-        required init() {
-        }
+    class Detail {
         
         var bookId = 0//6,
         
@@ -162,17 +191,32 @@ class OrderListBean : BaseResultBean {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "bookId":bookId,
-                "bookName":bookName,
-                "bookType":bookType,
-                "serial":serial,
-                "page":page,
-                "count":count,
-                "volume":volume,
-                "price":price,
-                "frontImage":frontImage,
-                "bookMakeType":bookMakeType
+                "bookId":bookId as AnyObject,
+                "bookName":bookName as AnyObject,
+                "bookType":bookType as AnyObject,
+                "serial":serial as AnyObject,
+                "page":page as AnyObject,
+                "count":count as AnyObject,
+                "volume":volume as AnyObject,
+                "price":price as AnyObject,
+                "frontImage":frontImage as AnyObject,
+                "bookMakeType":bookMakeType as AnyObject
             ]
+        }
+        
+        static func toDetail(json:JSON) -> Detail {
+            let bean = Detail()
+            bean.bookId = json["bookId"].intValue
+            bean.bookName = json["bookName"].stringValue
+            bean.bookType = json["bookType"].intValue
+            bean.serial = json["serial"].stringValue
+            bean.page = json["page"].intValue
+            bean.count = json["count"].intValue
+            bean.volume = json["volume"].intValue
+            bean.price = json["price"].floatValue
+            bean.frontImage = json["frontImage"].stringValue
+            bean.bookMakeType = json["bookMakeType"].intValue
+            return bean
         }
     }
     
@@ -184,7 +228,22 @@ class OrderListBean : BaseResultBean {
         }
         
         return[
-            "orders":orderArr
+            "orders":orderArr as AnyObject
         ]
+    }
+    
+    static func toOrderListBean(jsonData:AnyObject?) -> OrderListBean {
+        let json  = JSON(jsonData!)
+        let bean = OrderListBean()
+        bean.resultCode = json["resultCode"].stringValue
+        bean.errorMsg = json["errorMsg"].stringValue
+        
+        let orderArr = json["orders"]
+        
+        for(_, subJson) : (String, JSON) in orderArr{
+            bean.orders.append(Order.toOrder(json: subJson))
+        }
+        
+        return bean
     }
 }

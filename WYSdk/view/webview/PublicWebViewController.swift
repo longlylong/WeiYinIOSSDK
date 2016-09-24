@@ -7,29 +7,49 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 //import SwiftyUserDefaults
 
 class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
 
-    private var loadingIndicator = LoadingView()
-    private var mBackButton : UIButton!
+    fileprivate var loadingIndicator = LoadingView()
+    fileprivate var mBackButton : UIButton!
     
-    static func launchWithPaper(controller:UIViewController){
+    static func launchWithPaper(_ controller:UIViewController){
         PublicWebViewController.launch(controller, url: HttpConstant.getPaperUrl())
     }
     
-    static func launchWithShopCart(controller:UIViewController){
+    static func launchWithShopCart(_ controller:UIViewController){
         PublicWebViewController.launch(controller, url: HttpConstant.getShowCartUrl())
     }
     
-    static func launchWithOrder(controller:UIViewController){
+    static func launchWithOrder(_ controller:UIViewController){
         PublicWebViewController.launch(controller, url: HttpConstant.getShowOrderUrl())
     }
     
-    static func launch(controller:UIViewController,url:String){
+    static func launch(_ controller:UIViewController,url:String){
         let webController = PublicWebViewController()
         webController.mUrl = url
-        controller.presentViewController(webController, animated: true, completion: nil)
+        controller.present(webController, animated: true, completion: nil)
     }
     
     var mPublicWebView = WYWebView()
@@ -55,11 +75,11 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         if mUrl.isEmpty{
             mUrl = "http://app.weiyin.cc"
         }
-        let request = NSURLRequest(URL: NSURL(string: mUrl)!)
+        let request = URLRequest(url: URL(string: mUrl)!)
         mPublicWebView.loadRequest(request)
         mPublicWebView.delegate = self
         mPublicWebView.scalesPageToFit = true
-        mPublicWebView.frame = CGRectMake(0,20, UIUtils.getScreenWidth(), UIUtils.getScreenHeight()-20)
+        mPublicWebView.frame = CGRect(x: 0,y: 20, width: UIUtils.getScreenWidth(), height: UIUtils.getScreenHeight()-20)
         self.view.addSubview(mPublicWebView)
     }
     
@@ -68,18 +88,18 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
 //        if mPublicWebView.canGoBack {
 //            mPublicWebView.goBack()
 //        }else{
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
 //        }
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        var urlString = request.URL?.absoluteString
-        urlString = urlString?.stringByRemovingPercentEncoding
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        var urlString = request.url?.absoluteString
+        urlString = urlString?.removingPercentEncoding
         
-        var urlComps:[String]! = (urlString?.componentsSeparatedByString("://"))
+        var urlComps:[String]! = (urlString?.components(separatedBy: "://"))
         if(urlComps?.count > 0 && urlComps[0] == "ios"){
 
-            var params:[String]! = urlComps[1].componentsSeparatedByString("#!#")
+            var params:[String]! = urlComps[1].components(separatedBy: "#!#")
             
             let funcName = params[0]
             
@@ -132,21 +152,21 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         return true
     }
     
-    private func pay(webview:UIWebView,charge:String){
-        Pingpp.createPayment(charge, viewController: self, appURLScheme: "weiyin", withCompletion: { (result, error) -> Void in
+    fileprivate func pay(_ webview:UIWebView,charge:String){
+        Pingpp.createPayment(charge as NSObject!, viewController: self, appURLScheme: "weiyin", withCompletion: { (result, error) -> Void in
             print(result)
             
             if(error == nil){
                 self.loadJsFunc(webview, funcName: "showPayResult", param: WYSdk.PAY_SUCCESS)
             } else{
-                self.loadJsFunc(webview, funcName: "showPayResult", param: result)
+                self.loadJsFunc(webview, funcName: "showPayResult", param: result!)
             }
         })
     }
     
-    private func createOrder(webview:UIWebView,receiver:String,  mobile:String, buyerMobile:String,paymentPattern:String, buyerMark:String, province:String, city:String, area:String, address:String, logistics:String, ticket:String, shopCartListJson:String){
+    fileprivate func createOrder(_ webview:UIWebView,receiver:String,  mobile:String, buyerMobile:String,paymentPattern:String, buyerMark:String, province:String, city:String, area:String, address:String, logistics:String, ticket:String, shopCartListJson:String){
     
-        let shopCartListBean = ShopCartListBean.toShopCartListBean(JsonUtils.toDic(shopCartListJson))
+        let shopCartListBean = ShopCartListBean.toShopCartListBean(jsonData: JsonUtils.toDic(shopCartListJson))
         OrderController.getInstance().createOrder(receiver, mobile: mobile, buyerMobile: buyerMark, paymentPattern: Int(paymentPattern)!, buyerMark: buyerMark, province: province, city: city, area: area, address: address, logistics: Int(logistics)!, ticket: ticket, shopCartListBean: shopCartListBean, start: {
             
                 self.loadingIndicator.start()
@@ -177,7 +197,7 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func handleGoUrl(url:String){
+    fileprivate func handleGoUrl(_ url:String){
         var target = "http://" + url
         if url == "shopcart" {
             target = HttpConstant.getShowCartUrl()
@@ -189,18 +209,18 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         goUrl(target)
     }
     
-    private func goUrl(url:String){
-        let request = NSURLRequest(URL: NSURL(string: url)!)
+    fileprivate func goUrl(_ url:String){
+        let request = URLRequest(url: URL(string: url)!)
         self.mPublicWebView.loadRequest(request)
     }
     
-    private func getCoupons(webview:UIWebView){
+    fileprivate func getCoupons(_ webview:UIWebView){
         OrderController.getInstance().getCoupon({ 
             
             }, success: { (result) in
                 
                 let coupon = result as! CouponBean
-                let json = JsonUtils.toJSONString(coupon.toJson())
+                let json = JsonUtils.toJSONString(coupon.toJson() as NSDictionary)
                 self.loadJsFunc(webview, funcName: "showWebCoupon",param: json)
                 
             }) { (msg) in
@@ -208,7 +228,7 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func activateCoupon(webview:UIWebView,code:String){
+    fileprivate func activateCoupon(_ webview:UIWebView,code:String){
         OrderController.getInstance().activateCoupon(code, start: { 
             
             }, success: { (result) in
@@ -220,7 +240,7 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func payOrder(webview:UIWebView,orderSerial:String,paymentPattern:String){
+    fileprivate func payOrder(_ webview:UIWebView,orderSerial:String,paymentPattern:String){
         OrderController.getInstance().payOrder(orderSerial, paymentPattern: Int(paymentPattern)!, start: { 
             
             }, success: { (result) in
@@ -238,7 +258,7 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func delShopCart(webview:UIWebView,cartId:String){
+    fileprivate func delShopCart(_ webview:UIWebView,cartId:String){
         
         OrderController.getInstance().delShopCart(Int(cartId)!, start: {
             
@@ -251,7 +271,7 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func delOrder(webview:UIWebView,orderSerial:String){
+    fileprivate func delOrder(_ webview:UIWebView,orderSerial:String){
         OrderController.getInstance().delOrder(orderSerial, start: { 
             
             }, success: { (result) in
@@ -263,13 +283,13 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func getShopCartList(webview:UIWebView){
+    fileprivate func getShopCartList(_ webview:UIWebView){
         OrderController.getInstance().getShopCartList({ 
             
             }, success: { (result) in
                 
                 let shopcart  = result as! ShopCartListBean
-                let json = JsonUtils.toJSONString(shopcart.toJson())
+                let json = JsonUtils.toJSONString(shopcart.toJson() as NSDictionary)
                 self.loadJsFunc(webview, funcName: "showWebShopCart", param: json)
                 
             }) { (msg) in
@@ -277,13 +297,13 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func getOrders(webview:UIWebView){
+    fileprivate func getOrders(_ webview:UIWebView){
         OrderController.getInstance().getOrderList({
             
             }, success: { (result) in
                 
                 let orders = result as! OrderListBean
-                let json = JsonUtils.toJSONString(orders.toJson())
+                let json = JsonUtils.toJSONString(orders.toJson() as NSDictionary)
                 self.loadJsFunc(webview, funcName: "showWebOrders", param: json)
                 
             }) { (msg) in
@@ -291,30 +311,30 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    private func saveAddress(webview:UIWebView,addressInfo:String){
+    fileprivate func saveAddress(_ webview:UIWebView,addressInfo:String){
         Defaults[WYSdk.getInstance().getIdentity()] = addressInfo
     }
     
-    private func getAddress(webview:UIWebView){
-        let address = Defaults.stringForKey(WYSdk.getInstance().getIdentity()) ?? ""
+    fileprivate func getAddress(_ webview:UIWebView){
+        let address = Defaults.string(forKey: WYSdk.getInstance().getIdentity()) ?? ""
         loadJsFunc(webview, funcName: "showWebAddress",param: address)
     }
     
-    private func loadJsFunc(webview:UIWebView,funcName:String){
-        webview.stringByEvaluatingJavaScriptFromString(funcName+"()")
+    fileprivate func loadJsFunc(_ webview:UIWebView,funcName:String){
+        webview.stringByEvaluatingJavaScript(from: funcName+"()")
     }
     
-    private func loadJsFunc(webview:UIWebView,funcName:String,param:String){
-        webview.stringByEvaluatingJavaScriptFromString(funcName+"('"+"\(param)"+"')")
+    fileprivate func loadJsFunc(_ webview:UIWebView,funcName:String,param:String){
+        webview.stringByEvaluatingJavaScript(from: funcName+"('"+"\(param)"+"')")
     }
     
     //MARK: webview 生命周期
-    func webViewDidFinishLoad(webView: UIWebView){
+    func webViewDidFinishLoad(_ webView: UIWebView){
         loadingIndicator.stop()
         mBackButton.removeFromSuperview()
         
-        var urlString = webView.request?.URL?.absoluteString
-        urlString = urlString?.stringByRemovingPercentEncoding
+        var urlString = webView.request?.url?.absoluteString
+        urlString = urlString?.removingPercentEncoding
         if urlString != nil  {
             if HttpConstant.getShowCartUrl() == urlString {
                 getShopCartList(webView)
@@ -324,16 +344,16 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         }
     }
     
-    func webViewDidStartLoad(webView: UIWebView){
+    func webViewDidStartLoad(_ webView: UIWebView){
         loadingIndicator.start()
         self.view.addSubview(mBackButton)
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?){
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error){
         loadingIndicator.stop()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
 }

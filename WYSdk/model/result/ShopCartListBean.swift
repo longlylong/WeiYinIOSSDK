@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import HandyJSON
 //import SwiftyJSON
 
 /**
@@ -18,11 +17,7 @@ class ShopCartListBean : BaseResultBean  {
     
     var cars = Array<Cart>()
     
-    class Cart : HandyJSON{
-        
-        required init() {
-            
-        }
+    class Cart{
         
         var bookId = 0
         var count = 0
@@ -36,18 +31,32 @@ class ShopCartListBean : BaseResultBean  {
         var frontImage = ""
     
         var bookMakeType = 0
-
+        
+        static func toCart(json:JSON)->Cart{
+            let c = Cart()
+            c.bookId = json["bookId"].intValue
+            c.count = json["count"].intValue
+            c.carId = json["carId"].intValue
+            c.bookName = json["bookName"].stringValue
+            c.pricePageCount = json["pricePageCount"].intValue
+            c.price = json["price"].floatValue
+            c.volume = json["volume"].intValue
+            c.frontImage = json["frontImage"].stringValue
+            c.bookMakeType = json["bookMakeType"].intValue
+            return c
+        }
+        
         func toJson()-> [String : AnyObject]{
             return [
-                "bookId" : bookId,
-                "count" : count,
-                "carId" : carId,
-                "bookName" : bookName,
-                "pricePageCount" : pricePageCount,
-                "price" : price,
-                "volume" : volume,
-                "frontImage" : frontImage,
-                "bookMakeType" : bookMakeType
+                "bookId" : bookId as AnyObject,
+                "count" : count as AnyObject,
+                "carId" : carId as AnyObject,
+                "bookName" : bookName as AnyObject,
+                "pricePageCount" : pricePageCount as AnyObject,
+                "price" : price as AnyObject,
+                "volume" : volume as AnyObject,
+                "frontImage" : frontImage as AnyObject,
+                "bookMakeType" : bookMakeType as AnyObject
             ]
         }
     }
@@ -58,15 +67,24 @@ class ShopCartListBean : BaseResultBean  {
             cartArr.append(o.toJson())
         }
         return[
-            "cars":cartArr
+            "cars":cartArr as AnyObject
         ]
     }
 
     
     static func toShopCartListBean(jsonData:AnyObject?) -> ShopCartListBean {
-        var bean = Converter<ShopCartListBean>.conver(jsonData)
-        bean = bean == nil ? ShopCartListBean() : bean
-        return bean!
+        let json  = JSON(jsonData!)
+        let bean = ShopCartListBean()
+        bean.errorMsg = json["errorMsg"].stringValue
+        bean.resultCode = json["resultCode"].stringValue
+        
+        let cartArr = json["cars"]
+        
+        for(_, subJson): (String, JSON) in cartArr{
+            bean.cars.append(Cart.toCart(json: subJson))
+        }
+        
+        return bean
     }
     
 }

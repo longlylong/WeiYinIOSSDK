@@ -7,19 +7,8 @@
 //
 
 import Foundation
-import HandyJSON
 //import SwiftyJSON
 //import CryptoSwift
-
-class Converter<T:HandyJSON>{
-    static func conver(jsonDic:AnyObject?) -> T? {
-        if jsonDic == nil {
-            return nil
-        }
-        return JSONDeserializer<T>.deserializeFrom(jsonDic as! NSDictionary)
-    }
-    
-}
 
 class WYProtocol : BaseProtocol{
     
@@ -40,10 +29,14 @@ class WYProtocol : BaseProtocol{
     
     func getHttpDNSIp() ->HttpDNSBean?{
         var url = WYSdk.getInstance().host
-        url = HttpNDSUrl + url.stringByReplacingOccurrencesOfString("http://", withString: "")
+        url = HttpNDSUrl + url.replacingOccurrences(of: "http://", with: "")
         let data: AnyObject? = sendGetRequest(url)
-        let bean = Converter<HttpDNSBean>.conver(data)
-        return bean
+        if (data != nil) {
+            let resultBean = HttpDNSBean.toHttpDNSBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     private func getRandom()->Int{
@@ -60,10 +53,8 @@ class WYProtocol : BaseProtocol{
         
         let sign = data.signature(WYSdk.getInstance().getAccessSecret())
 
-        return WYSdk.getInstance().getAccessKey() + ":" + (sign ?? "")
+        return WYSdk.getInstance().getAccessKey() + ":" + sign
     }
-    
-
     
     /**
      * 激活微印券
@@ -74,14 +65,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/ActivateTicket")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/ActivateTicket")
         
         let data: AnyObject? = postRequest(ActivateTicketUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-        
-        let bean = Converter<CouponActivatedBean>.conver(data)
-        
-        return bean
-
+        if (data != nil) {
+            let resultBean = CouponActivatedBean.toCouponActivatedBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -93,13 +85,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/GetTickets")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/GetTickets")
         
         let data: AnyObject? = postRequest(GetTicketsTicketUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-        
-        let bean = Converter<CouponBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = CouponBean.toCouponBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -111,13 +105,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/DeleteOrder")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/DeleteOrder")
         
         let data: AnyObject? = postRequest(DeleteOrderTicketUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-        
-        let bean = Converter<BaseResultBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = BaseResultBean.toBaseResultBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -129,13 +125,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/PayOrder")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/PayOrder")
         
         let data: AnyObject? = postRequest(PayOrderUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<PayBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = PayBean.toPayBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
 
     /**
@@ -147,13 +145,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/GetOrders")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/GetOrders")
         
         let data: AnyObject? = postRequest(GetOrdersUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<OrderListBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = OrderListBean.toOrderListBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -165,13 +165,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/CreateOrder")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/CreateOrder")
         
         let data: AnyObject? = postRequest(CreateOrderUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<PayBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = PayBean.toPayBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     
@@ -184,13 +186,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/GetShoppingCar")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/GetShoppingCar")
         
         let data: AnyObject? = postRequest(GetShoppingCarUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<ShopCartListBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = ShopCartListBean.toShopCartListBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -202,13 +206,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/AddShoppingCar")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/AddShoppingCar")
         
         let data: AnyObject? = postRequest(AddShoppingCarUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-        
-        let bean = Converter<BaseResultBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = BaseResultBean.toBaseResultBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     /**
      * 增加删除
@@ -219,13 +225,16 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Order/DeleteShoppingCar")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Order/DeleteShoppingCar")
         
         let data: AnyObject? = postRequest(DeleteShoppingCarUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-        
-        let bean = Converter<BaseResultBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = BaseResultBean.toBaseResultBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
+
     }
     
     func getUserInfo(bean: RequestUserInfoBean) ->UserInfoBean?{
@@ -234,13 +243,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "User/Info")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "User/Info")
         
         let data: AnyObject? = postRequest(UserInfoUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<UserInfoBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = UserInfoBean.toUserInfoBena(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
     /**
@@ -252,13 +263,15 @@ class WYProtocol : BaseProtocol{
         let num = getRandom()
         let timestamp = getTimestamp()
         
-        let sign = getSignature( num, timestamp: timestamp, url: "Data/StructData")
+        let sign = getSignature( nonce: num, timestamp: timestamp, url: "Data/StructData")
         
         let data: AnyObject? = postRequest(StructDataUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
-
-        let bean = Converter<PrintBean>.conver(data)
-        
-        return bean
+        if (data != nil) {
+            let resultBean = PrintBean.toPrintBean(jsonData: data)
+            return resultBean
+        }else{
+            return nil
+        }
     }
     
 }

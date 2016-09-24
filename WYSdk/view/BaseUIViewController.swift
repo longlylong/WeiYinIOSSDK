@@ -27,30 +27,30 @@ class BaseUIViewController : UIViewController {
         
     }
     
-    func getIconButton(frame:CGRect,iconName:String,action:Selector)->UIButton{
+    func getIconButton(_ frame:CGRect,iconName:String,action:Selector)->UIButton{
         let button = UIButton(frame: frame)
-        button.setImage(UIImage(named:iconName), forState: UIControlState.Normal)
-        button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside)
+        button.setImage(UIImage(named:iconName), for: UIControlState())
+        button.addTarget(self, action: action, for: UIControlEvents.touchUpInside)
         self.view.addSubview(button)
         return button
     }
     
     func setNavTextButton(){
         let backButton = UIButton()
-        backButton.addTarget(self, action: #selector(SelectDataViewController.handleLeftButton), forControlEvents: .TouchUpInside)
-        backButton.setTitle("关闭", forState: .Normal)
-        backButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        backButton.frame = CGRectMake(0, 0, 40, 40)
+        backButton.addTarget(self, action: #selector(SelectDataViewController.handleLeftButton), for: .touchUpInside)
+        backButton.setTitle("关闭", for: UIControlState())
+        backButton.setTitleColor(UIColor.darkGray, for: UIControlState())
+        backButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
-        backButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         
         let rightButton = UIButton()
-        rightButton.addTarget(self, action: #selector(SelectDataViewController.handleRightButton), forControlEvents: .TouchUpInside)
-        rightButton.setTitle("确定", forState: .Normal)
-        rightButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        rightButton.frame = CGRectMake(0, 0, 40, 40)
+        rightButton.addTarget(self, action: #selector(SelectDataViewController.handleRightButton), for: .touchUpInside)
+        rightButton.setTitle("预览排版", for: UIControlState())
+        rightButton.setTitleColor(UIColor.darkGray, for: UIControlState())
+        rightButton.frame = CGRect(x: 0, y: 0, width: 64, height: 40)
         rightButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
-        rightButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         
         let backItem = UIBarButtonItem(customView: backButton)
         let rightItem = UIBarButtonItem(customView: rightButton)

@@ -6,35 +6,35 @@
 //  Copyright (c) 2015年 weiyin. All rights reserved.
 //
 
-import Foundation 
-import Alamofire
+import Foundation
 import Bolts
 
 class BaseProtocol : NSObject{
     
-    func postRequest(url:String, json : [String : AnyObject],nonce:Int,timestamp:Int,signature:String) ->AnyObject?{
+    func postRequest(_ url:String, json : [String : AnyObject],nonce:Int,timestamp:Int,signature:String) ->AnyObject?{
         
-        let tcs = BFTaskCompletionSource()
+        let tcs = BFTaskCompletionSource<AnyObject>()
         let head = ["Content-type":"text/json","Nonce":"\(nonce)","Timestamp":"\(timestamp)","Authorization":signature]
-        Alamofire.request(Method.POST, url, parameters: json ,encoding: ParameterEncoding.JSON,headers: head)
-            .responseJSON() {  response -> Void in
-                
+        
+        request(url, method: .post, parameters: json, encoding: JSONEncoding.default, headers: head).responseJSON { (response) in
                 if(response.result.isFailure){
                     tcs.setError(response.result.error!)
-                    
+
                     print("")
                     print("postRequest Error --" + url)
                     print(response.response)
                     print(response.result.error)
                     print("")
                 }else{
-                    tcs.setResult(response.result.value)
-                    
+                    let result = response.result.value as AnyObject?
+                    tcs.setResult(result)
+
                     print("")
-                    print("postRequest " + "\(Converter<BaseResultBean>.conver(response.result.value)?.resultCode)" + " --" + url)
+                    print("postRequest " + "\(BaseResultBean.toBaseResultBean(jsonData: result).resultCode)" + " --" + url)
                     print("")
                 }
         }
+        
         tcs.task.waitUntilFinished()
         
         if((tcs.task.error) == nil){
@@ -44,22 +44,22 @@ class BaseProtocol : NSObject{
         }
     }
     
-    func sendGetRequest(url:String) ->AnyObject?{
-        let tcs = BFTaskCompletionSource()
+    func sendGetRequest(_ url:String) ->AnyObject?{
+        let tcs = BFTaskCompletionSource<AnyObject>()
         
-        Alamofire.request(Method.GET, url)
-            .responseJSON() { response -> Void in
+        request(url, method: .get).responseJSON { (response) in
+            if(response.result.isFailure){
+                tcs.setError(response.result.error!)
                 
-                if(response.result.isFailure){
-                    print("")
-                    print("sendGetRequest error url -- " + url)
-                    tcs.setError(response.result.error!)
-                }else{
-                    tcs.setResult(response.result.value)
-                }
+                print("")
+                print("sendGetRequest error url -- " + url)
+                tcs.setError(response.result.error!)
+            }else{
+                let result = response.result.value as AnyObject?
+                tcs.setResult(result)
+            }
         }
-        tcs.task.waitUntilFinished()
-        
+                
         if((tcs.task.error) == nil){
             return tcs.task.result
         }else{

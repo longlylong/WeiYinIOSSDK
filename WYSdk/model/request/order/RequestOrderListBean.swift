@@ -16,9 +16,9 @@ class RequestOrderListBean : BaseRequestBean {
     override func toJson() -> [String : AnyObject] {
         
         return [
-            "identity" : identity ,
+            "identity" : identity as AnyObject ,
             
-            "displaytype" : displaytype
+            "displaytype" : displaytype as AnyObject
         ]
     }
 }

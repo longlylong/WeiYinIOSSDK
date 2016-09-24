@@ -20,7 +20,7 @@ class BaseRequestBean : AnyObject{
     func toJson() -> [String : AnyObject] {
         
         return [
-            "identity" : identity
+            "identity" : identity as AnyObject
         ]
     }
 }

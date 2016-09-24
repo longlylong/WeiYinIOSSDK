@@ -35,15 +35,15 @@ class SelectFoot: UICollectionReusableView {
         mView.removeFromSuperview()
         
         let screenWidth = UIUtils.getScreenWidth()
-        mView = UIView(frame: CGRectMake(0, 0, screenWidth, 48))
+        mView = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 48))
         
-        mLoadMoreButton = UIButton(frame: CGRectMake(screenWidth/2 - 50, 20,100, 20))
-        mLoadMoreButton.setTitle("点击加载更多", forState: UIControlState.Normal)
-        mLoadMoreButton.setTitleColor(UIUtils.getGrayColor(), forState: UIControlState.Normal)
-        mLoadMoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mLoadMoreButton.setBackgroundImage(UIUtils.getImageHighlighted(), forState: UIControlState.Highlighted)
-        mLoadMoreButton.titleLabel?.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
-        mLoadMoreButton.addTarget(self, action: #selector(SelectFoot.clickLoadMore), forControlEvents: UIControlEvents.TouchUpInside)
+        mLoadMoreButton = UIButton(frame: CGRect(x: screenWidth/2 - 50, y: 20,width: 100, height: 20))
+        mLoadMoreButton.setTitle("点击加载更多", for: UIControlState())
+        mLoadMoreButton.setTitleColor(UIUtils.getGrayColor(), for: UIControlState())
+        mLoadMoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mLoadMoreButton.setBackgroundImage(UIUtils.getImageHighlighted(), for: UIControlState.highlighted)
+        mLoadMoreButton.titleLabel?.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)
+        mLoadMoreButton.addTarget(self, action: #selector(SelectFoot.clickLoadMore), for: UIControlEvents.touchUpInside)
         
         mView.addSubview(mLoadMoreButton)
         

@@ -22,9 +22,9 @@ class LoadingView: UIActivityIndicatorView {
         initView()
     }
     
-    private func initView(){
-        self.frame = CGRectMake(UIUtils.getScreenWidth()/2 - 50, UIUtils.getScreenHeight()/2 - 50 , 100, 100)
-        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+    fileprivate func initView(){
+        self.frame = CGRect(x: UIUtils.getScreenWidth()/2 - 50, y: UIUtils.getScreenHeight()/2 - 50 , width: 100, height: 100)
+        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         self.backgroundColor = UIUtils.getGrayColor()
         self.hidesWhenStopped = true
         self.layer.zPosition = 999

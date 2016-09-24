@@ -24,4 +24,16 @@ class OrderConfigBean : BaseResultBean {
     * 购物车 等待付款 文案
     */
     var shoppingCarDesc = "" //"现在支付，预计48小时内（MM月dd日)发货",  //购物车页支付按钮下的提示方案
+    
+    static func toOrderConfigBean(jsonData:AnyObject?) -> OrderConfigBean {
+        let json  = JSON(jsonData!)
+        let bean = OrderConfigBean()
+        bean.errorMsg = json["errorMsg"].stringValue
+        bean.resultCode = json["resultCode"].stringValue
+        
+        bean.deliveryTime = json["deliveryTime"].stringValue
+        bean.shoppingCarDesc = json["shoppingCarDesc"].stringValue
+        
+        return bean
+    }
 }

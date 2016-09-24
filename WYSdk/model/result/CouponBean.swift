@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import HandyJSON
 //import SwiftyJSON
 
 class CouponBean :BaseResultBean{
@@ -21,29 +20,57 @@ class CouponBean :BaseResultBean{
         }
 
         return[
-            "ticket":ticketArr
+            "ticket":ticketArr as AnyObject
         ]
     }
     
-    class Ticket : HandyJSON{
+    static func toCouponBean(jsonData:AnyObject?) -> CouponBean {
+        let json  = JSON(jsonData!)
+        let bean = CouponBean()
+        bean.errorMsg = json["errorMsg"].stringValue
+        bean.resultCode = json["resultCode"].stringValue
         
-        required init() {
-            
+        let arr  = json["ticket"]
+        
+        for(_, subJson) : (String, JSON) in arr{
+            let ticket = getTicket(subJson: subJson)
+            bean.ticket.append(ticket)
         }
+        
+        return bean
+    }
+    
+    static func getTicket(subJson:JSON)->Ticket{
+        let ticket = Ticket()
+        ticket.code = subJson["code"].stringValue
+        ticket.createTime = subJson["createTime"].intValue
+        ticket.deadline = subJson["deadline"].intValue
+        ticket.isCheck = subJson["isCheck"].boolValue
+        ticket.checkTime = subJson["checkTime"].intValue
+        ticket.name = subJson["name"].stringValue
+        ticket.leastPrice = subJson["mark"].floatValue
+        ticket.cutPrice = subJson["deadline"].floatValue
+        ticket.discount = subJson["usecounttype"].floatValue
+        ticket.useCountType = subJson["leastprice"].intValue
+        ticket.mark = subJson["cutprice"].stringValue
+        return ticket
+    }
+    
+    class Ticket :AnyObject{
         
         func toJson() -> [String:AnyObject] {
             return[
-                "code":code,
-                "createTime":createTime,
-                "deadline":deadline,
-                "isCheck":isCheck,
-                "checkTime":checkTime,
-                "name":name,
-                "leastPrice":leastPrice,
-                "cutPrice":cutPrice,
-                "discount":discount,
-                "useCountType":useCountType,
-                "mark":mark
+                "code":code as AnyObject,
+                "createTime":createTime as AnyObject,
+                "deadline":deadline as AnyObject,
+                "isCheck":isCheck as AnyObject,
+                "checkTime":checkTime as AnyObject,
+                "name":name as AnyObject,
+                "leastPrice":leastPrice as AnyObject,
+                "cutPrice":cutPrice as AnyObject,
+                "discount":discount as AnyObject,
+                "useCountType":useCountType as AnyObject,
+                "mark":mark as AnyObject
             ]
         }
         

@@ -7,13 +7,13 @@
 //
 
 import Foundation
-//import CryptoSwift
+import CryptoSwift
 
 extension String{
     
-    public func signature(key:String)->String{
-        let keyBytes = (key.dataUsingEncoding(NSUTF8StringEncoding)?.arrayOfBytes())!
-        let authenticator = Authenticator.HMACAuth(key: keyBytes, variant: HMAC.Variant.sha1)
-        return  try! self.utf8.lazy.map({ $0 as UInt8 }).authenticate(authenticator).toBase64()!
+    public func signature(_ key:String)->String{
+        //let keyBytes = (key.data(using: String.Encoding.utf8)?.arrayOfBytes())!
+        let authenticator = try! HMAC(key: key, variant: HMAC.Variant.sha1)
+        return  try! self.utf8.lazy.map({ $0 as UInt8 }).authenticate(with: authenticator).toBase64()!
     }
 }

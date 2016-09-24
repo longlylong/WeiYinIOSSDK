@@ -55,20 +55,20 @@ class RequestCreateOrderBean : BaseRequestBean {
         }
         
         return [
-            "identity" : identity ,
+            "identity" : identity as AnyObject ,
             
-             "cars" : carts,
-             "receiver" : receiver,
-             "mobile" : mobile,
-             "buyerMobile" : buyerMobile,
-             "paymentPattern" : paymentPattern,
-             "buyerMark" : buyerMark,
-             "province" : province,
-             "city" : city,
-             "area" : area,
-             "address" : address,
-             "logistics" : logistics,
-             "ticket" : ticket
+             "cars" : carts as AnyObject,
+             "receiver" : receiver as AnyObject,
+             "mobile" : mobile as AnyObject,
+             "buyerMobile" : buyerMobile as AnyObject,
+             "paymentPattern" : paymentPattern as AnyObject,
+             "buyerMark" : buyerMark as AnyObject,
+             "province" : province as AnyObject,
+             "city" : city as AnyObject,
+             "area" : area as AnyObject,
+             "address" : address as AnyObject,
+             "logistics" : logistics as AnyObject,
+             "ticket" : ticket as AnyObject
             
         ]
     }

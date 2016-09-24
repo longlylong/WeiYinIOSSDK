@@ -18,9 +18,9 @@ class RequestUserInfoBean : BaseRequestBean{
     
     override func toJson() -> [String : AnyObject] {
         return[
-            "openId" : openId ,
-            "name" : name ,
-            "headImg" : headImg
+            "openId" : openId as AnyObject ,
+            "name" : name as AnyObject ,
+            "headImg" : headImg as AnyObject
 
         ]
     }

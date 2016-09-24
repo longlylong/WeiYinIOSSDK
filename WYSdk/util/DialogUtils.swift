@@ -11,11 +11,11 @@ import Foundation
 class DialogUtils {
     
     //自定义弹窗  传入内容  代理 确定键说明   tag   没有去取消键
-    static func showCustomNoCancelDialog(delegate:UIAlertViewDelegate?,tag:Int,msg:String,otherBtnTitle:String,title:String){
+    static func showCustomNoCancelDialog(_ delegate:UIAlertViewDelegate?,tag:Int,msg:String,otherBtnTitle:String,title:String){
         dialog(title, msg: msg, delegate: delegate, cancelButtonTitle:nil, otherButtonTitles:otherBtnTitle, tag: tag)
     }
     
-    private static func dialog(title:String,msg:String,delegate:UIAlertViewDelegate?,cancelButtonTitle: String?,otherButtonTitles: String,tag:Int){
+    fileprivate static func dialog(_ title:String,msg:String,delegate:UIAlertViewDelegate?,cancelButtonTitle: String?,otherButtonTitles: String,tag:Int){
         
         let alert = UIAlertView(
             title: title,

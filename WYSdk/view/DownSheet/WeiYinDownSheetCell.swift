@@ -22,7 +22,7 @@ class WeiYinDownSheetCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
@@ -39,19 +39,19 @@ class WeiYinDownSheetCell: UITableViewCell {
     func initSheetView(){
         mCellView.removeFromSuperview()
 
-        mCellView = UIView(frame: CGRectMake(0, 0, UIUtils.getScreenWidth(),self.frame.size.height))
-        mLabelText = UILabel(frame: CGRectMake(0,0, UIUtils.getScreenWidth(),self.frame.size.height))
-        mLabelText.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
-        mLabelText.textAlignment = NSTextAlignment.Center
+        mCellView = UIView(frame: CGRect(x: 0, y: 0, width: UIUtils.getScreenWidth(),height: self.frame.size.height))
+        mLabelText = UILabel(frame: CGRect(x: 0,y: 0, width: UIUtils.getScreenWidth(),height: self.frame.size.height))
+        mLabelText.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)
+        mLabelText.textAlignment = NSTextAlignment.center
         mLabelText.textColor = UIUtils.getTextBlackColor()
         mCellView.addSubview(mLabelText)
-        let line = LineView(frame: CGRectMake(0,self.frame.size.height - 1, UIUtils.getScreenWidth(), 1))
+        let line = LineView(frame: CGRect(x: 0,y: self.frame.size.height - 1, width: UIUtils.getScreenWidth(), height: 1))
         mCellView.addSubview(line)
         
         self.addSubview(mCellView)
     }
     
-    func setData(model:WeiYinDownSheetModel){
+    func setData(_ model:WeiYinDownSheetModel){
         mLabelText.text = model.text
         mLabelText.textColor = model.textColor
         

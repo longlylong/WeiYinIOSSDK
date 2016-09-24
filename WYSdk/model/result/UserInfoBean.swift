@@ -16,4 +16,17 @@ class UserInfoBean: BaseResultBean {
     var client = 0
     
     var host = ""
+    
+    static func toUserInfoBena(jsonData:AnyObject?) -> UserInfoBean {
+        let json  = JSON(jsonData!)
+        let bean = UserInfoBean()
+        bean.resultCode = json["resultCode"].stringValue
+        bean.errorMsg = json["errorMsg"].stringValue
+        
+        bean.identity = json["identity"].stringValue
+        bean.client = json["client"].intValue
+        bean.host = json["host"].stringValue
+        
+        return bean
+    }
 }
