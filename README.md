@@ -2,7 +2,7 @@ IOS SDK开发包 版本号 1.4.0 日期 20160920
 
 安装
 
-微印sdk只支持ios8.0以上版本,目前适配Xcode8 swift2.3
+微印sdk只支持ios8.0以上版本,目前适配Xcode8 swift3.0
 
 当您下载了WeiYin IOS SDK 的 zip 包后，进行以下步骤:(oc项目需先看完步骤,swift项目顺序执行即可)
 
