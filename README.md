@@ -1,4 +1,4 @@
-IOS SDK开发包 版本号 1.4.0 日期 20160920
+IOS SDK开发包 版本号 1.4.0 日期 20160924
 
 安装
 
@@ -14,23 +14,19 @@ IOS SDK开发包 版本号 1.4.0 日期 20160920
     platform :ios, '8.0'
     use_frameworks!
 
-    target '项目target' do
+    target 'wysdkdemo' do
 
-    #线程库 阻塞线程的
     pod 'Bolts'
 
     #支付的sdk
     pod 'Pingpp/Alipay'
     pod 'Pingpp/Wx'
 
-    #网络库
-    pod 'Alamofire','~>3.5.0'
-
     #缓存库
-    pod 'Kingfisher','~>2.5.1'
+    pod 'Kingfisher'
 
-    #json
-    pod 'HandyJSON'#,'~>0.1.0'
+    #加密的
+    pod 'CryptoSwift'
 
     end
 
@@ -42,7 +38,7 @@ TARGETS的wysdkdemo 选择 Build Settings 找到 Objective-C Bridging Header 最
 
 5.oc项目 如果是第一次导入swift 先自己创建一个swift类,会提示创建 项目名-Bridging-Header.h,再执行第四步的步骤,然后把sdk拖入项目,然后打开工程以demo为
 例子:选择wysdkdemo 再选择 TARGETS的wysdkdemo 选择 Build Settings 找到 Packaging > Defines Module 该为YES 最后就可以 #import "项目名-Swift.h",以后
-的代码和swift一样,自行转成oc即可
+的代码和swift一样,自行转成oc即可 (如果编辑完 项目名-SWIFT.H 文件报错,把报错的代码共17行删了就好,在3.0可能出现的问题)
 
 初始化
 
