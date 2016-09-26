@@ -32,6 +32,8 @@ class ShopCartListBean : BaseResultBean  {
     
         var bookMakeType = 0
         
+        var bookType = 0
+        
         static func toCart(json:JSON)->Cart{
             let c = Cart()
             c.bookId = json["bookId"].intValue
@@ -42,6 +44,7 @@ class ShopCartListBean : BaseResultBean  {
             c.price = json["price"].floatValue
             c.volume = json["volume"].intValue
             c.frontImage = json["frontImage"].stringValue
+            c.bookType = json["bookType"].intValue
             c.bookMakeType = json["bookMakeType"].intValue
             return c
         }
@@ -56,6 +59,7 @@ class ShopCartListBean : BaseResultBean  {
                 "price" : price as AnyObject,
                 "volume" : volume as AnyObject,
                 "frontImage" : frontImage as AnyObject,
+                "bookType" : bookType as AnyObject,
                 "bookMakeType" : bookMakeType as AnyObject
             ]
         }

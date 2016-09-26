@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.4.0
+//  WYSdk v1.4.1
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
