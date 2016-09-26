@@ -36,7 +36,7 @@ class ShopCartListBean : BaseResultBean  {
         var frontImage = ""
     
         var bookMakeType = 0
-
+        var bookType = 0
         func toJson()-> [String : AnyObject]{
             return [
                 "bookId" : bookId,
@@ -47,6 +47,7 @@ class ShopCartListBean : BaseResultBean  {
                 "price" : price,
                 "volume" : volume,
                 "frontImage" : frontImage,
+                "bookType" : bookType,
                 "bookMakeType" : bookMakeType
             ]
         }
