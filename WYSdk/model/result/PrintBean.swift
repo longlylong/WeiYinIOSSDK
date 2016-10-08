@@ -13,16 +13,4 @@ class PrintBean : BaseResultBean {
     var  url = ""
     
     var unionId = 0
-    
-    static func toPrintBean(jsonData:AnyObject?) -> PrintBean {
-        let json  = JSON(jsonData!)
-        let bean = PrintBean()
-        bean.resultCode = json["resultCode"].stringValue
-        bean.errorMsg = json["errorMsg"].stringValue
-        
-        bean.url = json["url"].stringValue
-        bean.unionId = json["unionId"].intValue
-        
-        return bean
-    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
 class CouponBean :BaseResultBean{
@@ -24,39 +25,11 @@ class CouponBean :BaseResultBean{
         ]
     }
     
-    static func toCouponBean(jsonData:AnyObject?) -> CouponBean {
-        let json  = JSON(jsonData!)
-        let bean = CouponBean()
-        bean.errorMsg = json["errorMsg"].stringValue
-        bean.resultCode = json["resultCode"].stringValue
+    class Ticket : HandyJSON{
         
-        let arr  = json["ticket"]
-        
-        for(_, subJson) : (String, JSON) in arr{
-            let ticket = getTicket(subJson: subJson)
-            bean.ticket.append(ticket)
+        required init() {
+            
         }
-        
-        return bean
-    }
-    
-    static func getTicket(subJson:JSON)->Ticket{
-        let ticket = Ticket()
-        ticket.code = subJson["code"].stringValue
-        ticket.createTime = subJson["createTime"].intValue
-        ticket.deadline = subJson["deadline"].intValue
-        ticket.isCheck = subJson["isCheck"].boolValue
-        ticket.checkTime = subJson["checkTime"].intValue
-        ticket.name = subJson["name"].stringValue
-        ticket.leastPrice = subJson["mark"].floatValue
-        ticket.cutPrice = subJson["deadline"].floatValue
-        ticket.discount = subJson["usecounttype"].floatValue
-        ticket.useCountType = subJson["leastprice"].intValue
-        ticket.mark = subJson["cutprice"].stringValue
-        return ticket
-    }
-    
-    class Ticket :AnyObject{
         
         func toJson() -> [String:AnyObject] {
             return[

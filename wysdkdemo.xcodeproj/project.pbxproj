@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200727A91D9A3C33003C4B67 /* SpUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200727A81D9A3C32003C4B67 /* SpUtils.swift */; };
 		201CFA731CB4C1CA00F4DA6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201CFA721CB4C1CA00F4DA6C /* AppDelegate.swift */; };
 		201CFA7A1CB4C1CA00F4DA6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 201CFA791CB4C1CA00F4DA6C /* Assets.xcassets */; };
 		201CFA7D1CB4C1CA00F4DA6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 201CFA7B1CB4C1CA00F4DA6C /* LaunchScreen.storyboard */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		05A08434A290A656D13BFDCB /* Pods_wysdkdemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wysdkdemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		200727A81D9A3C32003C4B67 /* SpUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpUtils.swift; sourceTree = "<group>"; };
 		201CFA6F1CB4C1CA00F4DA6C /* wysdkdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wysdkdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		201CFA721CB4C1CA00F4DA6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		201CFA791CB4C1CA00F4DA6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				2047A3D51CB66E6D003CF8CD /* ThreadUtils.swift */,
 				2047A3D61CB66E6D003CF8CD /* TimeUtils.swift */,
 				205ECC771D13F9CB00C89E35 /* DialogUtils.swift */,
+				200727A81D9A3C32003C4B67 /* SpUtils.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				206446571D260FE10080A45D /* Controller.swift in Sources */,
 				20FDC66E1D96600000B90435 /* ParameterEncoding.swift in Sources */,
 				2047A3ED1CB66E6D003CF8CD /* ThreadUtils.swift in Sources */,
+				200727A91D9A3C33003C4B67 /* SpUtils.swift in Sources */,
 				2078673B1D0FFD1200A8B058 /* PayBean.swift in Sources */,
 				20FDC6711D96600000B90435 /* ResponseSerialization.swift in Sources */,
 				20FDC6771D96600000B90435 /* Timeline.swift in Sources */,

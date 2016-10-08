@@ -31,6 +31,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class BookWebView : BaseUIViewController,UIWebViewDelegate{
     
     fileprivate var loadingIndicator = LoadingView()
+    fileprivate var mBackButton : UIButton!
     
     static func launch(_ controller:UIViewController,url:String){
         let webController = BookWebView()
@@ -44,6 +45,11 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
     override func initUI() {
         setPublicWebView()
         transfromScreen()
+        
+        
+        mBackButton = getIconButton(CGRect(x: UIUtils.getScreenWidth()-36,y: 10,width: 24,height: 24), iconName: "icon_cancel", action: #selector(BookWebView.clickBack))
+        
+        
         self.view.addSubview(loadingIndicator)
     }
     
@@ -134,16 +140,18 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
     
     func webViewDidFinishLoad(_ webView: UIWebView){
         loadingIndicator.stop()
+        mBackButton.removeFromSuperview()
     }
     
     func webViewDidStartLoad(_ webView: UIWebView){
         loadingIndicator.start()
+         self.view.addSubview(mBackButton)
     }
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error){
         loadingIndicator.stop()
     }
-
+    
     override var prefersStatusBarHidden : Bool {
         return true
     }

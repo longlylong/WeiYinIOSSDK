@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
 /**
@@ -28,7 +29,11 @@ class OrderListBean : BaseResultBean {
     
     var orders = Array<Order>()
     
-    class Order {
+    class Order : HandyJSON{
+        
+        required init() {
+            
+        }
         
         var orderSerial = ""//
         
@@ -129,45 +134,13 @@ class OrderListBean : BaseResultBean {
                 "details":detailArr as AnyObject
             ]
         }
-        
-        static func toOrder(json:JSON) -> Order {
-            let bean = Order()
-            bean.orderSerial = json["orderSerial"].stringValue
-            bean.address = json["address"].stringValue
-            bean.receiver = json["receiver"].stringValue
-            bean.mobile = json["mobile"].stringValue
-            bean.buyerMobile = json["buyerMobile"].stringValue
-            bean.paymentPattern = json["paymentPattern"].intValue
-            bean.orderStatus = json["orderStatus"].intValue
-            bean.totalPrice = json["totalPrice"].floatValue
-            bean.quantity = json["quantity"].intValue
-            bean.buyerMark = json["buyerMark"].stringValue
-            bean.trackingNumber = json["trackingNumber"].stringValue
-            bean.createTime = json["createTime"].intValue
-            bean.payTime = json["payTime"].intValue
-            bean.deliveryTime = json["deliveryTime"].intValue
-            bean.generateTime = json["generateTime"].intValue
-            bean.closeTime = json["closeTime"].intValue
-            bean.province = json["province"].stringValue
-            bean.city = json["city"].stringValue
-            bean.area = json["area"].stringValue
-            bean.logistics = json["logistics"].intValue
-            bean.kuaiDiUrl = json["kuaiDiUrl"].stringValue
-            bean.discount = json["discount"].floatValue
-            bean.fee = json["fee"].floatValue
-            bean.displayType = json["displayType"].intValue
-            bean.desc = json["desc"].stringValue
-            
-            let detailArr = json["details"]
-            for(_, subJson): (String, JSON) in detailArr{
-                bean.details.append(Detail.toDetail(json: subJson))
-            }
-            
-            return bean
-        }
     }
     
-    class Detail {
+    class Detail : HandyJSON{
+        
+        required init() {
+            
+        }
         
         var bookId = 0//6,
         
@@ -203,21 +176,6 @@ class OrderListBean : BaseResultBean {
                 "bookMakeType":bookMakeType as AnyObject
             ]
         }
-        
-        static func toDetail(json:JSON) -> Detail {
-            let bean = Detail()
-            bean.bookId = json["bookId"].intValue
-            bean.bookName = json["bookName"].stringValue
-            bean.bookType = json["bookType"].intValue
-            bean.serial = json["serial"].stringValue
-            bean.page = json["page"].intValue
-            bean.count = json["count"].intValue
-            bean.volume = json["volume"].intValue
-            bean.price = json["price"].floatValue
-            bean.frontImage = json["frontImage"].stringValue
-            bean.bookMakeType = json["bookMakeType"].intValue
-            return bean
-        }
     }
     
     func toJson() -> [String:AnyObject] {
@@ -230,20 +188,5 @@ class OrderListBean : BaseResultBean {
         return[
             "orders":orderArr as AnyObject
         ]
-    }
-    
-    static func toOrderListBean(jsonData:AnyObject?) -> OrderListBean {
-        let json  = JSON(jsonData!)
-        let bean = OrderListBean()
-        bean.resultCode = json["resultCode"].stringValue
-        bean.errorMsg = json["errorMsg"].stringValue
-        
-        let orderArr = json["orders"]
-        
-        for(_, subJson) : (String, JSON) in orderArr{
-            bean.orders.append(Order.toOrder(json: subJson))
-        }
-        
-        return bean
     }
 }

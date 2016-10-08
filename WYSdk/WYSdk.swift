@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.4.1
+//  WYSdk v1.4.4
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -446,21 +446,28 @@ open class WYSdk : BaseSdk {
      打开订单页
      */
     open func showOrderList(_ vc: UIViewController){
-        PublicWebViewController.launchWithOrder(vc)
+        PublicWebViewController.launch(vc,url: HttpConstant.getShowOrderUrl())
     }
     
     /*
      打开购物车
      */
     open func showShopCart(_ vc: UIViewController){
-        PublicWebViewController.launchWithShopCart(vc)
+        PublicWebViewController.launch(vc,url: HttpConstant.getShowCartUrl())
     }
     
     /*
      打开纸质画册
      */
     open func showPaper(_ vc: UIViewController){
-        PublicWebViewController.launchWithPaper(vc)
+        PublicWebViewController.launch(vc,url: HttpConstant.getPaperUrl())
+    }
+    
+    /*
+     打开常见问题
+     */
+    public func showQuestion(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getQuestionUrl())
     }
     
     /*

@@ -75,7 +75,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         
         WYSdk.getInstance().setSelectDataPage(self)
         
-        setNavTextButton()
+        setNavTextButton(leftText:"选择照片",rightText:"预览排版")
         
         let itemSize = (UIUtils.getScreenWidth() - 2) * 0.333
         let flowLayout = UICollectionViewFlowLayout()
@@ -84,7 +84,34 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.minimumLineSpacing = 1
-        mCollectionView = UICollectionView(frame:CGRect(x: 0,y: 0, width: UIUtils.getScreenWidth(), height: UIUtils.getScreenHeight()), collectionViewLayout: flowLayout)
+        
+        let screenWidth = UIUtils.getScreenWidth()
+        let screenHeight = UIUtils.getScreenHeight()
+        
+        if SpUtils.getTipsFlag(){
+            
+            let tipsLayout = UIView(frame: CGRect(x:0,y:60, width:screenWidth,height:40))
+            tipsLayout.backgroundColor = UIUtils.getTipsGray()
+            
+            let tipText = UILabel(frame: CGRect(x:0,y:0, width:screenWidth - 50,height:40))
+            tipText.text = "长按照片可编辑或添加文本"
+            tipText.font = UIFont.systemFont(ofSize: 15)
+            tipText.textAlignment = NSTextAlignment.center
+            
+            let tipCancel = UIButton(frame: CGRect(x:tipText.frame.width,y:2, width: 40,height:40))
+            tipCancel.setImage(UIImage(named:"icon_cancel"), for: UIControlState())
+            tipCancel.addTarget(self, action: #selector(SelectDataViewController.closeTipsLayout), for: UIControlEvents.touchUpInside)
+            
+            tipsLayout.addSubview(tipText)
+            tipsLayout.addSubview(tipCancel)
+            self.view.addSubview(tipsLayout)
+            mCollectionView = UICollectionView(frame:CGRect(x: 0,y: 100, width: screenWidth, height: screenHeight), collectionViewLayout: flowLayout)
+            
+            SpUtils.saveTipsFlag(flag: false)
+        }else{
+            mCollectionView = UICollectionView(frame:CGRect(x: 0,y: 0, width: screenWidth, height: screenHeight), collectionViewLayout: flowLayout)
+        }
+        
         mCollectionView.delegate = self
         mCollectionView.dataSource = self
         mCollectionView.backgroundColor = UIColor.white
@@ -142,6 +169,13 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
                 }
             }
         }
+    }
+    
+    func closeTipsLayout(){
+        let screenWidth = UIUtils.getScreenWidth()
+        let screenHeight = UIUtils.getScreenHeight()
+        mCollectionView.frame = CGRect(x: 0,y: 60, width: screenWidth, height: screenHeight)
+        SpUtils.saveTipsFlag(flag: false)
     }
     
     func addLoadMoreData(_ blockList:NSMutableArray?) {
@@ -264,6 +298,10 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         about.text = "实物介绍"
         data.add(about)
         
+        let question = WeiYinDownSheetModel()
+        question.text = "常见问题"
+        data.add(question)
+        
         mSheet.initWYDownSheet(data)
         mSheet.ShowInView(self)
     }
@@ -276,6 +314,8 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             WYSdk.getInstance().showOrderList(self)
         }else if index == 2{
             WYSdk.getInstance().showPaper(self)
+        }else if index == 3 {
+            WYSdk.getInstance().showQuestion(self)
         }
     }
     

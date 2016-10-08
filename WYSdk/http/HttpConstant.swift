@@ -50,4 +50,11 @@ class HttpConstant {
     static func getPaperUrl()->String {
         return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/home/bookshow" : "http://apptest.weiyin.cc/home/bookshow"
     }
+    
+    /**
+     * 常见问题地址
+     */
+    static func getQuestionUrl() ->String {
+        return "http://app.weiyin.cc/home/linktowx"
+    }
 }

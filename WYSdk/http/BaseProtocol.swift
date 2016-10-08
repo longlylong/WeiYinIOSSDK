@@ -30,7 +30,7 @@ class BaseProtocol : NSObject{
                     tcs.setResult(result)
 
                     print("")
-                    print("postRequest " + "\(BaseResultBean.toBaseResultBean(jsonData: result).resultCode)" + " --" + url)
+                    print("postRequest " + "\(Converter<BaseResultBean>.conver(result)?.resultCode)" + " --" + url)
                     print("")
                 }
         }

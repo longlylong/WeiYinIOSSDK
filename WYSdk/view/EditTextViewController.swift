@@ -27,7 +27,7 @@ class EditTextViewController: BaseUIViewController ,UITextViewDelegate {
     fileprivate var mEditView = UITextView()
     
     override func initUI() {
-        setNavTextButton()
+        setNavTextButton(leftText:"修改文本",rightText:"确定")
         
         mEditView = UITextView(frame: CGRect(x: 10, y: 10, width: UIUtils.getScreenWidth()-20,height: UIUtils.getScreenHeight()-20))
         mEditView.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)

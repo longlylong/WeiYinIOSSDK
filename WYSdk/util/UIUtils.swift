@@ -14,7 +14,7 @@ import UIKit
 */
 class UIUtils {
 
-    static let BOBY_FONT_SIZE:CGFloat = 13
+    static let BOBY_FONT_SIZE:CGFloat = 14
     
     static func getScreenWidth()->CGFloat{
         return  UIScreen.main.bounds.width
@@ -22,6 +22,14 @@ class UIUtils {
     
     static func getScreenHeight()->CGFloat{
         return  UIScreen.main.bounds.height
+    }
+    
+    static func getTipsGray()->UIColor{
+        return colorWithHexString("#10565656")
+    }
+    
+    static func getThemeColor()->UIColor{
+        return colorWithHexString("#f56971")
     }
     
     static func getGrayColor()->UIColor{

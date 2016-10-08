@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
 /**
@@ -17,7 +18,11 @@ class ShopCartListBean : BaseResultBean  {
     
     var cars = Array<Cart>()
     
-    class Cart{
+    class Cart : HandyJSON{
+        
+        required init(){
+        
+        }
         
         var bookId = 0
         var count = 0
@@ -33,21 +38,6 @@ class ShopCartListBean : BaseResultBean  {
         var bookMakeType = 0
         
         var bookType = 0
-        
-        static func toCart(json:JSON)->Cart{
-            let c = Cart()
-            c.bookId = json["bookId"].intValue
-            c.count = json["count"].intValue
-            c.carId = json["carId"].intValue
-            c.bookName = json["bookName"].stringValue
-            c.pricePageCount = json["pricePageCount"].intValue
-            c.price = json["price"].floatValue
-            c.volume = json["volume"].intValue
-            c.frontImage = json["frontImage"].stringValue
-            c.bookType = json["bookType"].intValue
-            c.bookMakeType = json["bookMakeType"].intValue
-            return c
-        }
         
         func toJson()-> [String : AnyObject]{
             return [
@@ -71,24 +61,15 @@ class ShopCartListBean : BaseResultBean  {
             cartArr.append(o.toJson())
         }
         return[
-            "cars":cartArr as AnyObject
+            "cars" : cartArr as AnyObject
         ]
     }
 
     
     static func toShopCartListBean(jsonData:AnyObject?) -> ShopCartListBean {
-        let json  = JSON(jsonData!)
-        let bean = ShopCartListBean()
-        bean.errorMsg = json["errorMsg"].stringValue
-        bean.resultCode = json["resultCode"].stringValue
-        
-        let cartArr = json["cars"]
-        
-        for(_, subJson): (String, JSON) in cartArr{
-            bean.cars.append(Cart.toCart(json: subJson))
-        }
-        
-        return bean
+        var bean = Converter<ShopCartListBean>.conver(jsonData)
+        bean = bean == nil ? ShopCartListBean() : bean
+        return bean!
     }
     
 }

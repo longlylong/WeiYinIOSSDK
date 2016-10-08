@@ -34,31 +34,23 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
     fileprivate var loadingIndicator = LoadingView()
     fileprivate var mBackButton : UIButton!
     
-    static func launchWithPaper(_ controller:UIViewController){
-        PublicWebViewController.launch(controller, url: HttpConstant.getPaperUrl())
-    }
-    
-    static func launchWithShopCart(_ controller:UIViewController){
-        PublicWebViewController.launch(controller, url: HttpConstant.getShowCartUrl())
-    }
-    
-    static func launchWithOrder(_ controller:UIViewController){
-        PublicWebViewController.launch(controller, url: HttpConstant.getShowOrderUrl())
-    }
-    
     static func launch(_ controller:UIViewController,url:String){
         let webController = PublicWebViewController()
         webController.mUrl = url
+        webController.lastVC = controller
         controller.present(webController, animated: true, completion: nil)
     }
     
     var mPublicWebView = WYWebView()
     var mUrl = ""
+    var lastVC:UIViewController!
     
      override func initUI() {
         setPublicWebView()
         mBackButton = getIconButton(CGRect(x: 9,y: 28,width: 24,height: 24), iconName: "icon_cancel", action: #selector(PublicWebViewController.clickBack))
         self.view.addSubview(loadingIndicator)
+        
+        lastVC.dismiss(animated: false, completion: nil)
     }
 
     override func initListener() {

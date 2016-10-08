@@ -16,4 +16,6 @@ pod 'Kingfisher'
 #加密的
 pod 'CryptoSwift'
 
+#json
+pod 'HandyJSON' ,'~>1.1.0'
 end
