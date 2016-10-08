@@ -7,16 +7,16 @@
 //
 
 import Foundation
-public class UserController: BaseSdk {
+open class UserController: BaseSdk {
 
-    private var mLastHttpDNSRequestTime = 0
-    private let mHttpStore = WYProtocol()
+    fileprivate var mLastHttpDNSRequestTime = 0
+    fileprivate let mHttpStore = WYProtocol()
     
-    private static let mInstance = UserController()
+    fileprivate static let mInstance = UserController()
     
-    private override init(){}
+    fileprivate override init(){}
     
-    public static func getInstance() -> UserController{
+    open static func getInstance() -> UserController{
         return mInstance
     }
     

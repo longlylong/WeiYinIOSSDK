@@ -10,40 +10,40 @@ import Foundation
 class TimeUtils {
     
     static func getCurrentTimeAddTimeZone()->Int{
-        let date = NSDate()
-        let zone = NSTimeZone.systemTimeZone()
-        let interval = zone.secondsFromGMTForDate(date)
+        let date = Date()
+        let zone = TimeZone.current
+        let interval = zone.secondsFromGMT(for: date)
         return Int(date.timeIntervalSince1970) + interval
     }
     
     static func getCurrentTime()->Int{
-        let date = NSDate()
+        let date = Date()
         return Int(date.timeIntervalSince1970)
     }
     
-    static func getCurrentTime(format:String) ->String{
-        let dateFormatter = NSDateFormatter()
+    static func getCurrentTime(_ format:String) ->String{
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         
-        let date = NSDate()
-        let str = dateFormatter.stringFromDate(date)
+        let date = Date()
+        let str = dateFormatter.string(from: date)
         
         return str
     }
     
-    static func getTime(time:Int,format:String) ->String{
-        let dateFormatter = NSDateFormatter()
+    static func getTime(_ time:Int,format:String) ->String{
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         
-        let date = NSDate(timeIntervalSince1970: NSTimeInterval(time))
-        let str = dateFormatter.stringFromDate(date)
+        let date = Date(timeIntervalSince1970: TimeInterval(time))
+        let str = dateFormatter.string(from: date)
         
         return str
     }
     
-    static func getIntTime(date:NSDate)->Int{
-        let zone = NSTimeZone.systemTimeZone()
-        let interval = zone.secondsFromGMTForDate(date)
+    static func getIntTime(_ date:Date)->Int{
+        let zone = TimeZone.current
+        let interval = zone.secondsFromGMT(for: date)
         return Int(date.timeIntervalSince1970) + interval
     }
     

@@ -9,29 +9,29 @@
 import Foundation
 
 protocol WYEditTextDelegate  {
-    func textViewDidChange(text:String)
+    func textViewDidChange(_ text:String)
 }
 
 class EditTextViewController: BaseUIViewController ,UITextViewDelegate {
     
-    static func launch(vc:UIViewController,text:String,wyEditTextDelegate:WYEditTextDelegate?){
+    static func launch(_ vc:UIViewController,text:String,wyEditTextDelegate:WYEditTextDelegate?){
         let etvc = EditTextViewController()
         etvc.text = text
         etvc.wyEditTextDelegate = wyEditTextDelegate
         let nv = UINavigationController(rootViewController: etvc)
-        vc.presentViewController(nv, animated: true, completion: nil)
+        vc.present(nv, animated: true, completion: nil)
     }
     
-    private var text = ""
+    fileprivate var text = ""
     var wyEditTextDelegate : WYEditTextDelegate!
-    private var mEditView = UITextView()
+    fileprivate var mEditView = UITextView()
     
     override func initUI() {
-        setNavTextButton()
+        setNavTextButton(leftText:"修改文本",rightText:"确定")
         
-        mEditView = UITextView(frame: CGRectMake(10, 10, UIUtils.getScreenWidth()-20,UIUtils.getScreenHeight()-20))
-        mEditView.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
-        mEditView.textAlignment = NSTextAlignment.Left
+        mEditView = UITextView(frame: CGRect(x: 10, y: 10, width: UIUtils.getScreenWidth()-20,height: UIUtils.getScreenHeight()-20))
+        mEditView.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)
+        mEditView.textAlignment = NSTextAlignment.left
         mEditView.delegate = self
         mEditView.text = text
         mEditView.textColor = UIUtils.getTextBlackColor()
@@ -46,10 +46,10 @@ class EditTextViewController: BaseUIViewController ,UITextViewDelegate {
     }
     
     func handleLeftButton(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func textViewDidChange(textView: UITextView){
+    func textViewDidChange(_ textView: UITextView){
         text = textView.text
     }
 }

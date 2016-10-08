@@ -13,10 +13,10 @@ class HttpConstant {
     /**
     * 线上服务器
     */
-    private static var  ONLINE_SERVER = true
+    fileprivate static var  ONLINE_SERVER = true
             
-    private static let  Online_Api_Url = "http://openapi.weiyin.cc/"  //接口
-    private static let  Test_Api_Url = "http://apitest.weiyin.cc/"   //接口
+    fileprivate static let  Online_Api_Url = "http://openapi.weiyin.cc/"  //接口
+    fileprivate static let  Test_Api_Url = "http://apitest.weiyin.cc/"   //接口
     
     static var  RootApiUrl = ONLINE_SERVER ? Online_Api_Url : Test_Api_Url
 
@@ -49,5 +49,12 @@ class HttpConstant {
      */
     static func getPaperUrl()->String {
         return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/home/bookshow" : "http://apptest.weiyin.cc/home/bookshow"
+    }
+    
+    /**
+     * 常见问题地址
+     */
+    static func getQuestionUrl() ->String {
+        return "http://app.weiyin.cc/home/linktowx"
     }
 }

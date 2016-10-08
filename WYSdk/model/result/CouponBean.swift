@@ -21,7 +21,7 @@ class CouponBean :BaseResultBean{
         }
 
         return[
-            "ticket":ticketArr
+            "ticket":ticketArr as AnyObject
         ]
     }
     
@@ -33,17 +33,17 @@ class CouponBean :BaseResultBean{
         
         func toJson() -> [String:AnyObject] {
             return[
-                "code":code,
-                "createTime":createTime,
-                "deadline":deadline,
-                "isCheck":isCheck,
-                "checkTime":checkTime,
-                "name":name,
-                "leastPrice":leastPrice,
-                "cutPrice":cutPrice,
-                "discount":discount,
-                "useCountType":useCountType,
-                "mark":mark
+                "code":code as AnyObject,
+                "createTime":createTime as AnyObject,
+                "deadline":deadline as AnyObject,
+                "isCheck":isCheck as AnyObject,
+                "checkTime":checkTime as AnyObject,
+                "name":name as AnyObject,
+                "leastPrice":leastPrice as AnyObject,
+                "cutPrice":cutPrice as AnyObject,
+                "discount":discount as AnyObject,
+                "useCountType":useCountType as AnyObject,
+                "mark":mark as AnyObject
             ]
         }
         

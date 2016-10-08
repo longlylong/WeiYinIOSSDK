@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.4.0
+//  WYSdk v1.4.4
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -9,57 +9,59 @@
 import Foundation
 //import SwiftyUserDefaults
 
-public class WYSdk : BaseSdk {
+open class WYSdk : BaseSdk {
     
-    public static let PAY_SUCCESS = "success" //  payment succeed
-    public static let PAY_FAIL = "fail" // payment failed
-    public static let PAY_CANCEL = "cancel" // user canceld
-    public static let PAY_INVALID = "invalid" // payment plugin not installed
+    private static var __once: () = {
+            mInstance = WYSdk()
+        }()
+    
+    open static let PAY_SUCCESS = "success" //  payment succeed
+    open static let PAY_FAIL = "fail" // payment failed
+    open static let PAY_CANCEL = "cancel" // user canceld
+    open static let PAY_INVALID = "invalid" // payment plugin not installed
     
     //成品类型
-    public static let Print_Book = 0// 成书
-    public static let Print_Card = 1// 成卡片
-    public static let Print_Photo = 3// 照片冲印
-    public static let Print_Calendar = 4// 台历
+    open static let Print_Book = 0// 成书
+    open static let Print_Card = 1// 成卡片
+    open static let Print_Photo = 3// 照片冲印
+    open static let Print_Calendar = 4// 台历
     
-    private static var onceToken : dispatch_once_t = 0
-    private static var mInstance : WYSdk?
+    fileprivate static var onceToken : Int = 0
+    fileprivate static var mInstance : WYSdk?
     
-    private override init(){}
+    fileprivate override init(){}
     
-    public static func getInstance() -> WYSdk{
-        dispatch_once(&onceToken) {
-            mInstance = WYSdk()
-        }
+    open static func getInstance() -> WYSdk{
+        _ = WYSdk.__once
         return mInstance!
     }
     
-    private var accessKey = ""
-    private var accessSecret = ""
-    private var openId = ""
-    private var identity = ""
-    private var thirdName = ""
-    private var thirdHeadImg = ""
-    private var themeColor = "f56971"
+    fileprivate var accessKey = ""
+    fileprivate var accessSecret = ""
+    fileprivate var openId = ""
+    fileprivate var identity = ""
+    fileprivate var thirdName = ""
+    fileprivate var thirdHeadImg = ""
+    fileprivate var themeColor = "f56971"
     var host = ""
     var ip = ""
-    private var channel = 0
+    fileprivate var channel = 0
     
-    private var lastLoginTime = 0
+    fileprivate var lastLoginTime = 0
     
-    private var isMyAppPayy = false
-    private var isShowDataSelectPage = true
-    private var isLoadMoree = false
+    fileprivate var isMyAppPayy = false
+    fileprivate var isShowDataSelectPage = true
+    fileprivate var isLoadMoree = false
     
-    private var selectDataPage:SelectDataViewController?
+    fileprivate var selectDataPage:SelectDataViewController?
     
     var payOrderDelegate : WYPayOrderBlock?
     var refreshDelegate : WYRefreshOrderBlock?
     var payStateDelegate : WYRefreshPayBlock?
     var loadMoreDelegate : WYLoadMoreBlock?
     
-    private var wyProtocol  = WYProtocol()
-    private var structDataBean = RequestStructDataBean()
+    fileprivate var wyProtocol  = WYProtocol()
+    fileprivate var structDataBean = RequestStructDataBean()
     
     
     /**
@@ -69,7 +71,7 @@ public class WYSdk : BaseSdk {
      * @param accessSecret 申请到的AppSecret
      * @param openId       每个合作方的每个用户的唯一标识 建议写法 前缀+唯一标识 如 WY_xxxxxx
      */
-    public func setSdk(accessKey:String, accessSecret:String, openId:String) {
+    open func setSdk(_ accessKey:String, accessSecret:String, openId:String) {
         self.accessKey = accessKey
         self.accessSecret = accessSecret
         self.openId = openId
@@ -77,7 +79,7 @@ public class WYSdk : BaseSdk {
         requestIdentity(Controller(nil, nil, nil))
     }
     
-    private func isLogin() -> Bool{
+    fileprivate func isLogin() -> Bool{
         return !getIdentity().isEmpty && lastLoginTime + 2*60*60 > TimeUtils.getCurrentTime()
     }
     
@@ -97,11 +99,11 @@ public class WYSdk : BaseSdk {
         return identity
     }
     
-    private func getOpenId() -> String {
+    fileprivate func getOpenId() -> String {
         return openId
     }
     
-    public func getHost() -> String {
+    open func getHost() -> String {
         UserController.getInstance().getHttpDNSIp()
         if self.ip.isEmpty{
             return host
@@ -110,51 +112,51 @@ public class WYSdk : BaseSdk {
         }
     }
     
-    public func isShowSelectDataVC()->Bool{
+    open func isShowSelectDataVC()->Bool{
         return isShowDataSelectPage
     }
     
     /*
      设置合作方支付的回调
      */
-    public func setWyPayOrderDelegate(delegate:WYPayOrderBlock){
+    open func setWyPayOrderDelegate(_ delegate:@escaping WYPayOrderBlock){
         payOrderDelegate = delegate
     }
     
     /*
      设置上啦刷新的回调
      */
-    public func setWyLoadMoreDelegate(delegate:WYLoadMoreBlock){
+    open func setWyLoadMoreDelegate(_ delegate:@escaping WYLoadMoreBlock){
         loadMoreDelegate = delegate
     }
     
-    public func getWyLoadMoreDelegate()->WYLoadMoreBlock?{
+    open func getWyLoadMoreDelegate()->WYLoadMoreBlock?{
         return loadMoreDelegate
     }
     
-    public func setRefreshOrderDelegate(delegate:WYRefreshOrderBlock){
+    open func setRefreshOrderDelegate(_ delegate:@escaping WYRefreshOrderBlock){
         refreshDelegate = delegate
     }
     
-    public func setRefreshPayDelegate(delegate:WYRefreshPayBlock){
+    open func setRefreshPayDelegate(_ delegate:@escaping WYRefreshPayBlock){
         payStateDelegate = delegate
     }
     
     /*
      设置合作方支付
      */
-    public func setMyAppPay(isMyAppPay:Bool){
+    open func setMyAppPay(_ isMyAppPay:Bool){
         self.isMyAppPayy = isMyAppPay
     }
     
-    public func isMyAppPay()->Bool{
+    open func isMyAppPay()->Bool{
         return self.isMyAppPayy
     }
     
     /*
      设置打开加载更多
      */
-    public func openLoadMore(loadMore:Bool){
+    open func openLoadMore(_ loadMore:Bool){
         self.isLoadMoree = loadMore
     }
     
@@ -162,61 +164,61 @@ public class WYSdk : BaseSdk {
         return isLoadMoree
     }
     
-    func setSelectDataPage(vc:SelectDataViewController?){
+    func setSelectDataPage(_ vc:SelectDataViewController?){
         selectDataPage = vc
     }
     
     /*
      打开数据选择面页
      */
-    public func isShowSelectDataViewController(isShow:Bool){
+    open func isShowSelectDataViewController(_ isShow:Bool){
         isShowDataSelectPage = isShow
     }
     
     /*
      设置第三方的名字
      */
-    public func setThirdName(name:String) {
+    open func setThirdName(_ name:String) {
          thirdName = name
     }
     
     /*
      设置第三方的头像http路径哦
      */
-    public func setThirdHeadImg(url:String) {
+    open func setThirdHeadImg(_ url:String) {
          thirdHeadImg = url
     }
     
     /*
      设置主题颜色 16进制颜色 如 f56971
      */
-    public func setThemeColor(color:String){
+    open func setThemeColor(_ color:String){
         self.themeColor = color
     }
     
-    public func getThemeColor()->String{
+    open func getThemeColor()->String{
         return self.themeColor
     }
     
-    public func getChannel()-> Int{
+    open func getChannel()-> Int{
         return channel
     }
     
-    private func getThirdName()-> String{
+    fileprivate func getThirdName()-> String{
         return thirdName
     }
     
-    private func getThirdHeadImg()-> String{
+    fileprivate func getThirdHeadImg()-> String{
         return thirdHeadImg
     }
     
-    private func requestIdentity(controller:Controller){
+    fileprivate func requestIdentity(_ controller:Controller){
         let bean = RequestUserInfoBean()
         bean.openId = getOpenId()
         bean.name = getThirdName()
         bean.headImg = getThirdHeadImg()
         runOnAsync { 
-            let resultBean = self.wyProtocol.getUserInfo(bean)
+            let resultBean = self.wyProtocol.getUserInfo(bean: bean)
             self.handleResult(resultBean, controller, resultOk: {
                 
                     self.lastLoginTime = TimeUtils.getCurrentTime()
@@ -232,7 +234,7 @@ public class WYSdk : BaseSdk {
         }
     }
     
-    private func fillRes(url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int,des:String)->RequestStructDataBean.Resource{
+    fileprivate func fillRes(_ url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int,des:String)->RequestStructDataBean.Resource{
         let resource = RequestStructDataBean.Resource()
         resource.desc = des
         resource.url = url
@@ -255,7 +257,7 @@ public class WYSdk : BaseSdk {
      * @param width        封面照片宽
      * @param height       封面照片高
      */
-    public func setFrontCover(title:String,subTitle:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
+    open func setFrontCover(_ title:String,subTitle:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
         let frontCover = RequestStructDataBean.Cover()
         frontCover.title = title
         frontCover.subTitle = subTitle
@@ -272,7 +274,7 @@ public class WYSdk : BaseSdk {
      * @param width        封底照片宽
      * @param height       封底照片高
      */
-    public func setBackCover(url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
+    open func setBackCover(_ url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
         let backCover =  RequestStructDataBean.Cover()
         backCover.coverImgs.append(fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: ""))
         structDataBean.structData.backCover = backCover
@@ -289,7 +291,7 @@ public class WYSdk : BaseSdk {
      * @param width        扉页照片宽
      * @param height       扉页照片高
      */
-    public func setFlyleaf(nick:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
+    open func setFlyleaf(_ nick:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
         let flyleaf =  RequestStructDataBean.Flyleaf()
         flyleaf.nick = nick
         flyleaf.headImg = fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: "")
@@ -302,7 +304,7 @@ public class WYSdk : BaseSdk {
      *
      * @param text 序言文本
      */
-    public func setPreface(text:String) {
+    open func setPreface(_ text:String) {
         let preface =  RequestStructDataBean.Preface()
         preface.text = text
         structDataBean.structData.preface = preface
@@ -315,7 +317,7 @@ public class WYSdk : BaseSdk {
      * @param author   版权页作者
      * @param bookName 版权页书名
      */
-    public func setCopyright(author:String,bookName:String) {
+    open func setCopyright(_ author:String,bookName:String) {
         let copyright =  RequestStructDataBean.Copyright()
         copyright.author = author
         copyright.bookName = bookName
@@ -329,7 +331,7 @@ public class WYSdk : BaseSdk {
      * @param title 章节标题
      * @param des   章节描述
      */
-    public func addChapterBlock(title:String,des:String) {
+    open func addChapterBlock(_ title:String,des:String) {
         let chapterBlock = getChapterBlock(title, des: des)
         structDataBean.structData.dataBlocks.append(chapterBlock)
     }
@@ -345,7 +347,7 @@ public class WYSdk : BaseSdk {
      * @param width        照片宽
      * @param height       照片高
      */
-    public func addPhotoBlock(desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
+    open func addPhotoBlock(_ desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
         let photoBlock = getPhotoBlock(desc, url: url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height)
         structDataBean.structData.dataBlocks.append(photoBlock)
     }
@@ -356,7 +358,7 @@ public class WYSdk : BaseSdk {
      *
      * @param text 文本
      */
-    public func addTextBlock(text:String) {
+    open func addTextBlock(_ text:String) {
         let textBlock = getTextBlock(text)
         structDataBean.structData.dataBlocks.append(textBlock)
     }
@@ -364,7 +366,7 @@ public class WYSdk : BaseSdk {
     /**
      * 提交数据
      */
-    public func postPrintData(vc: UIViewController,bookType:Int,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
+    open func postPrintData(_ vc: UIViewController,bookType:Int,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
         let controller = Controller(start, success, failed)
         callStart(controller)
         
@@ -377,7 +379,7 @@ public class WYSdk : BaseSdk {
             
             if isShowDataSelectPage {
                 SelectDataViewController.launch(vc,bookType: bookType)
-                callSuccess(controller, t: -1)
+                callSuccess(controller, t: -1 as AnyObject)
             }else{
                 requestPrint(vc, bookType: bookType,failedClear: true,start: start, success: success, failed: failed)
             
@@ -397,21 +399,21 @@ public class WYSdk : BaseSdk {
         }
     }
     
-    public func requestPrint(vc: UIViewController, bookType:Int,failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
+    open func requestPrint(_ vc: UIViewController, bookType:Int,failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
         let controller = Controller(start, success, failed)
         
         runOnAsync({
             self.structDataBean.identity = self.getIdentity()
             self.structDataBean.bookType = bookType
-            let printBean = self.wyProtocol.postStructData(self.structDataBean)
+            let printBean = self.wyProtocol.postStructData(bean: self.structDataBean)
             self.handleResult(printBean, controller, resultOk: {
                 
                 self.runOnMain({
-                    self.callSuccess(controller, t: 1)
+                    self.callSuccess(controller, t: 1 as AnyObject)
                     
                     ThreadUtils.threadOnAfterMain(100, block: {
-                        if printBean!.url.containsString(self.host){
-                            printBean!.url = self.getHost() + printBean!.url.stringByReplacingOccurrencesOfString(self.host, withString: "")
+                        if printBean!.url.contains(self.host){
+                            printBean!.url = self.getHost() + printBean!.url.replacingOccurrences(of: self.host, with: "")
                         }
                         
                         BookWebView.launch(vc, url: printBean!.url)
@@ -429,7 +431,7 @@ public class WYSdk : BaseSdk {
         })
     }
     
-    public func addLoadMoreData(blockList:NSMutableArray?){
+    open func addLoadMoreData(_ blockList:NSMutableArray?){
         if selectDataPage != nil {
             if blockList != nil {
                 for b in blockList! {
@@ -443,46 +445,53 @@ public class WYSdk : BaseSdk {
     /*
      打开订单页
      */
-    public func showOrderList(vc: UIViewController){
-        PublicWebViewController.launchWithOrder(vc)
+    open func showOrderList(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getShowOrderUrl())
     }
     
     /*
      打开购物车
      */
-    public func showShopCart(vc: UIViewController){
-        PublicWebViewController.launchWithShopCart(vc)
+    open func showShopCart(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getShowCartUrl())
     }
     
     /*
      打开纸质画册
      */
-    public func showPaper(vc: UIViewController){
-        PublicWebViewController.launchWithPaper(vc)
+    open func showPaper(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getPaperUrl())
+    }
+    
+    /*
+     打开常见问题
+     */
+    public func showQuestion(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getQuestionUrl())
     }
     
     /*
      刷新订单状态
      */
-    public func refreshOrderState(){
+    open func refreshOrderState(){
         refreshDelegate?()
     }
     
     /**
      * 刷新支付结果,用来ui显示的 {@link WYSdk.PAY_SUCCESS,WYSdk.PAY_FAIL,WYSdk.PAY_CANCEL,WYSdk.PAY_INVALID}
      */
-    public func refreshPayState(result:String){
+    open func refreshPayState(_ result:String){
         payStateDelegate?(result)
     }
 
-    public func getPhotoBlock(desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) -> RequestStructDataBean.Block{
+    open func getPhotoBlock(_ desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) -> RequestStructDataBean.Block{
         let photoBlock =  RequestStructDataBean.Block()
         photoBlock.blockType = RequestStructDataBean.TYPE_PHOTO
         photoBlock.resource = fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: desc)
         return photoBlock
     }
 
-    public func getChapterBlock(title:String,des:String)-> RequestStructDataBean.Block {
+    open func getChapterBlock(_ title:String,des:String)-> RequestStructDataBean.Block {
         let chapterBlock =  RequestStructDataBean.Block()
         chapterBlock.chapter.desc = des
         chapterBlock.chapter.title = title
@@ -490,14 +499,14 @@ public class WYSdk : BaseSdk {
         return chapterBlock
     }
 
-    public func getTextBlock(text:String) -> RequestStructDataBean.Block{
+    open func getTextBlock(_ text:String) -> RequestStructDataBean.Block{
         let textBlock =  RequestStructDataBean.Block()
         textBlock.text = text
         textBlock.blockType = RequestStructDataBean.TYPE_TEXT
          return textBlock
     }
     
-    public func resetStructDataBean() {
+    open func resetStructDataBean() {
         structDataBean = RequestStructDataBean()
     }
 }

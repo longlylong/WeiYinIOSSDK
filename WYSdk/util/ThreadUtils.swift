@@ -8,33 +8,33 @@
 
 import Foundation
 
-public class ThreadUtils : NSObject{
+open class ThreadUtils : NSObject{
     
-    private static var Async :dispatch_queue_t = dispatch_queue_create("weiyin_async", DISPATCH_QUEUE_CONCURRENT)
+    fileprivate static var Async :DispatchQueue = DispatchQueue(label: "weiyin_async", attributes: DispatchQueue.Attributes.concurrent)
    
-    private static var AsyncHttpQueue :dispatch_queue_t = dispatch_queue_create("weiyin_http_queue", DISPATCH_QUEUE_SERIAL)
+    fileprivate static var AsyncHttpQueue :DispatchQueue = DispatchQueue(label: "weiyin_http_queue", attributes: [])
     
-    public static func threadOnAfterMain(time:UInt64,block:(() -> Void)){
+    open static func threadOnAfterMain(_ time:UInt64,block:@escaping (() -> Void)){
         ThreadUtils.threadOnAsyncAfter(time,block:  { () -> Void in
-            dispatch_async(dispatch_get_main_queue(), block)
+            DispatchQueue.main.async(execute: block)
         })
     }
     
-    static func threadOnMain(block:(() -> Void)){
-        dispatch_async(dispatch_get_main_queue(), block)
+    static func threadOnMain(_ block:@escaping (() -> Void)){
+        DispatchQueue.main.async(execute: block)
     }
     
-    static func threadOnAsync(block:(() -> Void)){
-        dispatch_async(Async, block)
+    static func threadOnAsync(_ block:@escaping (() -> Void)){
+        Async.async(execute: block)
     }
 
     //毫秒
-    static func threadOnAsyncAfter(time:UInt64,block:(() -> Void)){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64)(time * NSEC_PER_MSEC)), Async, block)
+    static func threadOnAsyncAfter(_ time:UInt64,block:@escaping (() -> Void)){
+        Async.asyncAfter(deadline: DispatchTime.now() + Double((Int64)(time * NSEC_PER_MSEC)) / Double(NSEC_PER_SEC), execute: block)
     }
     
-    static func threadOnHttpQueue(block:(() -> Void)){
-        dispatch_async(AsyncHttpQueue, block)
+    static func threadOnHttpQueue(_ block:@escaping (() -> Void)){
+        AsyncHttpQueue.async(execute: block)
     }
     
 }

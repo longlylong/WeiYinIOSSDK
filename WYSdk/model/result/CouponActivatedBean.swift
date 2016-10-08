@@ -7,13 +7,11 @@
 //
 
 import Foundation
+import HandyJSON
 //import SwiftyJSON
 
-class CouponActivatedBean :BaseResultBean{
-    
-    required init() {
-        
-    }
+class CouponActivatedBean : BaseResultBean{
     
     var ticket  = CouponBean.Ticket()
+
 }

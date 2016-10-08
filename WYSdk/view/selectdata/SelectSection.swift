@@ -29,32 +29,32 @@ class SelectSection: UICollectionReusableView {
     
     func initSectionHeaderView(){
         mSectionHeaderView.removeFromSuperview()
-        mSectionHeaderView = UIView(frame: CGRectMake(0, 0, UIUtils.getScreenWidth(), 40))
+        mSectionHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: UIUtils.getScreenWidth(), height: 40))
         
-        mChapterNameLabel = UILabel(frame: CGRectMake(12, 10,UIUtils.getScreenWidth() - 40, 20))
-        mChapterNameLabel.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
+        mChapterNameLabel = UILabel(frame: CGRect(x: 12, y: 10,width: UIUtils.getScreenWidth() - 40, height: 20))
+        mChapterNameLabel.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)
         mChapterNameLabel.textColor = UIUtils.getTextBlackColor()
-        mChapterNameLabel.textAlignment = NSTextAlignment.Left
+        mChapterNameLabel.textAlignment = NSTextAlignment.left
         mSectionHeaderView.addSubview(mChapterNameLabel)
         
-        mAllSelectBtn = UIButton(frame: CGRectMake(UIUtils.getScreenWidth() - 52, 2, 40, 40))
-        mAllSelectBtn.setTitle("全选", forState: UIControlState.Normal)
-        mAllSelectBtn.setTitleColor(UIUtils.getTextBlackColor(), forState: UIControlState.Normal)
-        mAllSelectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mAllSelectBtn.setBackgroundImage(UIUtils.getImageHighlighted(), forState: UIControlState.Highlighted)
-        mAllSelectBtn.titleLabel?.font = UIFont.systemFontOfSize(UIUtils.BOBY_FONT_SIZE)
+        mAllSelectBtn = UIButton(frame: CGRect(x: UIUtils.getScreenWidth() - 52, y: 2, width: 40, height: 40))
+        mAllSelectBtn.setTitle("全选", for: UIControlState())
+        mAllSelectBtn.setTitleColor(UIUtils.getTextBlackColor(), for: UIControlState())
+        mAllSelectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mAllSelectBtn.setBackgroundImage(UIUtils.getImageHighlighted(), for: UIControlState.highlighted)
+        mAllSelectBtn.titleLabel?.font = UIFont.systemFont(ofSize: UIUtils.BOBY_FONT_SIZE)
         mSectionHeaderView.addSubview(mAllSelectBtn)
         self.addSubview(mSectionHeaderView)
     }
     
-    func setHeaderData(group:RequestStructDataBean.Block,indexPath:NSIndexPath){
+    func setHeaderData(_ group:RequestStructDataBean.Block,indexPath:IndexPath){
         mChapterNameLabel.text = group.chapter.title
-        mAllSelectBtn.tag = indexPath.section
+        mAllSelectBtn.tag = (indexPath as NSIndexPath).section
         
         if group.isSelected {
-            mAllSelectBtn.setTitle("取消", forState: UIControlState.Normal)
+            mAllSelectBtn.setTitle("取消", for: UIControlState())
         }else{
-            mAllSelectBtn.setTitle("全选", forState: UIControlState.Normal)
+            mAllSelectBtn.setTitle("全选", for: UIControlState())
         }
     }
 }

@@ -7,24 +7,24 @@
 //
 
 import Foundation
-public class OrderController : BaseSdk {
+open class OrderController : BaseSdk {
     
-    private let mHttpStore = WYProtocol()
+    fileprivate let mHttpStore = WYProtocol()
     
-    private static let mInstance = OrderController()
+    fileprivate static let mInstance = OrderController()
     
-    private override init(){}
+    fileprivate override init(){}
     
-    public static func getInstance() -> OrderController{
+    open static func getInstance() -> OrderController{
         return mInstance
     }
     
-    func getCoupon(start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func getCoupon(_ start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync { 
-            let resultBean = self.mHttpStore.getTickets(RequestCouponBean())
+            let resultBean = self.mHttpStore.getTickets(bean: RequestCouponBean())
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)
@@ -35,14 +35,14 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func activateCoupon(couponCode:String,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func activateCoupon(_ couponCode:String,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync { 
             let requestBean = RequestActivateCouponBean()
             requestBean.code = couponCode
-            let activatedBean = self.mHttpStore.activateTicket(requestBean)
+            let activatedBean = self.mHttpStore.activateTicket(bean: requestBean)
             self.handleResult(activatedBean, controller, resultOk: {
                 
                     self.callSuccess(controller, t: activatedBean!)
@@ -56,7 +56,7 @@ public class OrderController : BaseSdk {
     /**
      * @param paymentPattern ZhifubaoApp = 1, WeixinApp = 2
      */
-    func payOrder(orderSerial:String,paymentPattern:Int,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func payOrder(_ orderSerial:String,paymentPattern:Int,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
@@ -64,7 +64,7 @@ public class OrderController : BaseSdk {
             let requestBean =  RequestPayBean()
             requestBean.orderSerial = orderSerial
             requestBean.paymentPattern = paymentPattern
-            let resultBean = self.mHttpStore.payOrder(requestBean)
+            let resultBean = self.mHttpStore.payOrder(bean: requestBean)
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)
@@ -75,7 +75,7 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func createOrder(receiver:String,mobile:String, buyerMobile:String,paymentPattern:Int,buyerMark:String,province:String,city:String, area:String,address:String,  logistics:Int,ticket:String,shopCartListBean:ShopCartListBean, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func createOrder(_ receiver:String,mobile:String, buyerMobile:String,paymentPattern:Int,buyerMark:String,province:String,city:String, area:String,address:String,  logistics:Int,ticket:String,shopCartListBean:ShopCartListBean, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         
         let controller = Controller(start,success,failed)
         callStart(controller)
@@ -94,7 +94,7 @@ public class OrderController : BaseSdk {
             requestBean.address = address
             requestBean.logistics = logistics
             requestBean.ticket = ticket
-            let resultBean = self.mHttpStore.createOrder(requestBean)
+            let resultBean = self.mHttpStore.createOrder(bean: requestBean)
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)
@@ -105,7 +105,7 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func addShopCart(bookId:Int,count:Int, workmanship:Int,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func addShopCart(_ bookId:Int,count:Int, workmanship:Int,start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
@@ -115,7 +115,7 @@ public class OrderController : BaseSdk {
             requestBean.count = count
             requestBean.bookMakeType = workmanship
             
-            let resultBean = self.mHttpStore.addShopCart(requestBean)
+            let resultBean = self.mHttpStore.addShopCart(bean: requestBean)
             self.handleResult(resultBean, controller, resultOk: { 
             
                     self.callSuccess(controller, t: resultBean!)
@@ -126,14 +126,14 @@ public class OrderController : BaseSdk {
         }
     }
 
-    func delShopCart(cartId:Int, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func delShopCart(_ cartId:Int, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync {
             let requestBean =  RequestDelShopCartBean()
             requestBean.carId = cartId
-            let resultBean = self.mHttpStore.delShopCart(requestBean)
+            let resultBean = self.mHttpStore.delShopCart(bean: requestBean)
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)
@@ -144,14 +144,14 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func delOrder(orderSerial:String, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func delOrder(_ orderSerial:String, start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync {
             let requestBean = RequestDelOrderBean()
             requestBean.orderSerial = orderSerial
-            let resultBean = self.mHttpStore.delOrder(requestBean)
+            let resultBean = self.mHttpStore.delOrder(bean: requestBean)
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.handleResult(resultBean, controller, resultOk: { 
@@ -168,13 +168,13 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func getOrderList(start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func getOrderList(_ start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync {
             
-            let resultBean = self.mHttpStore.getOrders(RequestOrderListBean())
+            let resultBean = self.mHttpStore.getOrders(bean: RequestOrderListBean())
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)
@@ -185,12 +185,12 @@ public class OrderController : BaseSdk {
         }
     }
     
-    func getShopCartList(start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
+    func getShopCartList(_ start:UIRequestStart?,success:UIRequestSuccess?,failed:UIRequestFailed?) {
         let controller = Controller(start,success,failed)
         callStart(controller)
         
         runOnAsync {
-            let resultBean = self.mHttpStore.getShopCart(RequestShopCartListBean())
+            let resultBean = self.mHttpStore.getShopCart(bean: RequestShopCartListBean())
             self.handleResult(resultBean, controller, resultOk: { 
                 
                     self.callSuccess(controller, t: resultBean!)

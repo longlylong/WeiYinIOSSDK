@@ -15,9 +15,9 @@ class RequestDelOrderBean : BaseRequestBean {
     override func toJson() -> [String : AnyObject] {
         
         return [
-            "identity" : identity ,
+            "identity" : identity as AnyObject ,
             
-            "orderSerial" : orderSerial
+            "orderSerial" : orderSerial as AnyObject
         ]
     }
     

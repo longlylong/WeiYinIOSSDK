@@ -20,8 +20,8 @@ class ShopCartListBean : BaseResultBean  {
     
     class Cart : HandyJSON{
         
-        required init() {
-            
+        required init(){
+        
         }
         
         var bookId = 0
@@ -36,6 +36,23 @@ class ShopCartListBean : BaseResultBean  {
         var frontImage = ""
     
         var bookMakeType = 0
+<<<<<<< HEAD
+        
+        var bookType = 0
+        
+        func toJson()-> [String : AnyObject]{
+            return [
+                "bookId" : bookId as AnyObject,
+                "count" : count as AnyObject,
+                "carId" : carId as AnyObject,
+                "bookName" : bookName as AnyObject,
+                "pricePageCount" : pricePageCount as AnyObject,
+                "price" : price as AnyObject,
+                "volume" : volume as AnyObject,
+                "frontImage" : frontImage as AnyObject,
+                "bookType" : bookType as AnyObject,
+                "bookMakeType" : bookMakeType as AnyObject
+=======
         var bookType = 0
         func toJson()-> [String : AnyObject]{
             return [
@@ -49,6 +66,7 @@ class ShopCartListBean : BaseResultBean  {
                 "frontImage" : frontImage,
                 "bookType" : bookType,
                 "bookMakeType" : bookMakeType
+>>>>>>> master
             ]
         }
     }
@@ -59,7 +77,7 @@ class ShopCartListBean : BaseResultBean  {
             cartArr.append(o.toJson())
         }
         return[
-            "cars":cartArr
+            "cars" : cartArr as AnyObject
         ]
     }
 

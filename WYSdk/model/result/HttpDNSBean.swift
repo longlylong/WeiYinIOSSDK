@@ -20,4 +20,5 @@ class HttpDNSBean : HandyJSON{
     var host = ""
     
     var ttl = 0
+    
 }

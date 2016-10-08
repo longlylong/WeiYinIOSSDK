@@ -10,7 +10,7 @@ import Foundation
 
 class PrintBean : BaseResultBean {
     
-    var url = ""
+    var  url = ""
     
     var unionId = 0
 }

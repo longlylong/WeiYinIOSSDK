@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class RequestStructDataBean : NSObject {
+open class RequestStructDataBean : NSObject {
     
     static let TYPE_PHOTO = 1
     static let TYPE_TEXT = 2
@@ -16,10 +16,10 @@ public class RequestStructDataBean : NSObject {
     
     func toJson() -> [String:AnyObject] {
         return[
-            "identity":identity,
-            "bookType":bookType,
-            "unionId":unionId,
-            "structData":structData.toJson()
+            "identity":identity as AnyObject,
+            "bookType":bookType as AnyObject,
+            "unionId":unionId as AnyObject,
+            "structData":structData.toJson() as AnyObject
         ]
     }
 
@@ -56,12 +56,12 @@ public class RequestStructDataBean : NSObject {
             }
             
             return[
-                "cover":cover.toJson(),
-                "flyleaf":flyleaf.toJson(),
-                "preface":preface.toJson(),
-                "dataBlocks":attrB,
-                "copyright":copyright.toJson(),
-                "backCover":backCover.toJson()
+                "cover":cover.toJson() as AnyObject,
+                "flyleaf":flyleaf.toJson() as AnyObject,
+                "preface":preface.toJson() as AnyObject,
+                "dataBlocks":attrB  as AnyObject,
+                "copyright":copyright.toJson() as AnyObject,
+                "backCover":backCover.toJson() as AnyObject
             ]
         }
     }
@@ -79,9 +79,9 @@ public class RequestStructDataBean : NSObject {
             }
             
             return[
-                "title":title,
-                "subTitle":subTitle,
-                "coverImgs":attrR
+                "title":title as AnyObject,
+                "subTitle":subTitle as AnyObject,
+                "coverImgs":attrR as AnyObject
             ]
         }
     }
@@ -92,8 +92,8 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "nick":nick,
-                "headImg":headImg.toJson()
+                "nick":nick as AnyObject,
+                "headImg":headImg.toJson() as AnyObject
             ]
         }
     }
@@ -103,7 +103,7 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "text":text
+                "text":text as AnyObject
             ]
         }
     }
@@ -114,8 +114,8 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "desc":desc,
-                "title":title
+                "desc":desc as AnyObject,
+                "title":title as AnyObject
             ]
         }
     }
@@ -126,13 +126,13 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "author":author,
-                "bookName":bookName
+                "author":author as AnyObject,
+                "bookName":bookName as AnyObject
             ]
         }
     }
     
-    public class Block : NSObject{
+    open class Block : NSObject{
         
         var blockType = 0
         
@@ -144,9 +144,9 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "text":text,
-                "resource":resource.url.isEmpty ? "" : resource.toJson(),
-                "chapter":chapter.title.isEmpty ? "" : chapter.toJson()
+                "text":text as AnyObject,
+                "resource":resource.url.isEmpty ? "" as AnyObject : resource.toJson() as AnyObject,
+                "chapter":chapter.title.isEmpty ? "" as AnyObject : chapter.toJson() as AnyObject
             ]
         }
     }
@@ -161,12 +161,12 @@ public class RequestStructDataBean : NSObject {
         
         func toJson() -> [String:AnyObject] {
             return[
-                "desc":desc,
-                "url":url,
-                "lowPixelUrl":lowPixelUrl,
-                "originaltime":originaltime,
-                "height":height,
-                "width":width
+                "desc":desc as AnyObject,
+                "url":url as AnyObject,
+                "lowPixelUrl":lowPixelUrl as AnyObject,
+                "originaltime":originaltime as AnyObject,
+                "height":height as AnyObject,
+                "width":width as AnyObject
             ]
         }
     }

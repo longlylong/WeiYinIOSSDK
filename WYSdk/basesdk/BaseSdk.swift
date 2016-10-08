@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class BaseSdk : NSObject{
+open class BaseSdk : NSObject{
     
-    func callStart(controller: Controller){
+    func callStart(_ controller: Controller){
         let listener = controller.getStart()
         if  listener != nil{
             runOnMain({ () -> Void in
@@ -19,7 +19,7 @@ public class BaseSdk : NSObject{
         }
     }
     
-    func callSuccess(controller:Controller,t:AnyObject){
+    func callSuccess(_ controller:Controller,t:AnyObject){
         let listener = controller.getSuccess()
         if  listener != nil{
             runOnMain({ () -> Void in
@@ -28,7 +28,7 @@ public class BaseSdk : NSObject{
         }
     }
     
-    func callFailed(controller:Controller,errorMsg:String){
+    func callFailed(_ controller:Controller,errorMsg:String){
         let listener = controller.getFailed()
         if  listener != nil{
             runOnMain({ () -> Void in
@@ -37,19 +37,19 @@ public class BaseSdk : NSObject{
         }
     }
     
-    func runOnAsync(block:(() -> Void)){
+    func runOnAsync(_ block:@escaping (() -> Void)){
         ThreadUtils.threadOnAsync(block)
     }
     
-    func runOnHttpQueue(block:(() -> Void)){
+    func runOnHttpQueue(_ block:@escaping (() -> Void)){
         ThreadUtils.threadOnHttpQueue(block)
     }
     
-    func runOnMain(block:(() -> Void)){
+    func runOnMain(_ block:@escaping (() -> Void)){
         ThreadUtils.threadOnMain(block)
     }
     
-    func handleResult(baseResultBean :BaseResultBean?,_ controller:Controller,resultOk:ResultOk,resultFailed : ResultFailed){
+    func handleResult(_ baseResultBean :BaseResultBean?,_ controller:Controller,resultOk:ResultOk,resultFailed : ResultFailed){
     
         if(baseResultBean != nil){
             

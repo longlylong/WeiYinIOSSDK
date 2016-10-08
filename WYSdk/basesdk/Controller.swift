@@ -9,9 +9,9 @@
 import Foundation
 class Controller {
     
-    private var start:UIRequestStart?
-    private var success:UIRequestSuccess?
-    private var failed:UIRequestFailed?
+    fileprivate var start:UIRequestStart?
+    fileprivate var success:UIRequestSuccess?
+    fileprivate var failed:UIRequestFailed?
     
     init(_ start :UIRequestStart?,_ success: UIRequestSuccess?,_ failed :UIRequestFailed?){
         self.start = start
