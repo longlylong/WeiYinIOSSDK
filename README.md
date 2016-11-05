@@ -1,4 +1,4 @@
-IOS SDK开发包 版本号 1.4.4 日期 20161008
+IOS SDK开发包 版本号 1.4.5 日期 20161101
 
 安装
 
@@ -8,7 +8,7 @@ IOS SDK开发包 版本号 1.4.4 日期 20161008
 
 1.把WYSdk拖到你工程的适当目录(如根目录),松手后会弹出选择框,选择 copy items if needed,Create groups,add to targets 然后finish
 
-2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例 swift2.3pod)
+2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例)
 
     source 'https://github.com/CocoaPods/Specs.git'
     platform :ios, '8.0'
@@ -28,6 +28,8 @@ IOS SDK开发包 版本号 1.4.4 日期 20161008
     #加密的
     pod 'CryptoSwift'
 
+    #json
+    pod 'HandyJSON'
     end
 
 
