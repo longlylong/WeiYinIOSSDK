@@ -95,7 +95,10 @@ class SelectDataCell: UICollectionViewCell {
             }else{
                 mHasTextIcon.isHidden = false
             }
-            mPhotoImageView.kf_setImage(with: URL(string: block.resource.url)!)
+            mPhotoImageView.contentMode = UIViewContentMode.scaleAspectFill
+            mPhotoImageView.clipsToBounds = true
+            
+            mPhotoImageView.kf.setImage(with: URL(string: block.resource.url)!)
         }
     
         mSelectView.isHidden = !block.isSelected
