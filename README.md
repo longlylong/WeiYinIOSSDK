@@ -1,14 +1,14 @@
-IOS SDK开发包 版本号 1.4.5 日期 20161101
+IOS SDK开发包 版本号 1.5.0 日期 20170103
 
 安装
 
-微印sdk只支持ios8.0以上版本,目前适配Xcode8 swift3.0
+微印sdk只支持ios8.0以上版本,目前适配Xcode8 swift3.0+
 
 当您下载了WeiYin IOS SDK 的 zip 包后，进行以下步骤:(oc项目需先看完步骤,swift项目顺序执行即可)
 
 1.把WYSdk拖到你工程的适当目录(如根目录),松手后会弹出选择框,选择 copy items if needed,Create groups,add to targets 然后finish
 
-2.在根目录的Podfile加入以下依赖(以下为1.0.1pod样例)
+2.在根目录的Podfile加入以下依赖(以下为1.1.1pod样例)
 
     source 'https://github.com/CocoaPods/Specs.git'
     platform :ios, '8.0'
