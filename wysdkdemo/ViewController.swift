@@ -79,73 +79,73 @@ class ViewController: UIViewController {
     
     fileprivate func addData() {
         //图片素材 必须是网络路径 宽高也是必要的
-        let frontCoverUrl = "http://image.weiyin.cc/719/185904/FD3DB404-B318-434A-9DE2-72FF157B3857@1o_800w"
-        let flyleafHeadUrl = "http://image.weiyin.cc/719/185904/b6464d78-1ed9-4c4f-8fad-937a614d9893@1o_200w"
-        let backCoverUrl = "http://image.weiyin.cc/719/185904/347B3767-12C6-4C60-844E-5012B1BF0F4E@1o_800w"
+        let frontCoverUrl = "https://image.weiyin.cc/719/185904/FD3DB404-B318-434A-9DE2-72FF157B3857@1o_800w"
+        let flyleafHeadUrl = "https://image.weiyin.cc/719/185904/b6464d78-1ed9-4c4f-8fad-937a614d9893@1o_200w"
+        let backCoverUrl = "https://image.weiyin.cc/719/185904/347B3767-12C6-4C60-844E-5012B1BF0F4E@1o_800w"
         
         //章节 微印代言人的图片
-        let photoUrl1 = "http://image.weiyin.cc/719/185904/f8c4624e-f371-491c-b260-01aabe395685@1o_800w"
-        let photoUrl2 = "http://image.weiyin.cc/719/185904/b970b0fe-79f5-4305-bd1d-6d84768b2c77@1o_800w"
-        let photoUrl3 = "http://image.weiyin.cc/719/185904/8bb5a60a-443b-4c4c-821c-cc821b48efb8@1o_800w"
-        let photoUrl4 = "http://image.weiyin.cc/719/185904/8e427964-961e-44f9-9ded-28d9272e3041@1o_800w"
-        let photoUrl5 = "http://image.weiyin.cc/719/185904/e99a1f5e-20b4-4c5f-a059-3d1fc6940965@1o_800w"
-        let photoUrl6 = "http://image.weiyin.cc/719/185904/36b1bf8f-7a23-4bb6-9a81-7517078ded82@1o_800w"
-        let photoUrl7 = "http://image.weiyin.cc/719/185904/1deda7c7-817f-4995-9975-80b7e9d0075a@1o_800w"
-        let photoUrl8 = "http://image.weiyin.cc/719/185904/a3424258-9ead-4264-99d9-ab38ebec967e@1o_800w"
-        let photoUrl9 = "http://image.weiyin.cc/719/185904/1deda7c7-817f-4995-9975-80b7e9d0075a@1o_800w"
-        let photoUrl10 = "http://image.weiyin.cc/719/185904/14d5fb62-e71d-4768-8481-05083223ac4d@1o_800w"
-        let photoUrl11 = "http://image.weiyin.cc/719/185904/6da25ae9-c89c-410a-a437-8924102d1da1@1o_800w"
+        let photoUrl1 = "https://image.weiyin.cc/719/185904/f8c4624e-f371-491c-b260-01aabe395685@1o_800w"
+        let photoUrl2 = "https://image.weiyin.cc/719/185904/b970b0fe-79f5-4305-bd1d-6d84768b2c77@1o_800w"
+        let photoUrl3 = "https://image.weiyin.cc/719/185904/8bb5a60a-443b-4c4c-821c-cc821b48efb8@1o_800w"
+        let photoUrl4 = "https://image.weiyin.cc/719/185904/8e427964-961e-44f9-9ded-28d9272e3041@1o_800w"
+        let photoUrl5 = "https://image.weiyin.cc/719/185904/e99a1f5e-20b4-4c5f-a059-3d1fc6940965@1o_800w"
+        let photoUrl6 = "https://image.weiyin.cc/719/185904/36b1bf8f-7a23-4bb6-9a81-7517078ded82@1o_800w"
+        let photoUrl7 = "https://image.weiyin.cc/719/185904/1deda7c7-817f-4995-9975-80b7e9d0075a@1o_800w"
+        let photoUrl8 = "https://image.weiyin.cc/719/185904/a3424258-9ead-4264-99d9-ab38ebec967e@1o_800w"
+        let photoUrl9 = "https://image.weiyin.cc/719/185904/1deda7c7-817f-4995-9975-80b7e9d0075a@1o_800w"
+        let photoUrl10 = "https://image.weiyin.cc/719/185904/14d5fb62-e71d-4768-8481-05083223ac4d@1o_800w"
+        let photoUrl11 = "https://image.weiyin.cc/719/185904/6da25ae9-c89c-410a-a437-8924102d1da1@1o_800w"
         
         //章节：记录旧时光的照片书
-        let photoUrl12 = "http://image.weiyin.cc/719/185904/2e38af77-bf26-451a-859c-2a1383041d4d@1o_400w"
+        let photoUrl12 = "https://image.weiyin.cc/719/185904/2e38af77-bf26-451a-859c-2a1383041d4d@1o_400w"
         let photoUrl12Text = "纸质书尺寸为235*235mm，对比市场上的书大小一般都是A5（21.5cm*14cm），尺寸增加25%"
-        let photoUrl13 = "http://image.weiyin.cc/719/185904/557a28b6-a9fe-4978-a108-6b59ca13db10@1o_400w"
+        let photoUrl13 = "https://image.weiyin.cc/719/185904/557a28b6-a9fe-4978-a108-6b59ca13db10@1o_400w"
         let photoUrl13Text = "瀑布流排版：按照片顺序铺陈排版，能完整显示全部照片"
-        let photoUrl14 = "http://image.weiyin.cc/719/185904/91cc8c4e-cff9-4ab0-beec-f9279408f059@1o_400w"
+        let photoUrl14 = "https://image.weiyin.cc/719/185904/91cc8c4e-cff9-4ab0-beec-f9279408f059@1o_400w"
         let photoUrl14Text = "拼图排版：根据照片比例匹配系统模板，自动拼图排版"
-        let photoUrl15 = "http://image.weiyin.cc/719/185904/8b35f243-f887-4b41-a4eb-8b52ece6e7ca@1o_400w"
+        let photoUrl15 = "https://image.weiyin.cc/719/185904/8b35f243-f887-4b41-a4eb-8b52ece6e7ca@1o_400w"
         let photoUrl15Text = "内页：美感极致。纸色自然柔和，独具专利的先进涂布工艺，独特的表面质感，层次感强，是高档画册等高精印品的专业之选。"
-        let photoUrl16 = "http://image.weiyin.cc/719/185904/921cc23d-293a-4939-bda1-93c5ee8aa13f@1o_400w"
+        let photoUrl16 = "https://image.weiyin.cc/719/185904/921cc23d-293a-4939-bda1-93c5ee8aa13f@1o_400w"
         let photoUrl16Text = "内页：120克美感纸"
-        let photoUrl17 = "http://image.weiyin.cc/719/185904/3ce2590a-6432-4bfe-ab74-0af8a338a918@1o_400w"
+        let photoUrl17 = "https://image.weiyin.cc/719/185904/3ce2590a-6432-4bfe-ab74-0af8a338a918@1o_400w"
         let photoUrl17Text = "印刷：使用惠普indigo 10000高清顶级印刷。它采用HP Indigo液体电子油墨技术和独特的数字胶印工艺，能印刷出清晰的线条、绚丽夺目的图像和插图；印刷质量最高，堪比甚至超过胶印；还原性强且画质细腻。最主要，全国20多台，我们有其中一台"
-        let photoUrl18 = "http://image.weiyin.cc/719/185904/7831b58e-35dd-4b8e-8ccd-120e9e8e7630@1o_400w"
+        let photoUrl18 = "https://image.weiyin.cc/719/185904/7831b58e-35dd-4b8e-8ccd-120e9e8e7630@1o_400w"
         let photoUrl18Text = "内配4个护角"
-        let photoUrl19 = "http://image.weiyin.cc/719/185904/30f25df8-ee53-465f-ad07-64b4b57a219e@1o_400w"
+        let photoUrl19 = "https://image.weiyin.cc/719/185904/30f25df8-ee53-465f-ad07-64b4b57a219e@1o_400w"
         let photoUrl19Text = photoUrl18Text
         
         //章节：文艺的照片卡片
-        let photoUrl27 = "http://image.weiyin.cc/719/185904/320c0493-08bc-43bb-a48c-40ef0d50ba27@1o_400w"
+        let photoUrl27 = "https://image.weiyin.cc/719/185904/320c0493-08bc-43bb-a48c-40ef0d50ba27@1o_400w"
         let photoUrl27Text = "卡片材质：280克珠光纸"
-        let photoUrl28 = "http://image.weiyin.cc/719/185904/679b4e03-36d3-4053-8a67-8d478c9eeb17@1o_400w"
+        let photoUrl28 = "https://image.weiyin.cc/719/185904/679b4e03-36d3-4053-8a67-8d478c9eeb17@1o_400w"
         let photoUrl28Text = "尺寸：10.75cm*7.25cm"
-        let photoUrl29 = "http://image.weiyin.cc/719/185904/305fabe6-020c-461c-9564-b15d1aada91c@1o_400w"
-        let photoUrl30 = "http://image.weiyin.cc/719/185904/6e431524-bbbc-47b9-a998-4b35749f5579@1o_400w"
+        let photoUrl29 = "https://image.weiyin.cc/719/185904/305fabe6-020c-461c-9564-b15d1aada91c@1o_400w"
+        let photoUrl30 = "https://image.weiyin.cc/719/185904/6e431524-bbbc-47b9-a998-4b35749f5579@1o_400w"
         
         //章节：怀旧的照片冲印
-        let photoUrl39 = "http://image.weiyin.cc/719/185904/c220467d-77f1-4f1d-929d-80f2ba8b93c6@1o_400w"
+        let photoUrl39 = "https://image.weiyin.cc/719/185904/c220467d-77f1-4f1d-929d-80f2ba8b93c6@1o_400w"
         let photoUrl39Text = "300克双铜纸，画质细腻，呈现生动逼真的效果"
-        let photoUrl40 = "http://image.weiyin.cc/719/185904/c03b80b7-c1a0-4d61-b387-3b8b6a9429b0@1o_400w"
+        let photoUrl40 = "https://image.weiyin.cc/719/185904/c03b80b7-c1a0-4d61-b387-3b8b6a9429b0@1o_400w"
         let photoUrl40Text = "高品质，双面过膜，正面过压纹膜，背面过哑膜。防水防污防氧化，平整不卷边"
-        let photoUrl41 = "http://image.weiyin.cc/719/185904/fb5076c7-803c-4543-b885-ac17bf856dfc@1o_400w"
+        let photoUrl41 = "https://image.weiyin.cc/719/185904/fb5076c7-803c-4543-b885-ac17bf856dfc@1o_400w"
         let photoUrl41Text = "大6寸（4D）：150mmX114mm"
-        let photoUrl42 = "http://image.weiyin.cc/719/185904/948ad9cb-21cf-474f-832f-9223ae7d9eaa@1o_400w"
+        let photoUrl42 = "https://image.weiyin.cc/719/185904/948ad9cb-21cf-474f-832f-9223ae7d9eaa@1o_400w"
         let photoUrl42Text = "惠普indigo10000高清顶级印刷，还原照片颜色和细节。采用惠普环保电子油墨，无银盐，呵护家人健康"
         
         //章节：精美照片定制台历
-        let photoUrl43 = "http://image.weiyin.cc/719/185904/104a0dd8-81b6-4a10-92b2-c98b37996acf@1o_400w"
+        let photoUrl43 = "https://image.weiyin.cc/719/185904/104a0dd8-81b6-4a10-92b2-c98b37996acf@1o_400w"
         let photoUrl43Text = "尺寸：A5大小（横版210mmX148mm）"
-        let photoUrl44 = "http://image.weiyin.cc/719/185904/8784c33e-8142-4172-b53d-b0c5f02991ca@1o_400w"
+        let photoUrl44 = "https://image.weiyin.cc/719/185904/8784c33e-8142-4172-b53d-b0c5f02991ca@1o_400w"
         let photoUrl44Text = "内页：采用250克铜版纸印制，纸张平滑有光泽"
-        let photoUrl45 = "http://image.weiyin.cc/719/185904/462f1c85-e4d2-4092-8e8d-5956431a3404@1o_400w"
+        let photoUrl45 = "https://image.weiyin.cc/719/185904/462f1c85-e4d2-4092-8e8d-5956431a3404@1o_400w"
         let photoUrl45Text = "装订：采用白色双线铁圈装订，360度灵活翻阅，牢固耐用"
-        let photoUrl46 = "http://image.weiyin.cc/719/185904/4d96f47c-2def-4548-b354-5af45e4a2107@1o_400w"
+        let photoUrl46 = "https://image.weiyin.cc/719/185904/4d96f47c-2def-4548-b354-5af45e4a2107@1o_400w"
         let photoUrl46Text = "底座：采用超厚牛皮纸板为支撑，可以平稳的立在桌面上"
-        let photoUrl47 = "http://image.weiyin.cc/719/185904/17a8fcd1-0de5-43cf-ad5e-9496269ac7d6@1o_400w"
+        let photoUrl47 = "https://image.weiyin.cc/719/185904/17a8fcd1-0de5-43cf-ad5e-9496269ac7d6@1o_400w"
         let photoUrl47Text = "封面"
-        let photoUrl48 = "http://image.weiyin.cc/719/185904/46877022-4ef3-4e53-addf-ef71624919e7@1o_400w"
+        let photoUrl48 = "https://image.weiyin.cc/719/185904/46877022-4ef3-4e53-addf-ef71624919e7@1o_400w"
         let photoUrl48Text = "内页1图，2图随机排版"
-        let photoUrl49 = "http://image.weiyin.cc/719/185904/a7860f64-7b53-48ff-afb0-541f55e14a75@1o_400w"
+        let photoUrl49 = "https://image.weiyin.cc/719/185904/a7860f64-7b53-48ff-afb0-541f55e14a75@1o_400w"
         let photoUrl49Text = "背面可记事"
         
         //拍摄时间,由于是网络图片就自定义了一个时间
@@ -355,7 +355,7 @@ class ViewController: UIViewController {
         tapGesture.numberOfTouchesRequired = 1
         mPrintfingView.addGestureRecognizer(tapGesture)
         self.view.addSubview(mPrintfingView)
-        showPrintfView()
+        //showPrintfView()
     }
 
     func photosPrintfing(){

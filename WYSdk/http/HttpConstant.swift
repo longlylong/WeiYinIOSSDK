@@ -15,8 +15,8 @@ class HttpConstant {
     */
     fileprivate static var  ONLINE_SERVER = true
             
-    fileprivate static let  Online_Api_Url = "http://openapi.weiyin.cc/"  //接口
-    fileprivate static let  Test_Api_Url = "http://apitest.weiyin.cc/"   //接口
+    fileprivate static let  Online_Api_Url = "https://openapi.weiyin.cc/"  //接口
+    fileprivate static let  Test_Api_Url = "https://apitest.weiyin.cc/"   //接口
     
     static var  RootApiUrl = ONLINE_SERVER ? Online_Api_Url : Test_Api_Url
 
@@ -34,27 +34,27 @@ class HttpConstant {
      * 购物车地址
      */
     static func getShowOrderUrl()->String{
-        return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/order/webvieworder" : "http://apptest.weiyin.cc/order/webvieworder"
+        return RootApiUrl + "order/webvieworder"
     }
     
     /**
      * 订单地址
      */
     static func getShowCartUrl()->String{
-        return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/order/webviewcart" : "http://apptest.weiyin.cc/order/webviewcart"
+        return RootApiUrl + "order/webviewcart"
     }
     
     /**
      * 纸质画册地址
      */
     static func getPaperUrl()->String {
-        return ONLINE_SERVER ? WYSdk.getInstance().getHost() + "/home/bookshow" : "http://apptest.weiyin.cc/home/bookshow"
+        return RootApiUrl  + "home/bookshow"
     }
     
     /**
      * 常见问题地址
      */
     static func getQuestionUrl() ->String {
-        return "http://app.weiyin.cc/home/linktowx"
+        return "https://app.weiyin.cc/home/linktowx"
     }
 }

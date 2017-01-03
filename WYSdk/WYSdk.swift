@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.4.5
+//  WYSdk v1.5.0
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -43,8 +43,7 @@ open class WYSdk : BaseSdk {
     fileprivate var thirdName = ""
     fileprivate var thirdHeadImg = ""
     fileprivate var themeColor = "f56971"
-    var host = ""
-    var ip = ""
+
     fileprivate var channel = 0
     
     fileprivate var lastLoginTime = 0
@@ -101,15 +100,6 @@ open class WYSdk : BaseSdk {
     
     fileprivate func getOpenId() -> String {
         return openId
-    }
-    
-    open func getHost() -> String {
-        UserController.getInstance().getHttpDNSIp()
-        if self.ip.isEmpty{
-            return host
-        }else{
-            return "http://" + ip + "/"
-        }
     }
     
     open func isShowSelectDataVC()->Bool{
@@ -224,10 +214,8 @@ open class WYSdk : BaseSdk {
                     self.lastLoginTime = TimeUtils.getCurrentTime()
                     self.identity = resultBean!.identity
                     self.channel = resultBean!.client
-                    self.host = resultBean!.host
                     self.callSuccess(controller, t: resultBean!)
                 
-                    UserController.getInstance().getHttpDNSIp()
                 }, resultFailed: {
                     
             })
@@ -412,11 +400,8 @@ open class WYSdk : BaseSdk {
                     self.callSuccess(controller, t: 1 as AnyObject)
                     
                     ThreadUtils.threadOnAfterMain(100, block: {
-                        if printBean!.url.contains(self.host){
-                            printBean!.url = self.getHost() + printBean!.url.replacingOccurrences(of: self.host, with: "")
-                        }
                         
-                        BookWebView.launch(vc, url: printBean!.url)
+                        BookWebView.launch(vc, url: printBean!.url.replacingOccurrences(of: "http://", with: "https://"))
                         self.setSelectDataPage(nil)
                         self.resetStructDataBean()
                     })
