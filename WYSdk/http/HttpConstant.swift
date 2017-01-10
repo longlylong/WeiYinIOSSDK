@@ -18,8 +18,11 @@ class HttpConstant {
     fileprivate static let  Online_Api_Url = "https://openapi.weiyin.cc/"  //接口
     fileprivate static let  Test_Api_Url = "https://apitest.weiyin.cc/"   //接口
     
+    fileprivate static let  Online_Show_Url = "https://app.weiyin.cc/"  //接口
+    fileprivate static let  Test_Show_Url = "https://apptest.weiyin.cc/"   //接口
+    
     static var  RootApiUrl = ONLINE_SERVER ? Online_Api_Url : Test_Api_Url
-
+    fileprivate static var  RootShowUrl = ONLINE_SERVER ? Online_Show_Url : Test_Show_Url
     /**
      * 请求成功
      */
@@ -34,21 +37,21 @@ class HttpConstant {
      * 购物车地址
      */
     static func getShowOrderUrl()->String{
-        return RootApiUrl + "order/webvieworder"
+        return RootShowUrl + "order/webvieworder"
     }
     
     /**
      * 订单地址
      */
     static func getShowCartUrl()->String{
-        return RootApiUrl + "order/webviewcart"
+        return RootShowUrl + "order/webviewcart"
     }
     
     /**
      * 纸质画册地址
      */
     static func getPaperUrl()->String {
-        return RootApiUrl  + "home/bookshow"
+        return RootShowUrl  + "home/bookshow"
     }
     
     /**
