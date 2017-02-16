@@ -11,7 +11,7 @@ import Bolts
 
 class BaseProtocol : NSObject{
     
-    func postRequest(_ url:String, json : [String : AnyObject],nonce:Int,timestamp:Int,signature:String) ->AnyObject?{
+    func postRequest(_ url:String, json : [String : Any],nonce:Int,timestamp:Int,signature:String) ->AnyObject?{
         
         let tcs = BFTaskCompletionSource<AnyObject>()
         let head = ["Content-type":"text/json","Nonce":"\(nonce)","Timestamp":"\(timestamp)","Authorization":signature]

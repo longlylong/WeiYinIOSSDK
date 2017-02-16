@@ -99,41 +99,6 @@ class OrderListBean : BaseResultBean {
         
         var details = Array<Detail>()
         
-        func toJson() -> [String:AnyObject] {
-            var detailArr = Array<[String : AnyObject]>()
-            for d in details{
-                detailArr.append(d.toJson())
-            }
-            
-            return[
-                "orderSerial":orderSerial as AnyObject,
-                "address":address as AnyObject,
-                "receiver":receiver as AnyObject,
-                "mobile":mobile as AnyObject,
-                "buyerMobile":buyerMobile as AnyObject,
-                "paymentPattern":paymentPattern as AnyObject,
-                "orderStatus":orderStatus as AnyObject,
-                "totalPrice":totalPrice as AnyObject,
-                "quantity":quantity as AnyObject,
-                "buyerMark":buyerMark as AnyObject,
-                "trackingNumber":trackingNumber as AnyObject,
-                "createTime":createTime as AnyObject,
-                "payTime":payTime as AnyObject,
-                "deliveryTime":deliveryTime as AnyObject,
-                "generateTime":generateTime as AnyObject,
-                "closeTime":closeTime as AnyObject,
-                "province":province as AnyObject,
-                "city":city as AnyObject,
-                "area":area as AnyObject,
-                "logistics":logistics as AnyObject,
-                "kuaiDiUrl":kuaiDiUrl as AnyObject,
-                "discount":discount as AnyObject,
-                "fee":fee as AnyObject,
-                "displayType":displayType as AnyObject,
-                "desc":desc as AnyObject,
-                "details":detailArr as AnyObject
-            ]
-        }
     }
     
     class Detail : HandyJSON{
@@ -161,32 +126,11 @@ class OrderListBean : BaseResultBean {
         var frontImage = ""
         
         var bookMakeType = 0
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "bookId":bookId as AnyObject,
-                "bookName":bookName as AnyObject,
-                "bookType":bookType as AnyObject,
-                "serial":serial as AnyObject,
-                "page":page as AnyObject,
-                "count":count as AnyObject,
-                "volume":volume as AnyObject,
-                "price":price as AnyObject,
-                "frontImage":frontImage as AnyObject,
-                "bookMakeType":bookMakeType as AnyObject
-            ]
-        }
+
     }
     
-    func toJson() -> [String:AnyObject] {
-        
-        var orderArr = Array<[String : AnyObject]>()
-        for o in orders{
-            orderArr.append(o.toJson())
-        }
-        
-        return[
-            "orders":orderArr as AnyObject
-        ]
+    func toJson() -> [String:Any] {
+
+        return self.toJSON()!
     }
 }

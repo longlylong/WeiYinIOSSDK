@@ -12,12 +12,5 @@ class RequestDelShopCartBean : BaseRequestBean {
     
     var carId = 0
     
-    override func toJson() -> [String : AnyObject] {
-        
-        return [
-            "identity" : identity as AnyObject ,
-            
-            "carId" : carId as AnyObject
-        ]
-    }
+
 }

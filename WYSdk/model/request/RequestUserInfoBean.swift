@@ -15,13 +15,4 @@ class RequestUserInfoBean : BaseRequestBean{
     var name = ""
     
     var headImg = ""
-    
-    override func toJson() -> [String : AnyObject] {
-        return[
-            "openId" : openId as AnyObject ,
-            "name" : name as AnyObject ,
-            "headImg" : headImg as AnyObject
-
-        ]
-    }
 }

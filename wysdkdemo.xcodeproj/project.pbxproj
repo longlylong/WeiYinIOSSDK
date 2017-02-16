@@ -66,7 +66,6 @@
 		206446591D260FE10080A45D /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206446551D260FE10080A45D /* OrderController.swift */; };
 		206D1D891D18E227003E85B2 /* icon_check_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 206D1D871D18E227003E85B2 /* icon_check_white@2x.png */; };
 		206D1D8A1D18E227003E85B2 /* icon_check_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 206D1D881D18E227003E85B2 /* icon_check_white@3x.png */; };
-		2072FE551D530CD20003D623 /* HttpDNSBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072FE541D530CD20003D623 /* HttpDNSBean.swift */; };
 		2072FE571D530D600003D623 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072FE561D530D600003D623 /* UserController.swift */; };
 		207867371D0FF39B00A8B058 /* CouponActivatedBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207867361D0FF39B00A8B058 /* CouponActivatedBean.swift */; };
 		207867391D0FF42700A8B058 /* CouponBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207867381D0FF42700A8B058 /* CouponBean.swift */; };
@@ -175,7 +174,6 @@
 		206446551D260FE10080A45D /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderController.swift; sourceTree = "<group>"; };
 		206D1D871D18E227003E85B2 /* icon_check_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_white@2x.png"; sourceTree = "<group>"; };
 		206D1D881D18E227003E85B2 /* icon_check_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_white@3x.png"; sourceTree = "<group>"; };
-		2072FE541D530CD20003D623 /* HttpDNSBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpDNSBean.swift; sourceTree = "<group>"; };
 		2072FE561D530D600003D623 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		207867361D0FF39B00A8B058 /* CouponActivatedBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponActivatedBean.swift; sourceTree = "<group>"; };
 		207867381D0FF42700A8B058 /* CouponBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBean.swift; sourceTree = "<group>"; };
@@ -378,7 +376,6 @@
 			children = (
 				207867361D0FF39B00A8B058 /* CouponActivatedBean.swift */,
 				207867381D0FF42700A8B058 /* CouponBean.swift */,
-				2072FE541D530CD20003D623 /* HttpDNSBean.swift */,
 				2047A3CE1CB66E6D003CF8CD /* OrderConfigBean.swift */,
 				2047A3CF1CB66E6D003CF8CD /* OrderListBean.swift */,
 				2078673A1D0FFD1200A8B058 /* PayBean.swift */,
@@ -694,7 +691,6 @@
 				207867451D0FFF0800A8B058 /* RequestActivateCouponBean.swift in Sources */,
 				200DC10F1DCAE52500FE65F1 /* AnimUtils.swift in Sources */,
 				207867411D0FFE6F00A8B058 /* RequestDelOrderBean.swift in Sources */,
-				2072FE551D530CD20003D623 /* HttpDNSBean.swift in Sources */,
 				2047A3EE1CB66E6D003CF8CD /* TimeUtils.swift in Sources */,
 				209694561E1B939E0098EB0D /* NetworkReachabilityManager.swift in Sources */,
 				209694601E1B939E0098EB0D /* TaskDelegate.swift in Sources */,

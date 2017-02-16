@@ -47,7 +47,7 @@ class SelectSection: UICollectionReusableView {
         self.addSubview(mSectionHeaderView)
     }
     
-    func setHeaderData(_ group:RequestStructDataBean.Block,indexPath:IndexPath){
+    func setHeaderData(_ group: Block,indexPath:IndexPath){
         mChapterNameLabel.text = group.chapter.title
         mAllSelectBtn.tag = (indexPath as NSIndexPath).section
         

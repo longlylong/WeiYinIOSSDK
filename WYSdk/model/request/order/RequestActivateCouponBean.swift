@@ -10,13 +10,5 @@ import Foundation
 class RequestActivateCouponBean : BaseRequestBean {
     
     var code = ""
-    
-    override func toJson() -> [String : AnyObject] {
-        
-        return [
-            "identity" : identity as AnyObject ,
-            
-            "code" : code as AnyObject
-        ]
-    }
+
 }

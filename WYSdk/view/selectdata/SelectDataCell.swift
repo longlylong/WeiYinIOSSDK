@@ -76,7 +76,7 @@ class SelectDataCell: UICollectionViewCell {
         self.addSubview(mCellView)
     }
     
-    func showData(_ block:RequestStructDataBean.Block){
+    func showData(_ block : Block){
        
         if block.blockType == RequestStructDataBean.TYPE_TEXT {
             

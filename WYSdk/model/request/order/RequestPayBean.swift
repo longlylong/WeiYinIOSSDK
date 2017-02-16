@@ -12,13 +12,5 @@ class RequestPayBean: BaseRequestBean {
     var orderSerial = ""
     var paymentPattern = 0
     
-    override func toJson() -> [String : AnyObject] {
-        
-        return [
-            "identity" : identity as AnyObject ,
-            
-            "orderSerial" : orderSerial as AnyObject,
-            "paymentPattern" : paymentPattern as AnyObject
-        ]
-    }
+
 }

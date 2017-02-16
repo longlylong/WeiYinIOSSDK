@@ -14,15 +14,9 @@ class CouponBean :BaseResultBean{
     
     var ticket  = Array<Ticket>()
     
-    func toJson() -> [String:AnyObject] {
-        var ticketArr = Array<[String : AnyObject]>()
-        for o in ticket{
-            ticketArr.append(o.toJson())
-        }
+    func toJson() -> [String:Any] {
 
-        return[
-            "ticket":ticketArr as AnyObject
-        ]
+        return self.toJSON()!
     }
     
     class Ticket : HandyJSON{
@@ -31,20 +25,8 @@ class CouponBean :BaseResultBean{
             
         }
         
-        func toJson() -> [String:AnyObject] {
-            return[
-                "code":code as AnyObject,
-                "createTime":createTime as AnyObject,
-                "deadline":deadline as AnyObject,
-                "isCheck":isCheck as AnyObject,
-                "checkTime":checkTime as AnyObject,
-                "name":name as AnyObject,
-                "leastPrice":leastPrice as AnyObject,
-                "cutPrice":cutPrice as AnyObject,
-                "discount":discount as AnyObject,
-                "useCountType":useCountType as AnyObject,
-                "mark":mark as AnyObject
-            ]
+        func toJson() -> [String:Any] {
+           return self.toJSON()!
         }
         
         var code = "" //微印卷号

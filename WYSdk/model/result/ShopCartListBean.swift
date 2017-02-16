@@ -39,30 +39,13 @@ class ShopCartListBean : BaseResultBean  {
         
         var bookType = 0
         
-        func toJson()-> [String : AnyObject]{
-            return [
-                "bookId" : bookId as AnyObject,
-                "count" : count as AnyObject,
-                "carId" : carId as AnyObject,
-                "bookName" : bookName as AnyObject,
-                "pricePageCount" : pricePageCount as AnyObject,
-                "price" : price as AnyObject,
-                "volume" : volume as AnyObject,
-                "frontImage" : frontImage as AnyObject,
-                "bookType" : bookType as AnyObject,
-                "bookMakeType" : bookMakeType as AnyObject
-            ]
+        func toJson()-> [String : Any]{
+            return self.toJSON()!
         }
     }
     
-    func toJson() -> [String:AnyObject] {
-        var cartArr = Array<[String : AnyObject]>()
-        for o in cars{
-            cartArr.append(o.toJson())
-        }
-        return[
-            "cars" : cartArr as AnyObject
-        ]
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
     }
 
     

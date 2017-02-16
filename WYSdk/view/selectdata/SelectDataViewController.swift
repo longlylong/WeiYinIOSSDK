@@ -32,7 +32,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     fileprivate var mCollectionView :UICollectionView!
     fileprivate var mData = NSMutableDictionary()
     fileprivate var mKeys = Array<String>()
-    fileprivate var mHead = Array<RequestStructDataBean.Block>()
+    fileprivate var mHead = Array<Block>()
     
     fileprivate var loadingIndicator = LoadingView()
     fileprivate var VC : UIViewController?
@@ -43,7 +43,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     fileprivate var mLastVisibleIndex : IndexPath?
     fileprivate var mLastLongPressIndex : IndexPath?
-    fileprivate var mLastLongPressBlock : RequestStructDataBean.Block?
+    fileprivate var mLastLongPressBlock : Block?
     
     var mBookType = 0 // WYsdk.Print_Book
     
@@ -132,7 +132,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     override func initData() {
         mData = NSMutableDictionary()
         mKeys = Array<String>()
-        mHead = Array<RequestStructDataBean.Block>()
+        mHead = Array<Block>()
         
         let structData = WYSdk.getInstance().getStructData()
         var lastKey = ""
@@ -140,13 +140,13 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         for x in 0...structData.structData.dataBlocks.count - 1  {
             let block = structData.structData.dataBlocks[x]
             if x == 0{
-                var arr = Array<RequestStructDataBean.Block>()
+                var arr = Array<Block>()
                 lastKey = "\(x)"
                 
                 if block.blockType == RequestStructDataBean.TYPE_CHAPTER{
                     mHead.append(block)
                 }else{
-                    let b = RequestStructDataBean.Block()
+                    let b = Block()
                     mHead.append(b)
                     arr.append(block)
                 }
@@ -160,9 +160,9 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
                     mHead.append(block)
                     mKeys.append(lastKey)
                 }else{
-                    var arr = mData.value(forKey: lastKey) as? Array<RequestStructDataBean.Block>
+                    var arr = mData.value(forKey: lastKey) as? Array<Block>
                     if arr == nil {
-                        arr = Array<RequestStructDataBean.Block>()
+                        arr = Array<Block>()
                     }
                     arr!.append(block)
                     mData.setObject(arr!, forKey: lastKey as NSCopying)
@@ -193,7 +193,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         let indexPath = mCollectionView.indexPathForItem(at: point)
         if indexPath != nil {
             let key = mKeys[(indexPath! as NSIndexPath).section]
-            let arr = mData.value(forKey: key) as! Array<RequestStructDataBean.Block>
+            let arr = mData.value(forKey: key) as! Array<Block>
             let block = arr[(indexPath! as NSIndexPath).row]
             
             block.isSelected = true
@@ -241,7 +241,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             loadingIndicator.stop()
             return
         }
-        var selectedArr = Array<RequestStructDataBean.Block>()
+        var selectedArr = Array<Block>()
         for x in 0...size - 1 {
             
             let block = structData.structData.dataBlocks[x]
@@ -341,7 +341,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let key = mKeys[section]
-        let arr = mData.value(forKey: key) as? Array<RequestStructDataBean.Block>
+        let arr = mData.value(forKey: key) as? Array<Block>
         return arr!.count
     }
     
@@ -350,7 +350,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         if view == nil {
             view = SelectDataCell()
         }
-        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<RequestStructDataBean.Block>
+        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<Block>
         
         view!.showData(arr[(indexPath as NSIndexPath).row])
         
@@ -406,7 +406,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! SelectDataCell
         
-        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<RequestStructDataBean.Block>
+        var arr = mData.value(forKey: mKeys[(indexPath as NSIndexPath).section]) as! Array<Block>
         
         let block = arr[(indexPath as NSIndexPath).row]
         block.isSelected = !block.isSelected
@@ -416,7 +416,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     
     func allPhotosCheckClick(_ sender:UIButton){
         let section = sender.tag
-        let arr = mData.value(forKey: mKeys[section]) as! Array<RequestStructDataBean.Block>
+        let arr = mData.value(forKey: mKeys[section]) as! Array<Block>
         let head = mHead[section]
         head.isSelected = !head.isSelected
         for block in arr {

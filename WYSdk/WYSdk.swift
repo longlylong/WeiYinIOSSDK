@@ -1,6 +1,6 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.5.0
+//  WYSdk v1.6.0
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -10,10 +10,6 @@ import Foundation
 //import SwiftyUserDefaults
 
 open class WYSdk : BaseSdk {
-    
-    private static var __once: () = {
-            mInstance = WYSdk()
-        }()
     
     open static let PAY_SUCCESS = "success" //  payment succeed
     open static let PAY_FAIL = "fail" // payment failed
@@ -26,14 +22,12 @@ open class WYSdk : BaseSdk {
     open static let Print_Photo = 3// 照片冲印
     open static let Print_Calendar = 4// 台历
     
-    fileprivate static var onceToken : Int = 0
-    fileprivate static var mInstance : WYSdk?
+    fileprivate static let mInstance = WYSdk()
     
     fileprivate override init(){}
     
     open static func getInstance() -> WYSdk{
-        _ = WYSdk.__once
-        return mInstance!
+        return mInstance
     }
     
     fileprivate var accessKey = ""
@@ -222,8 +216,8 @@ open class WYSdk : BaseSdk {
         }
     }
     
-    fileprivate func fillRes(_ url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int,des:String)->RequestStructDataBean.Resource{
-        let resource = RequestStructDataBean.Resource()
+    fileprivate func fillRes(_ url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int,des:String)->Resource{
+        let resource = Resource()
         resource.desc = des
         resource.url = url
         resource.lowPixelUrl = lowPixelUrl
@@ -246,7 +240,7 @@ open class WYSdk : BaseSdk {
      * @param height       封面照片高
      */
     open func setFrontCover(_ title:String,subTitle:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
-        let frontCover = RequestStructDataBean.Cover()
+        let frontCover = Cover()
         frontCover.title = title
         frontCover.subTitle = subTitle
         frontCover.coverImgs.append(fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: ""))
@@ -263,7 +257,7 @@ open class WYSdk : BaseSdk {
      * @param height       封底照片高
      */
     open func setBackCover(_ url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
-        let backCover =  RequestStructDataBean.Cover()
+        let backCover =  Cover()
         backCover.coverImgs.append(fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: ""))
         structDataBean.structData.backCover = backCover
     }
@@ -280,7 +274,7 @@ open class WYSdk : BaseSdk {
      * @param height       扉页照片高
      */
     open func setFlyleaf(_ nick:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
-        let flyleaf =  RequestStructDataBean.Flyleaf()
+        let flyleaf =  Flyleaf()
         flyleaf.nick = nick
         flyleaf.headImg = fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: "")
         structDataBean.structData.flyleaf = flyleaf
@@ -293,7 +287,7 @@ open class WYSdk : BaseSdk {
      * @param text 序言文本
      */
     open func setPreface(_ text:String) {
-        let preface =  RequestStructDataBean.Preface()
+        let preface =  Preface()
         preface.text = text
         structDataBean.structData.preface = preface
     }
@@ -306,7 +300,7 @@ open class WYSdk : BaseSdk {
      * @param bookName 版权页书名
      */
     open func setCopyright(_ author:String,bookName:String) {
-        let copyright =  RequestStructDataBean.Copyright()
+        let copyright =  Copyright()
         copyright.author = author
         copyright.bookName = bookName
         structDataBean.structData.copyright = copyright
@@ -420,7 +414,7 @@ open class WYSdk : BaseSdk {
         if selectDataPage != nil {
             if blockList != nil {
                 for b in blockList! {
-                    structDataBean.structData.dataBlocks.append(b as! RequestStructDataBean.Block)
+                    structDataBean.structData.dataBlocks.append(b as! Block)
                 }
             }
             selectDataPage!.addLoadMoreData(blockList)
@@ -469,23 +463,23 @@ open class WYSdk : BaseSdk {
         payStateDelegate?(result)
     }
 
-    open func getPhotoBlock(_ desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) -> RequestStructDataBean.Block{
-        let photoBlock =  RequestStructDataBean.Block()
+    open func getPhotoBlock(_ desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) -> Block{
+        let photoBlock =  Block()
         photoBlock.blockType = RequestStructDataBean.TYPE_PHOTO
         photoBlock.resource = fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: desc)
         return photoBlock
     }
 
-    open func getChapterBlock(_ title:String,des:String)-> RequestStructDataBean.Block {
-        let chapterBlock =  RequestStructDataBean.Block()
+    open func getChapterBlock(_ title:String,des:String)-> Block {
+        let chapterBlock =  Block()
         chapterBlock.chapter.desc = des
         chapterBlock.chapter.title = title
         chapterBlock.blockType = RequestStructDataBean.TYPE_CHAPTER
         return chapterBlock
     }
 
-    open func getTextBlock(_ text:String) -> RequestStructDataBean.Block{
-        let textBlock =  RequestStructDataBean.Block()
+    open func getTextBlock(_ text:String) -> Block{
+        let textBlock =  Block()
         textBlock.text = text
         textBlock.blockType = RequestStructDataBean.TYPE_TEXT
          return textBlock

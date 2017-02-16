@@ -48,28 +48,4 @@ class RequestCreateOrderBean : BaseRequestBean {
     
     var ticket = ""//微印券
     
-    override func toJson() -> [String : AnyObject] {
-        var carts = Array<[String : AnyObject]>()
-        for c in cars{
-            carts.append(c.toJson())
-        }
-        
-        return [
-            "identity" : identity as AnyObject ,
-            
-             "cars" : carts as AnyObject,
-             "receiver" : receiver as AnyObject,
-             "mobile" : mobile as AnyObject,
-             "buyerMobile" : buyerMobile as AnyObject,
-             "paymentPattern" : paymentPattern as AnyObject,
-             "buyerMark" : buyerMark as AnyObject,
-             "province" : province as AnyObject,
-             "city" : city as AnyObject,
-             "area" : area as AnyObject,
-             "address" : address as AnyObject,
-             "logistics" : logistics as AnyObject,
-             "ticket" : ticket as AnyObject
-            
-        ]
-    }
 }

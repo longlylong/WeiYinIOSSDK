@@ -7,20 +7,19 @@
 //
 
 import Foundation
+import HandyJSON
 
-class BaseRequestBean : AnyObject{
+public class BaseRequestBean : NSObject, HandyJSON{
     
 
     var identity = ""
     
-    init(){
-        identity = WYSdk.getInstance().getIdentity()
+    required override public init(){
+        
     }
     
-    func toJson() -> [String : AnyObject] {
-        
-        return [
-            "identity" : identity as AnyObject
-        ]
+    func toJson() -> [String : Any] {
+        identity = WYSdk.getInstance().getIdentity()
+        return self.toJSON()!
     }
 }

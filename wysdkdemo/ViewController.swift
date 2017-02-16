@@ -47,8 +47,8 @@ class ViewController: UIViewController {
             //WYSdk.getInstance().getChapterBlock //创建章节
             
             ThreadUtils.threadOnAfterMain(1000, block: {
-                let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1289 x 806
-                let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1289, height: 806)
+                let photoUrl1 = "http://img1.3lian.com/2015/w7/90/d/1.jpg"//1500 x 1000
+                let block = WYSdk.getInstance().getPhotoBlock("图片1", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: TimeUtils.getCurrentTime(), width: 1500, height: 1000)
                 
                 let arr = NSMutableArray()
                 arr.add(block)
@@ -154,59 +154,59 @@ class ViewController: UIViewController {
         
         
         
-        WYSdk.getInstance().setFrontCover("一本画册看懂微印品质", subTitle: "", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1334, height: 1334)
+        WYSdk.getInstance().setFrontCover("一本画册看懂微印品质", subTitle: "", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1500, height: 1000)
         WYSdk.getInstance().setFlyleaf("爱微印", url: flyleafHeadUrl, lowPixelUrl: flyleafHeadUrl, originalTime: originalTime, width: 461, height: 461)
         WYSdk.getInstance().setPreface("微印，国内领先的智能图文排版引擎提供商。\n" +
             "微印画册APP，一键把手机照片做成书，可选丰富主题搭配，并提供纸质书生产、销售服务\n" +
             "微信服务号爱微印，可以一键将微信朋友圈制作成纸质画册。")
         
         WYSdk.getInstance().setCopyright("微印", bookName: "了解微印")
-        WYSdk.getInstance().setBackCover(backCoverUrl, lowPixelUrl: backCoverUrl, originalTime: originalTime, width: 1334, height: 1334)
+        WYSdk.getInstance().setBackCover(backCoverUrl, lowPixelUrl: backCoverUrl, originalTime: originalTime, width: 1500, height: 1000)
         
         WYSdk.getInstance().addChapterBlock("微印代言人", des: "")
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl5, lowPixelUrl: photoUrl5, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl7, lowPixelUrl: photoUrl7, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl8, lowPixelUrl: photoUrl8, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl9, lowPixelUrl: photoUrl9, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl10, lowPixelUrl: photoUrl10, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl11, lowPixelUrl: photoUrl11, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl3, lowPixelUrl: photoUrl3, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl4, lowPixelUrl: photoUrl4, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl5, lowPixelUrl: photoUrl5, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl6, lowPixelUrl: photoUrl6, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl7, lowPixelUrl: photoUrl7, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl8, lowPixelUrl: photoUrl8, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl9, lowPixelUrl: photoUrl9, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl10, lowPixelUrl: photoUrl10, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl11, lowPixelUrl: photoUrl11, originalTime: originalTime, width: 1500, height: 1000)
         
         WYSdk.getInstance().addChapterBlock("记录旧时光的照片书", des: "")
-        WYSdk.getInstance().addPhotoBlock(photoUrl12Text, url: photoUrl12, lowPixelUrl: photoUrl12, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl13Text, url: photoUrl13, lowPixelUrl: photoUrl13, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl14Text, url: photoUrl14, lowPixelUrl: photoUrl14, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl15Text, url: photoUrl15, lowPixelUrl: photoUrl15, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl16Text, url: photoUrl16, lowPixelUrl: photoUrl16, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl17Text, url: photoUrl17, lowPixelUrl: photoUrl17, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl18Text, url: photoUrl18, lowPixelUrl: photoUrl18, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl19Text, url: photoUrl19, lowPixelUrl: photoUrl19, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addPhotoBlock(photoUrl12Text, url: photoUrl12, lowPixelUrl: photoUrl12, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl13Text, url: photoUrl13, lowPixelUrl: photoUrl13, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl14Text, url: photoUrl14, lowPixelUrl: photoUrl14, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl15Text, url: photoUrl15, lowPixelUrl: photoUrl15, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl16Text, url: photoUrl16, lowPixelUrl: photoUrl16, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl17Text, url: photoUrl17, lowPixelUrl: photoUrl17, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl18Text, url: photoUrl18, lowPixelUrl: photoUrl18, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl19Text, url: photoUrl19, lowPixelUrl: photoUrl19, originalTime: originalTime, width: 1500, height: 1000)
         
         WYSdk.getInstance().addChapterBlock("文艺的照片卡片", des: "")
         
-        WYSdk.getInstance().addPhotoBlock(photoUrl27Text, url: photoUrl27, lowPixelUrl: photoUrl27, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl28Text, url: photoUrl28, lowPixelUrl: photoUrl28, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl29, lowPixelUrl: photoUrl29, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock("", url: photoUrl30, lowPixelUrl: photoUrl30, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addPhotoBlock(photoUrl27Text, url: photoUrl27, lowPixelUrl: photoUrl27, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl28Text, url: photoUrl28, lowPixelUrl: photoUrl28, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl29, lowPixelUrl: photoUrl29, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock("", url: photoUrl30, lowPixelUrl: photoUrl30, originalTime: originalTime, width: 1500, height: 1000)
         
         WYSdk.getInstance().addChapterBlock("怀旧的照片冲印", des: "")
-        WYSdk.getInstance().addPhotoBlock(photoUrl39Text, url: photoUrl39, lowPixelUrl: photoUrl39, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl40Text, url: photoUrl40, lowPixelUrl: photoUrl40, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl41Text, url: photoUrl41, lowPixelUrl: photoUrl41, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl42Text, url: photoUrl42, lowPixelUrl: photoUrl42, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addPhotoBlock(photoUrl39Text, url: photoUrl39, lowPixelUrl: photoUrl39, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl40Text, url: photoUrl40, lowPixelUrl: photoUrl40, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl41Text, url: photoUrl41, lowPixelUrl: photoUrl41, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl42Text, url: photoUrl42, lowPixelUrl: photoUrl42, originalTime: originalTime, width: 1500, height: 1000)
         
         WYSdk.getInstance().addChapterBlock("精美照片定制台历", des: "")
-        WYSdk.getInstance().addPhotoBlock(photoUrl43Text, url: photoUrl43, lowPixelUrl: photoUrl43, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl44Text, url: photoUrl44, lowPixelUrl: photoUrl44, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl45Text, url: photoUrl45, lowPixelUrl: photoUrl45, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl46Text, url: photoUrl46, lowPixelUrl: photoUrl46, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl47Text, url: photoUrl47, lowPixelUrl: photoUrl47, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl48Text, url: photoUrl48, lowPixelUrl: photoUrl48, originalTime: originalTime, width: 1289, height: 806)
-        WYSdk.getInstance().addPhotoBlock(photoUrl49Text, url: photoUrl49, lowPixelUrl: photoUrl49, originalTime: originalTime, width: 1289, height: 806)
+        WYSdk.getInstance().addPhotoBlock(photoUrl43Text, url: photoUrl43, lowPixelUrl: photoUrl43, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl44Text, url: photoUrl44, lowPixelUrl: photoUrl44, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl45Text, url: photoUrl45, lowPixelUrl: photoUrl45, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl46Text, url: photoUrl46, lowPixelUrl: photoUrl46, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl47Text, url: photoUrl47, lowPixelUrl: photoUrl47, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl48Text, url: photoUrl48, lowPixelUrl: photoUrl48, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addPhotoBlock(photoUrl49Text, url: photoUrl49, lowPixelUrl: photoUrl49, originalTime: originalTime, width: 1500, height: 1000)
     }
     
     fileprivate func postData(_ bookType:Int) {

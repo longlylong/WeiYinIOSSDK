@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 
 open class RequestStructDataBean : NSObject {
     
@@ -14,12 +15,12 @@ open class RequestStructDataBean : NSObject {
     static let TYPE_TEXT = 2
     static let TYPE_CHAPTER = 3
     
-    func toJson() -> [String:AnyObject] {
+    func toJson() -> [String:Any] {
         return[
-            "identity":identity as AnyObject,
-            "bookType":bookType as AnyObject,
-            "unionId":unionId as AnyObject,
-            "structData":structData.toJson() as AnyObject
+            "identity":identity ,
+            "bookType":bookType ,
+            "unionId":unionId ,
+            "structData":structData.toJson() 
         ]
     }
 
@@ -48,126 +49,125 @@ open class RequestStructDataBean : NSObject {
         
         var backCover = Cover()
         
-        func toJson() -> [String:AnyObject] {
+        func toJson() -> [String:Any] {
             
-            var attrB = Array<[String : AnyObject]>()
+            var attrB = Array<[String : Any]>()
             for b in dataBlocks{
                 attrB.append(b.toJson())
             }
             
             return[
-                "cover":cover.toJson() as AnyObject,
-                "flyleaf":flyleaf.toJson() as AnyObject,
-                "preface":preface.toJson() as AnyObject,
-                "dataBlocks":attrB  as AnyObject,
-                "copyright":copyright.toJson() as AnyObject,
-                "backCover":backCover.toJson() as AnyObject
+                "cover":cover.toJson() ,
+                "flyleaf":flyleaf.toJson() ,
+                "preface":preface.toJson() ,
+                "dataBlocks":attrB  ,
+                "copyright":copyright.toJson() ,
+                "backCover":backCover.toJson() 
             ]
         }
     }
     
-    class Cover {
-        var title = ""
-        var subTitle = ""
-        var coverImgs = Array<Resource>()
+}
+
+class Cover : HandyJSON{
+    
+    required init() {
         
-        func toJson() -> [String:AnyObject] {
-            
-            var attrR = Array<[String : AnyObject]>()
-            for r in coverImgs{
-                attrR.append(r.toJson())
-            }
-            
-            return[
-                "title":title as AnyObject,
-                "subTitle":subTitle as AnyObject,
-                "coverImgs":attrR as AnyObject
-            ]
-        }
     }
     
-    class Flyleaf {
-        var nick = ""
-        var headImg = Resource()
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "nick":nick as AnyObject,
-                "headImg":headImg.toJson() as AnyObject
-            ]
-        }
-    }
+    var title = ""
+    var subTitle = ""
+    var coverImgs = Array<Resource>()
     
-    class Preface {
-        var text = ""
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "text":text as AnyObject
-            ]
-        }
-    }
-    
-    class Chapter {
-        var desc = ""//章节描述
-        var title = ""//章节名
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "desc":desc as AnyObject,
-                "title":title as AnyObject
-            ]
-        }
-    }
-    
-    class Copyright {
-        var author = ""//作者
-        var bookName = ""//书名
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "author":author as AnyObject,
-                "bookName":bookName as AnyObject
-            ]
-        }
-    }
-    
-    open class Block : NSObject{
-        
-        var blockType = 0
-        
-        var isSelected = false
-        
-        var text = ""//纯文本
-        var resource = Resource()//图片
-        var chapter = Chapter()//章节
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "text":text as AnyObject,
-                "resource":resource.url.isEmpty ? "" as AnyObject : resource.toJson() as AnyObject,
-                "chapter":chapter.title.isEmpty ? "" as AnyObject : chapter.toJson() as AnyObject
-            ]
-        }
-    }
-    
-    class Resource {
-        var desc = ""//资源描述
-        var url = "" //资源地址
-        var lowPixelUrl = "" //资源地址低精度
-        var originaltime = 0 //拍摄时间
-        var height = 0 //原图高
-        var width = 0 //原图宽
-        
-        func toJson() -> [String:AnyObject] {
-            return[
-                "desc":desc as AnyObject,
-                "url":url as AnyObject,
-                "lowPixelUrl":lowPixelUrl as AnyObject,
-                "originaltime":originaltime as AnyObject,
-                "height":height as AnyObject,
-                "width":width as AnyObject
-            ]
-        }
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
     }
 }
+
+class Flyleaf : HandyJSON{
+    
+    required init() {
+        
+    }
+    var nick = ""
+    var headImg = Resource()
+    
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
+    }
+}
+
+class Preface : HandyJSON{
+    
+    required init() {
+        
+    }
+    var text = ""
+    
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
+    }
+}
+
+class Chapter : HandyJSON{
+    
+    required init() {
+        
+    }
+    var desc = ""//章节描述
+    var title = ""//章节名
+    
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
+    }
+}
+
+class Copyright : HandyJSON{
+    
+    required init() {
+        
+    }
+    var author = ""//作者
+    var bookName = ""//书名
+    
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
+    }
+}
+
+open class Block : NSObject{
+    
+    var blockType = 0
+    
+    var isSelected = false
+    
+    var text = ""//纯文本
+    var resource = Resource()//图片
+    var chapter = Chapter()//章节
+    
+    func toJson() -> [String:Any] {
+        return[
+            "text":text ,
+            "resource":resource.url.isEmpty ? ""  : resource.toJson() ,
+            "chapter":chapter.title.isEmpty ? ""  : chapter.toJson() 
+        ]
+    }
+}
+
+class Resource : HandyJSON{
+    
+    required init() {
+        
+    }
+    var desc = ""//资源描述
+    var url = "" //资源地址
+    var lowPixelUrl = "" //资源地址低精度
+    var originaltime = 0 //拍摄时间
+    var height = 0 //原图高
+    var width = 0 //原图宽
+    
+    func toJson() -> [String:Any] {
+        return self.toJSON()!
+    }
+}
+

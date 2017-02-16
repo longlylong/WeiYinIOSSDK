@@ -7,8 +7,8 @@ target 'wysdkdemo' do
 pod 'Bolts'
 
 #支付的sdk
-pod 'Pingpp/Alipay' , :git => 'https://github.com/PingPlusPlus/pingpp-ios.git'
-pod 'Pingpp/Wx' , :git => 'https://github.com/PingPlusPlus/pingpp-ios.git'
+pod 'Pingpp/Alipay' #, :git => 'https://github.com/PingPlusPlus/pingpp-ios.git'
+pod 'Pingpp/Wx' #, :git => 'https://github.com/PingPlusPlus/pingpp-ios.git'
 
 #缓存库
 pod 'Kingfisher'

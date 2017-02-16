@@ -17,14 +17,4 @@ class RequestAddShopCartBean : BaseRequestBean {
     
     var bookMakeType = 0
     
-    override func toJson() -> [String : AnyObject] {
-        
-        return [
-            "identity" : identity as AnyObject ,
-
-            "bookid" : bookid as AnyObject ,
-            "count" : count as AnyObject,
-            "bookMakeType":bookMakeType as AnyObject
-        ]
-    }
 }
