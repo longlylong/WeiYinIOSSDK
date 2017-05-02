@@ -35,6 +35,9 @@ class BaseUIViewController : UIViewController {
         return button
     }
     
+    func setLeftButtonText(leftText:String){
+        (self.navigationItem.leftBarButtonItem?.customView as? UIButton)?.setTitle(leftText, for: .normal)
+    }
     
     func setNavTextButton(leftText:String,rightText:String){
         let backButton = UIButton()

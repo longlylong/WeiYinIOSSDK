@@ -32,6 +32,7 @@
 		201D8F991D4F427600071C26 /* SelectFoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D8F981D4F427600071C26 /* SelectFoot.swift */; };
 		201D8F9C1D4F526100071C26 /* icon_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 201D8F9A1D4F526100071C26 /* icon_cancel@2x.png */; };
 		201D8F9D1D4F526100071C26 /* icon_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 201D8F9B1D4F526100071C26 /* icon_cancel@3x.png */; };
+		202E98A21EB890BF0098F583 /* AlbumHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202E98A11EB890BF0098F583 /* AlbumHelper.swift */; };
 		2032E2DD1D0EB11F00BA75AB /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032E2DC1D0EB11F00BA75AB /* UIUtils.swift */; };
 		2047A3B21CB66C71003CF8CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047A3B11CB66C71003CF8CD /* ViewController.swift */; };
 		2047A3DB1CB66E6D003CF8CD /* BaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2047A3BD1CB66E6D003CF8CD /* BaseProtocol.swift */; };
@@ -139,6 +140,7 @@
 		201D8F981D4F427600071C26 /* SelectFoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFoot.swift; sourceTree = "<group>"; };
 		201D8F9A1D4F526100071C26 /* icon_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_cancel@2x.png"; sourceTree = "<group>"; };
 		201D8F9B1D4F526100071C26 /* icon_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_cancel@3x.png"; sourceTree = "<group>"; };
+		202E98A11EB890BF0098F583 /* AlbumHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumHelper.swift; sourceTree = "<group>"; };
 		2032E2DC1D0EB11F00BA75AB /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		2047A3B11CB66C71003CF8CD /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2047A3BD1CB66E6D003CF8CD /* BaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseProtocol.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				206446541D260FE10080A45D /* ListenerDelegate.swift */,
 				206446551D260FE10080A45D /* OrderController.swift */,
 				2072FE561D530D600003D623 /* UserController.swift */,
+				202E98A11EB890BF0098F583 /* AlbumHelper.swift */,
 			);
 			path = basesdk;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				209694641E1B939E0098EB0D /* SwiftyUserDefaults.swift in Sources */,
 				2096945F1E1B939E0098EB0D /* SessionManager.swift in Sources */,
 				2047A3E61CB66E6D003CF8CD /* RequestStructDataBean.swift in Sources */,
+				202E98A21EB890BF0098F583 /* AlbumHelper.swift in Sources */,
 				209694591E1B939E0098EB0D /* Request.swift in Sources */,
 				2047A3E81CB66E6D003CF8CD /* OrderConfigBean.swift in Sources */,
 				2078673D1D0FFDA800A8B058 /* RequestPayBean.swift in Sources */,

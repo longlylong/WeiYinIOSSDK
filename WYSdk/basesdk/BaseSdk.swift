@@ -29,6 +29,7 @@ open class BaseSdk : NSObject{
     }
     
     func callFailed(_ controller:Controller,errorMsg:String){
+        print("errorMsg: " + errorMsg)
         let listener = controller.getFailed()
         if  listener != nil{
             runOnMain({ () -> Void in

@@ -21,6 +21,12 @@ open class WYSdk : BaseSdk {
     open static let Print_Card = 1// 成卡片
     open static let Print_Photo = 3// 照片冲印
     open static let Print_Calendar = 4// 台历
+    open static let Print_J_A5 = 5// 轻杂志
+    open static let Print_D_A5 = 6// 对裱纪念册
+    open static let Print_D_YL = 7// 对裱影楼册
+    open static let Print_D_YL_M = 8// 迷你影楼册
+    open static let Print_D_YL_B = 9// 布纹影楼册
+    open static let Print_D_YL_M_B = 10// 迷你布纹册
     
     fileprivate static let mInstance = WYSdk()
     
@@ -227,7 +233,7 @@ open class WYSdk : BaseSdk {
         return resource
     }
     
-    
+    //MARK: 添加结构化数据开始
     /**
      * 设置封面
      *
@@ -345,9 +351,7 @@ open class WYSdk : BaseSdk {
         structDataBean.structData.dataBlocks.append(textBlock)
     }
     
-    /**
-     * 提交数据
-     */
+    //MARK:提交数据
     open func postPrintData(_ vc: UIViewController,bookType:Int,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
         let controller = Controller(start, success, failed)
         callStart(controller)
@@ -358,6 +362,13 @@ open class WYSdk : BaseSdk {
                 callFailed(controller, errorMsg: "data not integrity!!")
                 return
             }
+            
+            if AlbumHelper.checkPhotoCount(photoCount: structDataBean.structData.dataBlocks.count, bookType: bookType) {
+                let range = AlbumHelper.photoRange(bookType: bookType)
+                callFailed(controller, errorMsg: "photos count not match, the range is " + "\(range[0])-" + "\(range[1])")
+                return
+            }
+            
             
             if isShowDataSelectPage {
                 SelectDataViewController.launch(vc,bookType: bookType)
@@ -421,6 +432,7 @@ open class WYSdk : BaseSdk {
         }
     }
     
+    //MARK: 以下是打开面页的方法
     /*
      打开订单页
      */

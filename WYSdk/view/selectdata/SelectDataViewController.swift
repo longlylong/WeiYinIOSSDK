@@ -188,6 +188,23 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         }
     }
     
+    //MARK: 设置照片的数量
+    func setTitleCount(){
+        let structData = WYSdk.getInstance().getStructData()
+        var count = 0
+        for b in structData.structData.dataBlocks{
+            if b.isSelected{
+                count = count + 1
+            }
+        }
+        if count == 0{
+            self.setLeftButtonText(leftText: "选择照片")
+        }else{
+            self.setLeftButtonText(leftText: "已选择" + "\(count)张")
+        }
+        
+    }
+    
     func handleCollectViewLongPress(_ gesture:UILongPressGestureRecognizer){
         let point = gesture.location(in: mCollectionView)
         let indexPath = mCollectionView.indexPathForItem(at: point)
@@ -237,10 +254,15 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
                 count = count + 1
             }
         }
-        if count == 0 {
+        
+        if AlbumHelper.checkPhotoCount(photoCount: count, bookType: mBookType) {
+            let range = AlbumHelper.photoRange(bookType: mBookType)
             loadingIndicator.stop()
+            let alert = UIAlertView(title: "提示", message: "照片范围不对哦,需要 " + "\(range[0])-" + "\(range[1])", delegate: nil, cancelButtonTitle: "再看看")
+            alert.show()
             return
         }
+        
         var selectedArr = Array<Block>()
         for x in 0...size - 1 {
             
@@ -410,7 +432,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         
         let block = arr[(indexPath as NSIndexPath).row]
         block.isSelected = !block.isSelected
-        
+        setTitleCount()
         cell.isSelected(block.isSelected)
     }
     
@@ -422,7 +444,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         for block in arr {
             block.isSelected = head.isSelected
         }
-        
+        setTitleCount()
         mCollectionView.reloadSections(IndexSet(integer: section))
     }
     
