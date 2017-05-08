@@ -8,9 +8,6 @@
 
 import Foundation
 open class UserController: BaseSdk {
-
-    fileprivate var mLastHttpDNSRequestTime = 0
-    fileprivate let mHttpStore = WYProtocol()
     
     fileprivate static let mInstance = UserController()
     

@@ -99,11 +99,17 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
                 if funcName == "closeWebView"{
                     self.clickBack()
                     
+                }else if funcName == "getProductList"{
+                    self.getProductList(webView)
+                    
                 }else if funcName == "getOrdres"{
                     self.getOrders(webView)
                     
                 }else if funcName == "getShopCartList"{
                     self.getShopCartList(webView)
+                    
+                }else if funcName == "delProduct"{
+                    self.delProduct(webView, serial: params[1])
                     
                 }else if funcName == "delOrder"{
                     self.delOrder(webView, orderSerial: params[1])
@@ -137,6 +143,13 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
                     
                 }else if funcName == "getThemeColor"{
                     self.loadJsFunc(webView, funcName: "showWebThemeColor",param: WYSdk.getInstance().getThemeColor())
+                    
+                }else if funcName == "addShopCart"{
+                    if params.count >= 4{
+                        self.addShopCart(params[1], count: params[2],maketype: params[3], webView)
+                    }else{
+                        self.addShopCart(params[1], count: params[2],maketype: "0", webView)
+                    }
                 }
             })
             
@@ -144,9 +157,53 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         return true
     }
     
+    fileprivate func addShopCart(_ bookId:String,count:String,maketype:String,_ webView:UIWebView){
+        
+        if(bookId.isEmpty || bookId == "null"){
+            loadingIndicator.stop()
+            return
+        }
+        
+        OrderController.getInstance().addShopCart(Int(bookId)!, count: Int(count)!,workmanship: Int(maketype) ?? 0, start: { () -> Void in
+            self.loadingIndicator.start()
+        }, success: { (result) -> Void in
+            
+            self.loadingIndicator.stop()
+            PublicWebViewController.launch(self, url: HttpConstant.getShowCartUrl())
+            
+            
+        }) { (error) -> Void in
+            self.loadingIndicator.stop()
+        }
+    }
+    
+    fileprivate func getProductList(_ webview:UIWebView){
+        ProductController.getInstance().getProductList({ 
+            
+        }, success: { (result) in
+            
+            let productList = result as! ProductListBean
+            let json = JsonUtils.toJSONString(productList.toJson() as NSDictionary)
+            self.loadJsFunc(webview, funcName: "showWebProductList",param: json)
+            
+        }) { (msg) in
+            
+        }
+    }
+    
+    fileprivate func delProduct(_ webview:UIWebView,serial:String){
+        ProductController.getInstance().delProduct(serial, start: {
+            
+        }, success: { (result) in
+            self.loadJsFunc(webview, funcName: "delSuccess")
+        }) { (msg) in
+            
+        }
+    }
+    
     fileprivate func pay(_ webview:UIWebView,charge:String){
         Pingpp.createPayment(charge as NSObject!, viewController: self, appURLScheme: "weiyin", withCompletion: { (result, error) -> Void in
-            print(result)
+            print(result ?? "")
             
             if(error == nil){
                 self.loadJsFunc(webview, funcName: "showPayResult", param: WYSdk.PAY_SUCCESS)

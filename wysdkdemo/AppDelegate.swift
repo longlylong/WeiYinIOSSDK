@@ -18,7 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //openid每个合作方的每个用户的唯一标识 建议写法 前缀+唯一标识 如 WY_xxxxxx
-        WYSdk.getInstance().setSdk("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: "openid")
+        var openId = SpUtils.getOpenId()
+        if openId.isEmpty{
+            openId = SpUtils.createUUID()
+            SpUtils.saveOpenId(openId: openId)
+        }
+        WYSdk.getInstance().setSdk("52HJR62BDS6SDD21", accessSecret: "VlYmY2ZjBmOWFmZTJlZTk3NzdhN2M0ODM0MjE3", openId: openId)
         
         launch()
         return true

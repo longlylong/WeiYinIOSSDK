@@ -57,7 +57,7 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
         UIApplication.shared.setStatusBarOrientation(.landscapeRight, animated: true)
     
         mPublicWebView.frame = CGRect(x: 0, y: 0, width: UIUtils.getScreenHeight(), height: UIUtils.getScreenWidth())
-        mPublicWebView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI*0.5))
+        mPublicWebView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*0.5))
         let rect = mPublicWebView.frame
         mPublicWebView.frame = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.height)
     }
@@ -94,9 +94,9 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
                     self.clickBack()
                 }else if funcName == "addShopCart"{
                     if params.count >= 4{
-                        self.addShopCart(params[1], count: params[2],workmanship: params[3], webView)
+                        self.addShopCart(params[1], count: params[2],maketype: params[3], webView)
                     }else{
-                        self.addShopCart(params[1], count: params[2],workmanship: "0", webView)
+                        self.addShopCart(params[1], count: params[2],maketype: "0", webView)
                     }
                 }else if funcName == "getChannel"{
                     self.loadJsFunc(webView, funcName: "showWebChannel",param: "\(WYSdk.getInstance().getChannel())")
@@ -110,14 +110,14 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
         return true
     }
     
-    fileprivate func addShopCart(_ bookId:String,count:String,workmanship:String,_ webView:UIWebView){
+    fileprivate func addShopCart(_ bookId:String,count:String,maketype:String,_ webView:UIWebView){
         
         if(bookId.isEmpty || bookId == "null"){
             loadingIndicator.stop()
             return
         }
         
-        OrderController.getInstance().addShopCart(Int(bookId)!, count: Int(count)!,workmanship: Int(workmanship) ?? 0, start: { () -> Void in
+        OrderController.getInstance().addShopCart(Int(bookId)!, count: Int(count)!,workmanship: Int(maketype) ?? 0, start: { () -> Void in
             self.loadingIndicator.start()
             }, success: { (result) -> Void in
                 

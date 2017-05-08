@@ -1,6 +1,5 @@
 //
 //  WYSdk.swift
-//  WYSdk v1.6.0
 //
 //  Created by weiyin on 16/4/6.
 //  Copyright © 2016年 weiyin. All rights reserved.
@@ -16,17 +15,26 @@ open class WYSdk : BaseSdk {
     open static let PAY_CANCEL = "cancel" // user canceld
     open static let PAY_INVALID = "invalid" // payment plugin not installed
     
-    //成品类型
-    open static let Print_Book = 0// 成书
-    open static let Print_Card = 1// 成卡片
-    open static let Print_Photo = 3// 照片冲印
-    open static let Print_Calendar = 4// 台历
-    open static let Print_J_A5 = 5// 轻杂志
-    open static let Print_D_A5 = 6// 对裱纪念册
-    open static let Print_D_YL = 7// 对裱影楼册
-    open static let Print_D_YL_M = 8// 迷你影楼册
-    open static let Print_D_YL_B = 9// 布纹影楼册
-    open static let Print_D_YL_M_B = 10// 迷你布纹册
+    
+    open static let SDK_VERSION = "1.6.0"//sdk版本
+    
+    //成品类型需要组合
+    /**
+     * 大书 卡片 照片冲印 台历 A4书
+     */
+    open static let BookType_Big = 0
+    open static let BookType_Card = 1
+    open static let BookType_Photo = 3
+    open static let BookType_Calendar = 4
+    open static let BookType_A4 = 5
+    
+    open static let MakeType_Simple = 0   //简胶
+    open static let MakeType_A4_D = 1     //A4对裱
+    open static let MakeType_Jing = 2     //精装
+    open static let MakeType_28P = 4      //28P对裱影楼册
+    open static let MakeType_28P_B = 6    //布纹
+    open static let MakeType_28P_M = 5    //迷你
+    open static let MakeType_28P_M_B = 7  //布纹迷你
     
     fileprivate static let mInstance = WYSdk()
     
@@ -35,6 +43,10 @@ open class WYSdk : BaseSdk {
     open static func getInstance() -> WYSdk{
         return mInstance
     }
+    
+    var guid = ""
+    var token = ""
+    var timestamp = 0
     
     fileprivate var accessKey = ""
     fileprivate var accessSecret = ""
@@ -59,7 +71,6 @@ open class WYSdk : BaseSdk {
     var payStateDelegate : WYRefreshPayBlock?
     var loadMoreDelegate : WYLoadMoreBlock?
     
-    fileprivate var wyProtocol  = WYProtocol()
     fileprivate var structDataBean = RequestStructDataBean()
     
     
@@ -208,12 +219,15 @@ open class WYSdk : BaseSdk {
         bean.name = getThirdName()
         bean.headImg = getThirdHeadImg()
         runOnAsync { 
-            let resultBean = self.wyProtocol.getUserInfo(bean: bean)
+            let resultBean = self.mHttpStore.getUserInfo(bean: bean)
             self.handleResult(resultBean, controller, resultOk: {
                 
                     self.lastLoginTime = TimeUtils.getCurrentTime()
                     self.identity = resultBean!.identity
                     self.channel = resultBean!.client
+                    self.guid = resultBean!.guid
+                    self.token = resultBean!.token
+                    self.timestamp = resultBean!.timestamp
                     self.callSuccess(controller, t: resultBean!)
                 
                 }, resultFailed: {
@@ -352,7 +366,22 @@ open class WYSdk : BaseSdk {
     }
     
     //MARK:提交数据
-    open func postPrintData(_ vc: UIViewController,bookType:Int,start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
+    /**
+     * 提交数据入口 对照常量
+     * 类型bookType makeType
+     * {@link WYSdk.BookType_Big,WYSdk.MakeType_Simple,....}
+     * 简胶大方书 0 0
+     * 对裱影楼册 0 4
+     * 迷你影楼册 0 5
+     * 布纹影楼册 0 6
+     * 迷你布纹册 0 7
+     * 卡片 1 0
+     * 照片冲印 3 0
+     * 台历 4 0
+     * 轻杂志 5 0
+     * 对裱纪念册 5 1
+     */
+    open func postPrintData(_ vc: UIViewController,bookType:Int, makeType:Int, start:UIRequestStart?,success: UIRequestSuccess?,failed :UIRequestFailed?) {
         let controller = Controller(start, success, failed)
         callStart(controller)
         
@@ -363,25 +392,25 @@ open class WYSdk : BaseSdk {
                 return
             }
             
-            if AlbumHelper.checkPhotoCount(photoCount: structDataBean.structData.dataBlocks.count, bookType: bookType) {
-                let range = AlbumHelper.photoRange(bookType: bookType)
+            if AlbumHelper.checkPhotoCount(photoCount: structDataBean.structData.dataBlocks.count, bookType: bookType,makeType: makeType) {
+                let range = AlbumHelper.photoRange(bookType: bookType, makeType: makeType)
                 callFailed(controller, errorMsg: "photos count not match, the range is " + "\(range[0])-" + "\(range[1])")
                 return
             }
             
             
             if isShowDataSelectPage {
-                SelectDataViewController.launch(vc,bookType: bookType)
+                SelectDataViewController.launch(vc,bookType: bookType, makeType: makeType)
                 callSuccess(controller, t: -1 as AnyObject)
             }else{
-                requestPrint(vc, bookType: bookType,failedClear: true,start: start, success: success, failed: failed)
+                requestPrint(vc, bookType: bookType, makeType: makeType,failedClear: true,start: start, success: success, failed: failed)
             
             }
             
         }else{
             let c = Controller(nil, { (result) in
                 
-                self.postPrintData(vc,bookType: bookType,start: start, success: success, failed: failed)
+                self.postPrintData(vc,bookType: bookType,makeType: makeType,start: start, success: success, failed: failed)
                 
                 }, { (msg) in
                     
@@ -392,13 +421,14 @@ open class WYSdk : BaseSdk {
         }
     }
     
-    open func requestPrint(_ vc: UIViewController, bookType:Int,failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
+    open func requestPrint(_ vc: UIViewController, bookType:Int, makeType:Int,failedClear:Bool,start:UIRequestStart?, success: UIRequestSuccess?,failed :UIRequestFailed?){
         let controller = Controller(start, success, failed)
         
         runOnAsync({
             self.structDataBean.identity = self.getIdentity()
             self.structDataBean.bookType = bookType
-            let printBean = self.wyProtocol.postStructData(bean: self.structDataBean)
+            self.structDataBean.makeType = makeType
+            let printBean = self.mHttpStore.postStructData(bean: self.structDataBean)
             self.handleResult(printBean, controller, resultOk: {
                 
                 self.runOnMain({
@@ -406,7 +436,7 @@ open class WYSdk : BaseSdk {
                     
                     ThreadUtils.threadOnAfterMain(100, block: {
                         
-                        BookWebView.launch(vc, url: printBean!.url.replacingOccurrences(of: "http://", with: "https://"))
+                        BookWebView.launch(vc, url: printBean!.url.replacingOccurrences(of: "http://", with: "https://") + "&" + HttpConstant.getToken())
                         self.setSelectDataPage(nil)
                         self.resetStructDataBean()
                     })
@@ -433,6 +463,15 @@ open class WYSdk : BaseSdk {
     }
     
     //MARK: 以下是打开面页的方法
+    
+    /*
+     打开我的作品页
+     */
+    open func showProductList(_ vc: UIViewController){
+        PublicWebViewController.launch(vc,url: HttpConstant.getShowProductListUrl())
+    }
+    
+    
     /*
      打开订单页
      */

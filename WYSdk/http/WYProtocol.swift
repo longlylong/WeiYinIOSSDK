@@ -16,7 +16,7 @@ class Converter<T:HandyJSON>{
         if jsonDic == nil {
             return nil
         }
-        return JSONDeserializer<T>.deserializeFrom(dict: jsonDic as! NSDictionary)
+        return JSONDeserializer<T>.deserializeFrom(dict: jsonDic as? NSDictionary)
     }
     
 }
@@ -35,6 +35,9 @@ class WYProtocol : BaseProtocol{
     private let AddShoppingCarUrl = HttpConstant.RootApiUrl + "Order/AddShoppingCar"
     private let DeleteShoppingCarUrl = HttpConstant.RootApiUrl + "Order/DeleteShoppingCar"
     
+    private let GetProductListUrl = HttpConstant.RootApiUrl + "Book/GetProducts"
+    private let DeleteProductUrl = HttpConstant.RootApiUrl + "Book/DeleteProduct"
+    
     private func getRandom()->Int{
         let num = arc4random_uniform(899999)
         return Int(num) + 100000
@@ -52,7 +55,43 @@ class WYProtocol : BaseProtocol{
         return WYSdk.getInstance().getAccessKey() + ":" + sign
     }
     
+    /**
+     * 删除作品
+     */
+    func delProduct(bean:RequestDelProductBean)->BaseResultBean? {
+        let json = bean.toJson()
+        
+        let num = getRandom()
+        let timestamp = getTimestamp()
+        
+        let sign = getSignature( num, timestamp: timestamp, url: "Book/DeleteProduct")
+        
+        let data: AnyObject? = postRequest(DeleteProductUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
+        
+        let bean = Converter<BaseResultBean>.conver(data)
+        
+        return bean
+        
+    }
     
+    /**
+     * 获取我的作品
+     */
+    func getProductList(bean:BaseRequestBean)->ProductListBean? {
+        let json = bean.toJson()
+        
+        let num = getRandom()
+        let timestamp = getTimestamp()
+        
+        let sign = getSignature( num, timestamp: timestamp, url: "Book/GetProducts")
+        
+        let data: AnyObject? = postRequest(GetProductListUrl, json: json, nonce: num,timestamp: timestamp,signature: sign)
+        
+        let bean = Converter<ProductListBean>.conver(data)
+        
+        return bean
+        
+    }
     
     /**
      * 激活微印券

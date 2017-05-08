@@ -1,0 +1,34 @@
+PODS:
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - CryptoSwift (0.6.8)
+  - HandyJSON (1.6.1)
+  - Kingfisher (3.6.1)
+  - Pingpp/Alipay (2.2.13):
+    - Pingpp/Core
+  - Pingpp/Core (2.2.13)
+  - Pingpp/Wx (2.2.13):
+    - Pingpp/Core
+
+DEPENDENCIES:
+  - Bolts
+  - CryptoSwift
+  - HandyJSON
+  - Kingfisher
+  - Pingpp/Alipay
+  - Pingpp/Wx
+
+SPEC CHECKSUMS:
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
+  HandyJSON: dcc98115467462a4749db81bc8a9052607600bdf
+  Kingfisher: 2f31cb75f3e98d3d4c406cbdcd9b263e956cfa67
+  Pingpp: 12e2579e0d6e084a5f3d9d1821946f0a5b8f34f8
+
+PODFILE CHECKSUM: b47165ced4868d4d413ddafb6395933b10d40674
+
+COCOAPODS: 1.1.1

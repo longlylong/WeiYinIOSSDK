@@ -33,31 +33,44 @@ class HttpConstant {
      */
     static let SIGN_ERROR = "1001"
     
+    
+    static func getToken()->String {
+        let sdk = WYSdk.getInstance()
+        return "token=" + sdk.token + "&timestamp=" + "\(sdk.timestamp )" + "&guid=" + sdk.guid + "&clientver=" + WYSdk.SDK_VERSION + "&client=" + "\(sdk.getChannel())" + "&"
+    }
+    
+    /**
+     * 我的作品
+     */
+    static func getShowProductListUrl()->String{
+        return RootShowUrl + "book/webviewproduct?" + HttpConstant.getToken()
+    }
+    
     /**
      * 购物车地址
      */
     static func getShowOrderUrl()->String{
-        return RootShowUrl + "order/webvieworder"
+        return RootShowUrl + "order/webvieworder?" + HttpConstant.getToken()
     }
     
     /**
      * 订单地址
      */
     static func getShowCartUrl()->String{
-        return RootShowUrl + "order/webviewcart"
+        return RootShowUrl + "order/webviewcart?" + HttpConstant.getToken()
     }
     
     /**
      * 纸质画册地址
      */
     static func getPaperUrl()->String {
-        return RootShowUrl  + "home/bookshow"
+        return RootShowUrl  + "home/bookshow?" + HttpConstant.getToken()
     }
     
     /**
      * 常见问题地址
      */
     static func getQuestionUrl() ->String {
-        return "https://app.weiyin.cc/home/linktowx"
+        return "https://app.weiyin.cc/home/linktowx?" + HttpConstant.getToken()
     }
 }

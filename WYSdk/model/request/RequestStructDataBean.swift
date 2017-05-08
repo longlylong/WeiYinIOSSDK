@@ -19,6 +19,7 @@ open class RequestStructDataBean : NSObject {
         return[
             "identity":identity ,
             "bookType":bookType ,
+            "bookMakeType":makeType ,
             "unionId":unionId ,
             "structData":structData.toJson() 
         ]
@@ -26,7 +27,9 @@ open class RequestStructDataBean : NSObject {
 
     var identity = ""
     
-    var bookType = 0 // WYsdk.Print_Book
+    var bookType = 0 // WYsdk.BookType_Big
+    
+    var makeType = 0 //WYsdk.MakeType_Simple
     
     /**
      * 第一次提交不用 分批以后第二次提交要传这个

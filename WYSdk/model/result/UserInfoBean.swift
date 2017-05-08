@@ -16,4 +16,8 @@ class UserInfoBean: BaseResultBean {
     var client = 0
     
     var host = ""
+    
+    var guid = ""
+    var token = ""
+    var timestamp = 0
 }

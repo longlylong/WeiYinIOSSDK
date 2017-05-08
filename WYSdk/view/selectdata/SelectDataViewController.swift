@@ -45,13 +45,15 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     fileprivate var mLastLongPressIndex : IndexPath?
     fileprivate var mLastLongPressBlock : Block?
     
-    var mBookType = 0 // WYsdk.Print_Book
+    var mBookType = WYSdk.BookType_Big
+    var mMakeType = WYSdk.MakeType_Simple
     
     
-    static func launch(_ vc:UIViewController,bookType:Int){
+    static func launch(_ vc:UIViewController,bookType:Int,makeType:Int){
         let selectDataVC = SelectDataViewController()
         selectDataVC.VC = vc
         selectDataVC.mBookType = bookType
+        selectDataVC.mMakeType = makeType
         let nv = UINavigationController(rootViewController: selectDataVC)
         vc.present(nv, animated: true, completion: nil)
     }
@@ -255,8 +257,8 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             }
         }
         
-        if AlbumHelper.checkPhotoCount(photoCount: count, bookType: mBookType) {
-            let range = AlbumHelper.photoRange(bookType: mBookType)
+        if AlbumHelper.checkPhotoCount(photoCount: count, bookType: mBookType, makeType: mMakeType) {
+            let range = AlbumHelper.photoRange(bookType: mBookType, makeType: mMakeType)
             loadingIndicator.stop()
             let alert = UIAlertView(title: "提示", message: "照片范围不对哦,需要 " + "\(range[0])-" + "\(range[1])", delegate: nil, cancelButtonTitle: "再看看")
             alert.show()
@@ -282,7 +284,7 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
         structData.structData.dataBlocks = selectedArr
         
         
-        WYSdk.getInstance().requestPrint(VC!,bookType: mBookType,failedClear: false,start: {
+        WYSdk.getInstance().requestPrint(VC!,bookType: mBookType, makeType: mMakeType,failedClear: false,start: {
             
             }, success: { (result) in
                 
@@ -308,6 +310,10 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
        
         let data = NSMutableArray()
         
+        let product = WeiYinDownSheetModel()
+        product.text = "我的作品"
+        data.add(product)
+        
         let shopcart = WeiYinDownSheetModel()
         shopcart.text = "购物车"
         data.add(shopcart)
@@ -331,12 +337,14 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
     //MARK: 一些点击回调
     func onSheetSelectIndex(_ index: Int) {
         if index == 0 {
-            WYSdk.getInstance().showShopCart(self)
+            WYSdk.getInstance().showProductList(self)
         }else if index == 1{
-            WYSdk.getInstance().showOrderList(self)
+            WYSdk.getInstance().showShopCart(self)
         }else if index == 2{
-            WYSdk.getInstance().showPaper(self)
+            WYSdk.getInstance().showOrderList(self)
         }else if index == 3 {
+            WYSdk.getInstance().showPaper(self)
+        }else if index == 4 {
             WYSdk.getInstance().showQuestion(self)
         }
     }

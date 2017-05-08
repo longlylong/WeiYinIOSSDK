@@ -9,8 +9,6 @@
 import Foundation
 open class OrderController : BaseSdk {
     
-    fileprivate let mHttpStore = WYProtocol()
-    
     fileprivate static let mInstance = OrderController()
     
     fileprivate override init(){}

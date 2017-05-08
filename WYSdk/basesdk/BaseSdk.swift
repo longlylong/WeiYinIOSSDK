@@ -10,6 +10,9 @@ import Foundation
 
 open class BaseSdk : NSObject{
     
+    let mHttpStore = WYProtocol()
+
+    
     func callStart(_ controller: Controller){
         let listener = controller.getStart()
         if  listener != nil{

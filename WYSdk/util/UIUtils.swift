@@ -76,7 +76,7 @@ class UIUtils {
         
         let animation = CABasicAnimation(keyPath: "transform.rotation")
         animation.fromValue = 0
-        animation.toValue = M_PI * 2
+        animation.toValue = Double.pi * 2
         animation.duration = TimeInterval(1.5)
         animation.fillMode = kCAFillModeForwards
         animation.repeatCount = Float(CGFloat.greatestFiniteMagnitude)

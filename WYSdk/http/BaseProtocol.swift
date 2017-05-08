@@ -22,15 +22,15 @@ class BaseProtocol : NSObject{
 
                     print("")
                     print("postRequest Error --" + url)
-                    print(response.response)
-                    print(response.result.error)
+                    print(response.response ?? "" )
+                    print(response.result.error ?? "")
                     print("")
                 }else{
                     let result = response.result.value as AnyObject?
                     tcs.setResult(result)
 
                     print("")
-                    print("postRequest " + "\(Converter<BaseResultBean>.conver(result)?.resultCode)" + " --" + url)
+                    print("postRequest " + "\(Converter<BaseResultBean>.conver(result)?.resultCode ?? "")" + " --" + url)
                     print("")
                 }
         }

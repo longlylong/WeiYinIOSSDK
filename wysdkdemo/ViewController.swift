@@ -209,8 +209,8 @@ class ViewController: UIViewController {
         WYSdk.getInstance().addPhotoBlock(photoUrl49Text, url: photoUrl49, lowPixelUrl: photoUrl49, originalTime: originalTime, width: 1500, height: 1000)
     }
     
-    fileprivate func postData(_ bookType:Int) {
-        WYSdk.getInstance().postPrintData(self, bookType: bookType,start: {
+    fileprivate func postData(_ bookType:Int,_ makeType:Int) {
+        WYSdk.getInstance().postPrintData(self, bookType: bookType,makeType: makeType,start: {
             
             self.loadingIndicator.start()
             
@@ -227,22 +227,22 @@ class ViewController: UIViewController {
     
     func printBook(){
         addData()
-        postData(WYSdk.Print_Book)
+        postData(WYSdk.BookType_Big,WYSdk.MakeType_Simple)
     }
     
-    func printCard(){
+    func printA4D(){
         addData()
-        postData(WYSdk.Print_Card)
+        postData(WYSdk.BookType_A4,WYSdk.MakeType_A4_D)
     }
     
     func printPhoto(){
         addData()
-        postData(WYSdk.Print_Photo)
+        postData(WYSdk.BookType_Big,WYSdk.MakeType_Simple)
     }
     
-    func printCalendar(){
+    func print28P(){
         addData()
-        postData(WYSdk.Print_Calendar)
+        postData(WYSdk.BookType_Big,WYSdk.MakeType_28P)
     }
     
     var mPrintfingView = UIView()               //一键微印界面
@@ -305,8 +305,8 @@ class ViewController: UIViewController {
         
         mDeskCalendarView = UIView(frame: CGRect(x: UIUtils.getScreenWidth() - 170,y: UIUtils.getScreenHeight() - 70,width: 170,height: 54))
         
-        let deskText = ActiveXUtils.initLabel(CGRect(x: 0, y: 0, width: 90, height: 54), fontSize: StringUtils.getTitleFontSize(), textColor: UIColor.white, textAlignment: NSTextAlignment.right)
-        deskText.text = "台历"
+        let deskText = ActiveXUtils.initLabel(CGRect(x: 0, y: 0, width: 100, height: 54), fontSize: StringUtils.getTitleFontSize(), textColor: UIColor.white, textAlignment: NSTextAlignment.right)
+        deskText.text = "对裱影楼册"
         mDeskCalendarView.addSubview(deskText)
         let deskBtn = ActiveXUtils.initButtonWithImage(CGRect(x: 100,y: 0,width: 54,height: 54), imageName: "icon_printf_book_calendar", target: self, action:#selector(ViewController.printfClick(_:)), events: UIControlEvents.touchUpInside)
         deskBtn.tag = PRINTF_CALENDAR_BTN
@@ -329,8 +329,8 @@ class ViewController: UIViewController {
         
         mPrintfcardView = UIView(frame: CGRect(x: UIUtils.getScreenWidth() - 170,y: UIUtils.getScreenHeight() - 70,width: 170,height: 54))
         
-        let cardText = ActiveXUtils.initLabel(CGRect(x: 0, y: 0, width: 90, height: 54), fontSize: StringUtils.getTitleFontSize(), textColor: UIColor.white, textAlignment: NSTextAlignment.right)
-        cardText.text = "卡片"
+        let cardText = ActiveXUtils.initLabel(CGRect(x: 0, y: 0, width: 100, height: 54), fontSize: StringUtils.getTitleFontSize(), textColor: UIColor.white, textAlignment: NSTextAlignment.right)
+        cardText.text = "对裱纪念册"
         mPrintfcardView.addSubview(cardText)
         let cardBtn = ActiveXUtils.initButtonWithImage(CGRect(x: 100,y: 0,width: 54,height: 54), imageName: "icon_printf_book_card", target: self, action:#selector(ViewController.printfClick(_:)), events: UIControlEvents.touchUpInside)
         cardBtn.tag = PRINTF_CARD_BTN
@@ -376,13 +376,13 @@ class ViewController: UIViewController {
         ThreadUtils.threadOnAfterMain(400) {
             switch sender.tag {
             case self.PRINTF_CALENDAR_BTN:
-                self.printCalendar()
+                self.print28P()
                 break
             case self.PRINTF_PHOTO_BTN:
                 self.printPhoto()
                 break
             case self.PRINTF_CARD_BTN:
-                self.printCard()
+                self.printA4D()
                 break
             case self.PRINTF_BOOK_BTN:
                 self.printBook()
@@ -397,7 +397,7 @@ class ViewController: UIViewController {
     func showPrintfView(){
         mPrintfingView.isHidden = false
         
-        AnimUtils.moveViewAnimation(mCancelBtn, optName: "transform.rotation", hidden: false, distance: M_PI / 2, durationTime: 0.2)
+        AnimUtils.moveViewAnimation(mCancelBtn, optName: "transform.rotation", hidden: false, distance: Double.pi / 2, durationTime: 0.2)
         
         UIView.animate(withDuration: 0.06, animations: { () -> Void in
             self.mDeskCalendarView.frame = CGRect(x: UIUtils.getScreenWidth() - 170,y: UIUtils.getScreenHeight() - 70 - self.VIEW_HEIGHT,width: 170,height: 54)
@@ -422,7 +422,7 @@ class ViewController: UIViewController {
     }
     
     func dismissPrintfView(){
-        AnimUtils.moveViewAnimation(mCancelBtn, optName: "transform.rotation", hidden: false, distance: -M_PI / 2, durationTime: 0.4)
+        AnimUtils.moveViewAnimation(mCancelBtn, optName: "transform.rotation", hidden: false, distance: -Double.pi / 2, durationTime: 0.4)
         UIView.animate(withDuration: 0.06, animations: { () -> Void in
             self.mDeskCalendarView.frame = CGRect(x: UIUtils.getScreenWidth() - 170,y: UIUtils.getScreenHeight() - 70 ,width: 170,height: 54)
         }, completion: { (Bool) -> Void in
