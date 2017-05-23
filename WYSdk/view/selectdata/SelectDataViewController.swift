@@ -257,8 +257,8 @@ class SelectDataViewController  : BaseUIViewController,UICollectionViewDataSourc
             }
         }
         
-        if AlbumHelper.checkPhotoCount(photoCount: count, bookType: mBookType, makeType: mMakeType) {
-            let range = AlbumHelper.photoRange(bookType: mBookType, makeType: mMakeType)
+        if AlbumHelper.checkPhotoCount(photoCount: count, bookType: mBookType, makeType: mMakeType,datas: structData.structData.dataBlocks) {
+            let range = AlbumHelper.photoRange(bookType: mBookType, makeType: mMakeType,datas: structData.structData.dataBlocks)
             loadingIndicator.stop()
             let alert = UIAlertView(title: "提示", message: "照片范围不对哦,需要 " + "\(range[0])-" + "\(range[1])", delegate: nil, cancelButtonTitle: "再看看")
             alert.show()

@@ -9,7 +9,7 @@
 import Foundation
 class AlbumHelper {
 
-    static func checkPhotoCount( photoCount:Int, bookType:Int, makeType:Int) ->Bool {
+    static func checkPhotoCount( photoCount:Int, bookType:Int, makeType:Int,datas: Array<Block>) ->Bool {
         
         let c = photoCount + 2//加封面封底
 
@@ -21,7 +21,13 @@ class AlbumHelper {
                 || makeType == WYSdk.MakeType_28P_M
                 || makeType == WYSdk.MakeType_28P_M_B) {
                 
-                if (c >= 30 && c <= 86) {
+                if hasOnePBlock(datas){
+                    let onePCount = onePBlockCount(datas)
+                    let maxP = 32 - onePCount
+                    if c >= maxP && c <= maxP * 3{
+                        return false
+                    }
+                }else if (c >= 30 && c <= 86) {
                     return false
                 }
             } else if (c >= 20 && c <= 999) {
@@ -57,7 +63,7 @@ class AlbumHelper {
         return true
     }
     
-    static func photoRange(bookType:Int, makeType:Int) ->[Int] {
+    static func photoRange(bookType:Int, makeType:Int, datas:Array<Block>) ->[Int] {
     
         var range = [20,999]
         if (bookType == WYSdk.BookType_Big
@@ -68,8 +74,16 @@ class AlbumHelper {
                 || makeType == WYSdk.MakeType_28P_M
                 || makeType == WYSdk.MakeType_28P_M_B) {
                 
-                range[0] = 30
-                range[1] = 86
+                if hasOnePBlock(datas){
+                    let onePCount = onePBlockCount(datas)
+                    let maxP = 32 - onePCount
+                    range[0] = maxP
+                    range[1] = maxP * 3
+                }else{
+                    range[0] = 30
+                    range[1] = 86
+                }
+             
             } else {
                 range[0] = 20
                 range[1] = 999
@@ -96,5 +110,26 @@ class AlbumHelper {
             }
         }
         return range
+    }
+    
+    static func hasOnePBlock(_ datas:Array<Block>)->Bool{
+        for b in datas{
+            if b.type == RequestStructDataBean.TYPE_ONE_P{
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    static func onePBlockCount(_ datas:Array<Block>)->Int{
+        var count = 0
+        for b in datas{
+            if b.type == RequestStructDataBean.TYPE_ONE_P{
+                count = count + 1
+            }
+        }
+        
+        return count
     }
 }

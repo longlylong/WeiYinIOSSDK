@@ -88,10 +88,11 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
         var urlString = request.url?.absoluteString
         urlString = urlString?.removingPercentEncoding
         
-        var urlComps:[String]! = (urlString?.components(separatedBy: "://"))
-        if(urlComps?.count > 0 && urlComps[0] == "ios"){
-
-            var params:[String]! = urlComps[1].components(separatedBy: "#!#")
+        let hasIos = urlString?.contains("ios://")
+        
+        if hasIos != nil && hasIos!{
+            
+            var params:[String]! = urlString?.replacingOccurrences(of: "ios://", with: "").components(separatedBy: "#!#")
             
             let funcName = params[0]
             
@@ -150,11 +151,18 @@ class PublicWebViewController : BaseUIViewController , UIWebViewDelegate{
                     }else{
                         self.addShopCart(params[1], count: params[2],maketype: "0", webView)
                     }
+                    
+                }else if funcName == "goBookWebView"{
+                    self.goBookWebView(params[1])
                 }
             })
             
         }
         return true
+    }
+    
+    private func goBookWebView(_ url:String){
+        BookWebView.launch(self, url: url)
     }
     
     fileprivate func addShopCart(_ bookId:String,count:String,maketype:String,_ webView:UIWebView){

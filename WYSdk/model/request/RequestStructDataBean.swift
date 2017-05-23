@@ -14,6 +14,7 @@ open class RequestStructDataBean : NSObject {
     static let TYPE_PHOTO = 1
     static let TYPE_TEXT = 2
     static let TYPE_CHAPTER = 3
+    static let TYPE_ONE_P = 7
     
     func toJson() -> [String:Any] {
         return[
@@ -42,13 +43,13 @@ open class RequestStructDataBean : NSObject {
         
         var cover = Cover()
         
-        var flyleaf = Flyleaf()
+        var flyleaf : Flyleaf!
         
-        var preface = Preface()
+        var preface : Preface!
         
         var dataBlocks = Array<Block>()
         
-        var copyright = Copyright()
+        var copyright : Copyright!
         
         var backCover = Cover()
         
@@ -61,10 +62,10 @@ open class RequestStructDataBean : NSObject {
             
             return[
                 "cover":cover.toJson() ,
-                "flyleaf":flyleaf.toJson() ,
-                "preface":preface.toJson() ,
+                "flyleaf":flyleaf == nil ? "" : flyleaf.toJson() ,
+                "preface":preface == nil ? "" : preface.toJson() ,
                 "dataBlocks":attrB  ,
-                "copyright":copyright.toJson() ,
+                "copyright":copyright == nil ? "" : copyright.toJson() ,
                 "backCover":backCover.toJson() 
             ]
         }
@@ -144,12 +145,14 @@ open class Block : NSObject{
     
     var isSelected = false
     
+    var type = 0 // 默认0 7自定义1图 8自定义2图 9自定义3图
     var text = ""//纯文本
     var resource = Resource()//图片
     var chapter = Chapter()//章节
     
     func toJson() -> [String:Any] {
         return[
+            "type":type,
             "text":text ,
             "resource":resource.url.isEmpty ? ""  : resource.toJson() ,
             "chapter":chapter.title.isEmpty ? ""  : chapter.toJson() 

@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         }
     }
     
-    fileprivate func addData() {
+    fileprivate func addData(_ name:String) {
         //图片素材 必须是网络路径 宽高也是必要的
         let frontCoverUrl = "https://image.weiyin.cc/719/185904/FD3DB404-B318-434A-9DE2-72FF157B3857@1o_800w"
         let flyleafHeadUrl = "https://image.weiyin.cc/719/185904/b6464d78-1ed9-4c4f-8fad-937a614d9893@1o_200w"
@@ -154,7 +154,7 @@ class ViewController: UIViewController {
         
         
         
-        WYSdk.getInstance().setFrontCover("一本画册看懂微印品质", subTitle: "", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().setFrontCover("我的 " + name, subTitle: "", url: frontCoverUrl, lowPixelUrl: frontCoverUrl, originalTime: originalTime, width: 1500, height: 1000)
         WYSdk.getInstance().setFlyleaf("爱微印", url: flyleafHeadUrl, lowPixelUrl: flyleafHeadUrl, originalTime: originalTime, width: 461, height: 461)
         WYSdk.getInstance().setPreface("微印，国内领先的智能图文排版引擎提供商。\n" +
             "微印画册APP，一键把手机照片做成书，可选丰富主题搭配，并提供纸质书生产、销售服务\n" +
@@ -162,6 +162,11 @@ class ViewController: UIViewController {
         
         WYSdk.getInstance().setCopyright("微印", bookName: "了解微印")
         WYSdk.getInstance().setBackCover(backCoverUrl, lowPixelUrl: backCoverUrl, originalTime: originalTime, width: 1500, height: 1000)
+        
+        //添加自定义一图 有自定义一图会默认屏蔽序言扉页和版权页
+        WYSdk.getInstance().addOnePBlock("自定义一图哦哦哦哦哦哦", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1500, height: 1000)
+        WYSdk.getInstance().addOnePBlock("", url: photoUrl2, lowPixelUrl: photoUrl2, originalTime: originalTime, width: 1500, height: 1000)
+
         
         WYSdk.getInstance().addChapterBlock("微印代言人", des: "")
         WYSdk.getInstance().addPhotoBlock("", url: photoUrl1, lowPixelUrl: photoUrl1, originalTime: originalTime, width: 1500, height: 1000)
@@ -226,22 +231,22 @@ class ViewController: UIViewController {
     }
     
     func printBook(){
-        addData()
+        addData("大方书")
         postData(WYSdk.BookType_Big,WYSdk.MakeType_Simple)
     }
     
     func printA4D(){
-        addData()
+        addData("对裱影楼册")
         postData(WYSdk.BookType_A4,WYSdk.MakeType_A4_D)
     }
     
     func printPhoto(){
-        addData()
+        addData("照片冲印")
         postData(WYSdk.BookType_Big,WYSdk.MakeType_Simple)
     }
     
     func print28P(){
-        addData()
+        addData("对裱影楼册")
         postData(WYSdk.BookType_Big,WYSdk.MakeType_28P)
     }
     

@@ -16,7 +16,7 @@ open class WYSdk : BaseSdk {
     open static let PAY_INVALID = "invalid" // payment plugin not installed
     
     
-    open static let SDK_VERSION = "1.6.0"//sdk版本
+    open static let SDK_VERSION = "1.7.0"//sdk版本
     
     //成品类型需要组合
     /**
@@ -294,7 +294,7 @@ open class WYSdk : BaseSdk {
      * @param height       扉页照片高
      */
     open func setFlyleaf(_ nick:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
-        let flyleaf =  Flyleaf()
+        let flyleaf = Flyleaf()
         flyleaf.nick = nick
         flyleaf.headImg = fillRes(url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height, des: "")
         structDataBean.structData.flyleaf = flyleaf
@@ -307,7 +307,7 @@ open class WYSdk : BaseSdk {
      * @param text 序言文本
      */
     open func setPreface(_ text:String) {
-        let preface =  Preface()
+        let preface = Preface()
         preface.text = text
         structDataBean.structData.preface = preface
     }
@@ -320,7 +320,7 @@ open class WYSdk : BaseSdk {
      * @param bookName 版权页书名
      */
     open func setCopyright(_ author:String,bookName:String) {
-        let copyright =  Copyright()
+        let copyright = Copyright()
         copyright.author = author
         copyright.bookName = bookName
         structDataBean.structData.copyright = copyright
@@ -365,6 +365,22 @@ open class WYSdk : BaseSdk {
         structDataBean.structData.dataBlocks.append(textBlock)
     }
     
+    /**
+     * 添加自定义一图照片页
+     *
+     * @param desc         照片描述
+     * @param url          照片高精路径
+     * @param lowPixelUrl  照片低精路径
+     * @param originalTime 照片拍摄时间
+     * @param width        照片宽
+     * @param height       照片高
+     */
+    open func addOnePBlock(_ desc:String,url:String,lowPixelUrl:String,originalTime:Int,width:Int,height:Int) {
+        let photoBlock = getPhotoBlock(desc, url: url, lowPixelUrl: lowPixelUrl, originalTime: originalTime, width: width, height: height)
+        photoBlock.type = RequestStructDataBean.TYPE_ONE_P
+        structDataBean.structData.dataBlocks.append(photoBlock)
+    }
+    
     //MARK:提交数据
     /**
      * 提交数据入口 对照常量
@@ -387,13 +403,13 @@ open class WYSdk : BaseSdk {
         
         if isLogin() {
             
-            if structDataBean.structData.cover.coverImgs.isEmpty || structDataBean.structData.flyleaf.headImg.url.isEmpty || structDataBean.structData.preface.text.isEmpty || structDataBean.structData.copyright.bookName.isEmpty || structDataBean.structData.backCover.coverImgs.isEmpty {
+            if structDataBean.structData.cover.coverImgs.isEmpty || structDataBean.structData.backCover.coverImgs.isEmpty {
                 callFailed(controller, errorMsg: "data not integrity!!")
                 return
             }
             
-            if AlbumHelper.checkPhotoCount(photoCount: structDataBean.structData.dataBlocks.count, bookType: bookType,makeType: makeType) {
-                let range = AlbumHelper.photoRange(bookType: bookType, makeType: makeType)
+            if AlbumHelper.checkPhotoCount(photoCount: structDataBean.structData.dataBlocks.count, bookType: bookType,makeType: makeType,datas: structDataBean.structData.dataBlocks) {
+                let range = AlbumHelper.photoRange(bookType: bookType, makeType: makeType,datas: structDataBean.structData.dataBlocks)
                 callFailed(controller, errorMsg: "photos count not match, the range is " + "\(range[0])-" + "\(range[1])")
                 return
             }
@@ -436,7 +452,13 @@ open class WYSdk : BaseSdk {
                     
                     ThreadUtils.threadOnAfterMain(100, block: {
                         
-                        BookWebView.launch(vc, url: printBean!.url.replacingOccurrences(of: "http://", with: "https://") + "&" + HttpConstant.getToken())
+                        let count = AlbumHelper.onePBlockCount(self.structDataBean.structData.dataBlocks)
+                        var p = 32 - count
+                        if p > 28{
+                            p = 28
+                        }
+                        let url = printBean!.url.replacingOccurrences(of: "http://", with: "https://")
+                        BookWebView.launch(vc, url:  url.replacingOccurrences(of: "fixedpnum=28", with: "fixedpnum=" + "\(p)") + "&" + HttpConstant.getToken())
                         self.setSelectDataPage(nil)
                         self.resetStructDataBean()
                     })

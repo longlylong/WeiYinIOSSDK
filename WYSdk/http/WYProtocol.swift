@@ -275,6 +275,21 @@ class WYProtocol : BaseProtocol{
      * 提交数据
      */
     func postStructData(bean:RequestStructDataBean) -> PrintBean? {
+        
+        if AlbumHelper.hasOnePBlock(bean.structData.dataBlocks){
+            bean.structData.flyleaf = nil
+            bean.structData.preface = nil
+            bean.structData.copyright = nil
+            
+            var photoArr = Array<Block>()
+            for b in bean.structData.dataBlocks{
+                if b.blockType != RequestStructDataBean.TYPE_CHAPTER {
+                    photoArr.append(b)
+                }
+            }
+            bean.structData.dataBlocks = photoArr
+        }
+        
         let json = bean.toJson()
         
         let num = getRandom()

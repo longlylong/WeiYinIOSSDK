@@ -45,11 +45,7 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
     override func initUI() {
         setPublicWebView()
         transfromScreen()
-        
-        
         mBackButton = getIconButton(CGRect(x: UIUtils.getScreenWidth()-36,y: 10,width: 24,height: 24), iconName: "icon_cancel", action: #selector(BookWebView.clickBack))
-        
-        
         self.view.addSubview(loadingIndicator)
     }
     
@@ -154,5 +150,16 @@ class BookWebView : BaseUIViewController,UIWebViewDelegate{
     
     override var prefersStatusBarHidden : Bool {
         return true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.isStatusBarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.isStatusBarHidden = true
+        UIApplication.shared.setStatusBarOrientation(.portrait, animated: true)
     }
 }
